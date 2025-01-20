@@ -5,6 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form"; // Import FormProvider
 import InputList from "./InputList";
+import StagePlotGraphic from "./StagePlotGraphic";
 
 const stagePlotSchema = z.object({
   name: z.string().min(1, "Stage Plot Name is required"),
@@ -19,7 +20,6 @@ const stagePlotSchema = z.object({
 type StagePlotFormData = z.infer<typeof stagePlotSchema>;
 
 const EditStagePlot = ({ plot }: StagePlotFormData) => {
-  console.log(plot);
   const methods = useForm<StagePlotFormData>({
     resolver: zodResolver(stagePlotSchema), // Validate with Zod
     defaultValues: plot ?? {
@@ -77,6 +77,7 @@ const EditStagePlot = ({ plot }: StagePlotFormData) => {
               <p className="error">{errors.description.message}</p>
             )}
           </div>
+          <StagePlotGraphic />
           <InputList inputs={plot.inputs} />
 
           <button type="submit" disabled={isSubmitting}>
