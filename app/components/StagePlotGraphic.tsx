@@ -5,9 +5,18 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
+interface StageElementPosition {
+  id: string;
+  x: number;
+  y: number;
+}
 const StagePlotGraphic = () => {
-  const [{ x, y }, setCoordinates] = useState({ x: 0, y: 0 });
-  const [dragging, setDragging] = useState(false);
+  const [stageElements, setStageElements] = useState<StageElementPosition[]>([
+    { id: "1", x: 0, y: 0 },
+    { id: "2", x: 50, y: 0 },
+    { id: "3", x: 100, y: 0 },
+  ]);
+  const [draggingId, setDraggingId] = useState<string | number>("");
   const containerRef = useRef<HTMLDivElement>(null);
   const [isPositionSet, setIsPositionSet] = useState(false);
 
@@ -15,35 +24,48 @@ const StagePlotGraphic = () => {
     const container = containerRef.current;
     if (container) {
       const rect = container.getBoundingClientRect();
-      setCoordinates({ x: rect.left, y: rect.top });
+      setStageElements(
+        stageElements.map((stageElement, index) => ({
+          ...stageElement,
+          x: rect.left + index * 50,
+          y: rect.top,
+        }))
+      );
       setIsPositionSet(true);
     }
   }, []);
 
-  const onDragEnd = ({ delta }: any) => {
+  const onDragEnd = ({ delta, active }: any) => {
     const container = containerRef.current;
     if (container) {
       const rect = container.getBoundingClientRect();
-      const itemSize = 40; // Size of the draggable item
+      const itemSize = 40;
 
-      // Calculate new position
-      let newX = x + delta.x;
-      let newY = y + delta.y;
+      setStageElements((prevElements) =>
+        prevElements.map((stageElement) => {
+          if (stageElement.id === active.id) {
+            // Calculate new position for the dragged guitar
+            let newX = stageElement.x + delta.x;
+            let newY = stageElement.y + delta.y;
 
-      if (
-        newX < 0 ||
-        newX + itemSize > rect.width ||
-        newY < 0 ||
-        newY + itemSize > rect.height
-      ) {
-        console.log("Dragged item out of bounds");
-        return; // Prevent updating the position if out of bounds
-      }
+            // Boundary checks
+            if (
+              newX < 0 ||
+              newX + itemSize > rect.width ||
+              newY < 0 ||
+              newY + itemSize > rect.height
+            ) {
+              return stageElement; // Keep original position if out of bounds
+            }
 
-      setCoordinates({ x: newX, y: newY });
+            return { ...stageElement, x: newX, y: newY };
+          }
+          return stageElement;
+        })
+      );
     }
+    setDraggingId("");
   };
-
   return (
     <div
       ref={containerRef}
@@ -56,12 +78,21 @@ const StagePlotGraphic = () => {
       }}
     >
       <DndContext
-        onDragStart={() => {
-          setDragging(true);
+        onDragStart={({ active }) => {
+          setDraggingId(active?.id);
         }}
         onDragEnd={onDragEnd}
       >
-        {isPositionSet && <DraggableItem x={x} y={y} dragging={dragging} />}
+        {isPositionSet &&
+          stageElements.map((stageElement) => (
+            <DraggableItem
+              key={stageElement.id}
+              id={stageElement.id}
+              x={stageElement.x}
+              y={stageElement.y}
+              dragging={draggingId === stageElement.id}
+            />
+          ))}
       </DndContext>
     </div>
   );
