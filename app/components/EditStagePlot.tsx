@@ -56,7 +56,7 @@ const EditStagePlot = ({ plot }: StagePlotFormData) => {
   return (
     <FormProvider {...methods}>
       <div>
-        <form onSubmit={handleSubmit(submitForm)}>
+        <form>
           <div>
             <label htmlFor="name">Stage Plot Name:</label>
             <input
@@ -77,13 +77,13 @@ const EditStagePlot = ({ plot }: StagePlotFormData) => {
               <p className="error">{errors.description.message}</p>
             )}
           </div>
-          <StagePlotGraphic />
           <InputList inputs={plot.inputs} />
 
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Submitting..." : "Save Stage Plot"}
           </button>
         </form>
+        <StagePlotGraphic />
       </div>
     </FormProvider>
   );
