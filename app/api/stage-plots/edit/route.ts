@@ -14,37 +14,74 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { name, description, inputList } = await req.json();
-
-  console.log(name, "do we have the namae", user.user);
-  const { data: stagePlotData, error: stagePlotError } = await supabase
+  const { name, description, inputs, stagePlotId } = await req.json();
+  // Check if stage plot already exists (by name or id)
+  const { data: existingStagePlot, error: stagePlotError } = await supabase
     .from("stage_plots")
-    .insert([
-      {
-        name,
-        description,
-        created_by: user.user.id,
-      },
-    ])
-    .select();
+    .select("*")
+    .eq("id", stagePlotId) // Check by ID instead of name
+    .single(); // Using .single() to get a single record
 
-  if (stagePlotError) {
+  if (stagePlotError && stagePlotError.code !== "PGRST116") {
+    // If there's an error other than "No data found", return error
     return NextResponse.json(
-      { message: "Failed to create stage plot", error: stagePlotError.message },
+      {
+        message: "Error checking for existing stage plot",
+        error: stagePlotError.message,
+      },
       { status: 500 }
     );
   }
-  const inputListData = inputList.map(
-    (input: { name: string; type: string }) => ({
-      stage_plot_id: stagePlotData[0].id, // Associating input with the new stage plot
-      name: input.name,
-      type: input.type || "", // If no type is provided, default to empty string
-    })
-  );
+
+  // If a stage plot exists, update it; otherwise, insert a new one
+  let stagePlotData;
+  if (existingStagePlot) {
+    // Update the existing stage plot
+    const { data, error } = await supabase
+      .from("stage_plots")
+      .update({ description })
+      .eq("id", existingStagePlot.id)
+      .select();
+
+    if (error) {
+      return NextResponse.json(
+        { message: "Failed to update stage plot", error: error.message },
+        { status: 500 }
+      );
+    }
+    stagePlotData = data;
+  } else {
+    // Insert a new stage plot
+    const { data, error } = await supabase
+      .from("stage_plots")
+      .insert([
+        {
+          name,
+          description,
+          created_by: user.user.id,
+        },
+      ])
+      .select();
+
+    if (error) {
+      return NextResponse.json(
+        { message: "Failed to create stage plot", error: error.message },
+        { status: 500 }
+      );
+    }
+    stagePlotData = data;
+  }
+
+  // Insert or update the inputs for the stage plot
+  const inputListData = inputs.map((input: { name: string; type: string }) => ({
+    stage_plot_id: stagePlotData[0].id, // Associating input with the new or updated stage plot
+    name: input.name,
+    type: input.type || "", // If no type is provided, default to empty string
+  }));
 
   const { error: inputError } = await supabase
     .from("inputs")
-    .insert(inputListData);
+    .upsert(inputListData, { onConflict: ["stage_plot_id", "name"] });
 
   if (inputError) {
     return NextResponse.json(
@@ -53,10 +90,10 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Step 3: Return success response
+  // Return success response
   return NextResponse.json(
     {
-      message: "Stage plot and inputs created successfully",
+      message: "Stage plot and inputs processed successfully",
       stagePlot: stagePlotData,
     },
     { status: 200 }
