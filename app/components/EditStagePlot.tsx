@@ -10,22 +10,28 @@ import StagePlotGraphic from "./StagePlotGraphic";
 const stagePlotSchema = z.object({
   name: z.string().min(1, "Stage Plot Name is required"),
   description: z.string().min(5, "Description must be at least 5 characters"),
-  inputs: z.array(
-    z.object({
-      name: z.string().min(1, "Input name is required"),
-      type: z.string().optional(),
-    })
-  ),
+  inputs: z
+    .array(
+      z.object({
+        id: z.number().optional(),
+        name: z.string().min(1, "Input name is required"),
+        type: z.string().optional(),
+      })
+    )
+    .default([]),
 });
 type StagePlotFormData = z.infer<typeof stagePlotSchema>;
 
-const EditStagePlot = ({ plot }: StagePlotFormData) => {
+interface EditStagePlotProps {
+  plot: Omit<StagePlotFormData, "id"> & { id?: number };
+}
+const EditStagePlot = ({ plot }: EditStagePlotProps) => {
   const methods = useForm<StagePlotFormData>({
-    resolver: zodResolver(stagePlotSchema), // Validate with Zod
+    resolver: zodResolver(stagePlotSchema),
     defaultValues: plot ?? {
       name: "",
       description: "",
-      inputs: [{ name: "", type: "" }],
+      inputs: [{ name: "", type: "", id: null }],
     },
   });
 
@@ -36,7 +42,16 @@ const EditStagePlot = ({ plot }: StagePlotFormData) => {
   } = methods;
 
   const submitForm = async (data: StagePlotFormData) => {
-    const requestData = plot.id ? { ...data, stagePlotId: plot.id } : data;
+    const requestData = { ...data, id: plot.id };
+    const hasChanged =
+      plot.name !== data.name ||
+      plot.description !== data.description ||
+      JSON.stringify(plot.inputs) !== JSON.stringify(data.inputs);
+
+    if (!hasChanged) {
+      alert("No changes were made to the stage plot.");
+      return;
+    }
     const response = await fetch("/api/stage-plots/edit", {
       method: "POST",
       headers: {
@@ -56,7 +71,11 @@ const EditStagePlot = ({ plot }: StagePlotFormData) => {
   return (
     <FormProvider {...methods}>
       <div>
-        <form>
+        <form
+          onSubmit={handleSubmit(submitForm, (errors) => {
+            console.log("Validation errors on form submission:", errors);
+          })}
+        >
           <div>
             <label htmlFor="name">Stage Plot Name:</label>
             <input
@@ -77,7 +96,7 @@ const EditStagePlot = ({ plot }: StagePlotFormData) => {
               <p className="error">{errors.description.message}</p>
             )}
           </div>
-          <InputList inputs={plot.inputs} />
+          <InputList inputs={plot?.inputs} />
 
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Submitting..." : "Save Stage Plot"}

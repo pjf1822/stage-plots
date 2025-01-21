@@ -5,22 +5,24 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 const InputList = ({
   inputs,
 }: {
-  inputs: { name: string; type: string }[];
+  inputs: { name: string; type: string; id: number | null }[];
 }) => {
   const {
     control,
     register,
     formState: { errors },
-    setValue, // to set values for initial inputs
+    setValue,
   } = useFormContext();
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "inputs",
   });
+
   React.useEffect(() => {
     if (inputs && inputs.length) {
       inputs.forEach((input, index) => {
+        setValue(`inputs.${index}.id`, input.id);
         setValue(`inputs.${index}.name`, input.name);
         setValue(`inputs.${index}.type`, input.type);
       });

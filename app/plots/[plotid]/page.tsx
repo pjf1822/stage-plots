@@ -12,6 +12,7 @@ const StagePlotPage = async ({
 
   // Fetch the stage plot using `plotid`
   const plot = await getPlotById(plotid);
+
   return <EditStagePlot plot={plot.result} />;
 };
 
