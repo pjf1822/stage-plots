@@ -1,12 +1,9 @@
 "use client";
+import { Input } from "@/types";
 import React from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
-const InputList = ({
-  inputs,
-}: {
-  inputs: { name: string; type: string; id: number | null }[];
-}) => {
+const InputList = ({ inputs }: { inputs: Input[] }) => {
   const {
     control,
     register,

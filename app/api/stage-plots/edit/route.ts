@@ -14,36 +14,19 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { name, description, inputs, id } = await req.json();
+  const { stage_plot_id, updateData } = await req.json();
 
-  const { data: existingStagePlot, error: stagePlotError } = await supabase
-    .from("stage_plots")
-    .select("*")
-    .eq("id", id)
-    .single();
-
-  if (stagePlotError && stagePlotError.code !== "PGRST116") {
-    return NextResponse.json(
-      {
-        message: "Error checking for existing stage plot",
-        error: stagePlotError.message,
-      },
-      { status: 500 }
-    );
-  }
-  if (!existingStagePlot) {
-    return NextResponse.json(
-      { message: "Stage plot not found" },
-      { status: 404 }
-    );
-  }
-
-  let stagePlotData;
+  const fieldsToUpdate = Object.keys(updateData).reduce((acc, key) => {
+    if (updateData[key]) {
+      acc[key] = updateData[key];
+    }
+    return acc;
+  }, {} as Record<string, any>);
 
   const { data, error } = await supabase
     .from("stage_plots")
-    .update({ description, name })
-    .eq("id", id)
+    .update(fieldsToUpdate)
+    .eq("id", stage_plot_id)
     .select();
 
   if (error) {
@@ -53,13 +36,10 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  await updateInputList(inputs, id);
-
-  // Return success response
   return NextResponse.json(
     {
       message: "Stage plot and inputs processed successfully",
-      stagePlot: stagePlotData,
+      stagePlot: data[0],
     },
     { status: 200 }
   );

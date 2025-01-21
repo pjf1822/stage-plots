@@ -6,32 +6,36 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form"; // Import FormProvider
 import InputList from "./InputList";
 import StagePlotGraphic from "./StagePlotGraphic";
+import { Input, StagePlotWithInputs } from "@/types";
+import { submitStagePlotForm } from "@/services/stagePlotService";
 
 const stagePlotSchema = z.object({
   name: z.string().min(1, "Stage Plot Name is required"),
   description: z.string().min(5, "Description must be at least 5 characters"),
-  inputs: z
-    .array(
-      z.object({
-        id: z.number().optional(),
-        name: z.string().min(1, "Input name is required"),
-        type: z.string().optional(),
-      })
-    )
-    .default([]),
+  // inputs: z
+  //   .array(
+  //     z.object({
+  //       id: z.number().optional(),
+  //       name: z.string().min(1, "Input name is required"),
+  //       type: z.string().optional(),
+  //     })
+  //   )
+  //   .default([]),
 });
 type StagePlotFormData = z.infer<typeof stagePlotSchema>;
 
-interface EditStagePlotProps {
-  plot: Omit<StagePlotFormData, "id"> & { id?: number };
-}
-const EditStagePlot = ({ plot }: EditStagePlotProps) => {
+const EditStagePlot = ({ plot }: { plot: StagePlotWithInputs }) => {
+  const sanitizeInput = (input: Input) => {
+    const { created_at, stage_plot_id, ...sanitizedInput } = input;
+    return sanitizedInput;
+  };
+
   const methods = useForm<StagePlotFormData>({
     resolver: zodResolver(stagePlotSchema),
-    defaultValues: plot ?? {
-      name: "",
-      description: "",
-      inputs: [{ name: "", type: "", id: null }],
+    defaultValues: {
+      name: plot.name,
+      description: plot.description || "",
+      // inputs: plot.inputs.map(sanitizeInput),
     },
   });
 
@@ -41,30 +45,12 @@ const EditStagePlot = ({ plot }: EditStagePlotProps) => {
     formState: { errors, isSubmitting },
   } = methods;
 
-  const submitForm = async (data: StagePlotFormData) => {
-    const requestData = { ...data, id: plot.id };
-    const hasChanged =
-      plot.name !== data.name ||
-      plot.description !== data.description ||
-      JSON.stringify(plot.inputs) !== JSON.stringify(data.inputs);
-
-    if (!hasChanged) {
-      alert("No changes were made to the stage plot.");
-      return;
-    }
-    const response = await fetch("/api/stage-plots/edit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestData),
-    });
-
-    const result = await response.json();
-    if (response.ok) {
-      alert("Stage plot created successfully!");
-    } else {
-      alert("Error creating stage plot: " + result.message);
+  const submitForm = async (formData: StagePlotFormData) => {
+    try {
+      const result = await submitStagePlotForm(plot, formData);
+      console.log(result, "hey the result");
+    } catch (error: any) {
+      alert(error.message);
     }
   };
 
@@ -96,7 +82,7 @@ const EditStagePlot = ({ plot }: EditStagePlotProps) => {
               <p className="error">{errors.description.message}</p>
             )}
           </div>
-          <InputList inputs={plot?.inputs} />
+          {/* <InputList inputs={plot?.inputs} /> */}
 
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Submitting..." : "Save Stage Plot"}

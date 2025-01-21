@@ -1,27 +1,25 @@
+import { Input } from "@/types";
 import { createClient } from "./supabase/server";
 
 export const updateInputList = async (
-  inputs: { name: string; type: string; id: number }[],
+  inputs: Pick<Input, "name" | "type" | "id">[],
   stagePlotId: number
 ) => {
   const supabase = await createClient();
 
   const inputListData = inputs.map((input) => {
-    const data: any = {
+    const data: Partial<Input> = {
       stage_plot_id: stagePlotId,
       name: input.name,
       type: input.type || "",
     };
 
-    // Only add the id field if it exists (for existing inputs)
     if (input.id) {
       data.id = input.id;
     }
 
     return data;
   });
-  console.log(inputListData, "what the fukc");
-  // Insert or update inputs
   const { error: inputError } = await supabase
     .from("inputs")
     .upsert(inputListData); // Use 'id' as the unique conflict key
