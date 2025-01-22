@@ -8,7 +8,6 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 const StagePlotGraphic = ({ stageElements, plotid }: any) => {
-  console.log(stageElements);
   const [currentStageElements, setCurrentStageElements] =
     useState(stageElements);
   const [draggingId, setDraggingId] = useState<string | number>("");

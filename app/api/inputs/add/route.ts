@@ -5,7 +5,6 @@ export async function POST(req: NextRequest) {
   const supabase = await createClient();
   const { stage_plot_id, inputs } = await req.json();
 
-  console.log(inputs, "the inputds");
   const { data, error } = await supabase
     .from("inputs")
     .insert(

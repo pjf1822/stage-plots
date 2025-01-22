@@ -16,7 +16,6 @@ const StagePlots = () => {
 
   if (isLoading) {
     return <Skeleton className="w-[100px] h-[20px] rounded-full" />;
-    // Replace with a spinner or more detailed loading message
   }
   return (
     <div>

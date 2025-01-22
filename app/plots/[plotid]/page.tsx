@@ -13,7 +13,7 @@ const StagePlotPage = async ({
   const { result: plot, error } = await getPlotById(plotid);
 
   if (!plot || error) {
-    return <div>Error loading plot.</div>;
+    return <div>Stage Plot doesnt exist</div>;
   }
 
   return <EditStagePlot plot={plot} />;

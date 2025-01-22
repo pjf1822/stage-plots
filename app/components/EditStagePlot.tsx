@@ -1,27 +1,12 @@
 "use client";
 
 import React from "react";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form"; // Import FormProvider
 import InputList from "./InputList";
 import StagePlotGraphic from "./StagePlotGraphic";
 import { submitStagePlotForm } from "@/services/stagePlotService";
-
-const stagePlotSchema = z.object({
-  name: z.string().min(1, "Stage Plot Name is required"),
-  description: z.string(),
-  inputs: z
-    .array(
-      z.object({
-        id: z.number().optional(),
-        name: z.string().min(1, "Input name is required"),
-        type: z.string().optional(),
-      })
-    )
-    .default([]),
-});
-type StagePlotFormData = z.infer<typeof stagePlotSchema>;
+import { StagePlotFormData, stagePlotSchema } from "@/types";
 
 const EditStagePlot = ({ plot }: any) => {
   const methods = useForm<StagePlotFormData>({
