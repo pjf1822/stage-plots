@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export interface StagePlot {
   created_at: string | null;
   created_by: string | null;
@@ -16,12 +18,6 @@ export interface Input {
 export interface StagePlotWithInputs extends StagePlot {
   inputs: Input[];
 }
-
-export interface GetPlotByIdResponse {
-  result: StagePlot & { inputs: Input[] };
-  error?: string;
-}
-
 export interface StageElement {
   id: number | string;
   x: number;
@@ -30,3 +26,24 @@ export interface StageElement {
   stage_plot_id: number;
   created_at?: string | null;
 }
+
+export interface GetPlotByIdResponse {
+  result: StagePlot & { inputs: Input[] };
+  error?: string;
+}
+
+export const stagePlotSchema = z.object({
+  name: z.string().min(1, "Stage Plot Name is required"),
+  description: z.string(),
+  inputs: z
+    .array(
+      z.object({
+        id: z.number().optional(),
+        name: z.string().min(1, "Input name is required"),
+        type: z.string().optional(),
+      })
+    )
+    .default([]),
+});
+
+export type StagePlotFormData = z.infer<typeof stagePlotSchema>;

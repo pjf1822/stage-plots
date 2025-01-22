@@ -11,7 +11,6 @@ export async function PUT(req: NextRequest) {
       .upsert(stageElements, { onConflict: "id" }) // Specify `id` for conflict resolution
       .select();
 
-    console.log(data, error, "what the fuck");
     return NextResponse.json(
       { message: "Stage elements updated successfully" },
       { status: 200 }

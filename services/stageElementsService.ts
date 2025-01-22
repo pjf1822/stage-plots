@@ -5,7 +5,6 @@ export const handleStageElements = async (
   stageElements: StageElement[]
 ) => {
   const newElements = stageElements.filter((el) => typeof el.id === "string");
-  console.log(newElements, "show me this");
   const modifiedExistingElements = stageElements
     .filter((currentElement) => {
       // Find the corresponding initial element
