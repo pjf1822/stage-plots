@@ -20,6 +20,7 @@ const StagePlotGraphic = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isPositionSet, setIsPositionSet] = useState(false);
 
+  console.log(stageElements, draggingId, "the stage elements");
   useEffect(() => {
     const container = containerRef.current;
     if (container) {
@@ -66,6 +67,7 @@ const StagePlotGraphic = () => {
     }
     setDraggingId("");
   };
+
   return (
     <div
       ref={containerRef}
