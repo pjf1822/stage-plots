@@ -6,26 +6,31 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form"; // Import FormProvider
 import InputList from "./InputList";
 import StagePlotGraphic from "./StagePlotGraphic";
+import { Input, StagePlotWithInputs } from "@/types";
+import { submitStagePlotForm } from "@/services/stagePlotService";
 
 const stagePlotSchema = z.object({
   name: z.string().min(1, "Stage Plot Name is required"),
-  description: z.string().min(5, "Description must be at least 5 characters"),
-  inputs: z.array(
-    z.object({
-      name: z.string().min(1, "Input name is required"),
-      type: z.string().optional(),
-    })
-  ),
+  description: z.string(),
+  inputs: z
+    .array(
+      z.object({
+        id: z.number().optional(),
+        name: z.string().min(1, "Input name is required"),
+        type: z.string().optional(),
+      })
+    )
+    .default([]),
 });
 type StagePlotFormData = z.infer<typeof stagePlotSchema>;
 
-const EditStagePlot = ({ plot }: StagePlotFormData) => {
+const EditStagePlot = ({ plot }: { plot: StagePlotWithInputs }) => {
   const methods = useForm<StagePlotFormData>({
-    resolver: zodResolver(stagePlotSchema), // Validate with Zod
-    defaultValues: plot ?? {
-      name: "",
-      description: "",
-      inputs: [{ name: "", type: "" }],
+    resolver: zodResolver(stagePlotSchema),
+    defaultValues: {
+      name: plot.name,
+      description: plot.description || "",
+      inputs: plot.inputs || [],
     },
   });
 
@@ -35,28 +40,22 @@ const EditStagePlot = ({ plot }: StagePlotFormData) => {
     formState: { errors, isSubmitting },
   } = methods;
 
-  const submitForm = async (data: StagePlotFormData) => {
-    const requestData = plot.id ? { ...data, stagePlotId: plot.id } : data;
-    const response = await fetch("/api/stage-plots/edit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestData),
-    });
-
-    const result = await response.json();
-    if (response.ok) {
-      alert("Stage plot created successfully!");
-    } else {
-      alert("Error creating stage plot: " + result.message);
+  const submitForm = async (formData: StagePlotFormData) => {
+    try {
+      const result = await submitStagePlotForm(plot, formData);
+    } catch (error: any) {
+      alert(error.message);
     }
   };
 
   return (
     <FormProvider {...methods}>
       <div>
-        <form>
+        <form
+          onSubmit={handleSubmit(submitForm, (errors) => {
+            console.log("Validation errors on form submission:", errors);
+          })}
+        >
           <div>
             <label htmlFor="name">Stage Plot Name:</label>
             <input
@@ -77,7 +76,7 @@ const EditStagePlot = ({ plot }: StagePlotFormData) => {
               <p className="error">{errors.description.message}</p>
             )}
           </div>
-          <InputList inputs={plot.inputs} />
+          <InputList />
 
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Submitting..." : "Save Stage Plot"}

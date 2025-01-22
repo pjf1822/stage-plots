@@ -10,9 +10,12 @@ const StagePlotPage = async ({
 }) => {
   const { plotid } = await params;
 
-  // Fetch the stage plot using `plotid`
-  const plot = await getPlotById(plotid);
-  return <EditStagePlot plot={plot.result} />;
+  const { result: plot, error } = await getPlotById(plotid);
+  if (!plot || error) {
+    return <div>Error loading plot.</div>;
+  }
+
+  return <EditStagePlot plot={plot} />;
 };
 
 export default StagePlotPage;

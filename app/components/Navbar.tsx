@@ -10,9 +10,6 @@ const Navbar = () => {
         <Button className="text-white hover:bg-gray-600">Home</Button>
       </Link>
 
-      <Link href="/edit">
-        <Button className="text-white hover:bg-gray-600">Edit Plot</Button>
-      </Link>
       <Link href="/plots">
         <Button className="text-white hover:bg-gray-600">My Plots</Button>
       </Link>

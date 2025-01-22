@@ -2,30 +2,17 @@
 import React from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
-const InputList = ({
-  inputs,
-}: {
-  inputs: { name: string; type: string }[];
-}) => {
+const InputList = () => {
   const {
     control,
     register,
     formState: { errors },
-    setValue, // to set values for initial inputs
   } = useFormContext();
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "inputs",
   });
-  React.useEffect(() => {
-    if (inputs && inputs.length) {
-      inputs.forEach((input, index) => {
-        setValue(`inputs.${index}.name`, input.name);
-        setValue(`inputs.${index}.type`, input.type);
-      });
-    }
-  }, [inputs, setValue]);
 
   return (
     <div>
@@ -42,7 +29,6 @@ const InputList = ({
             <p className="error">{errors.inputs[index].name?.message}</p>
           )}
 
-          {/* Additional fields can be added here, like type or quantity */}
           <input
             {...register(`inputs.${index}.type`)}
             placeholder="Type (e.g., Mic, DI)"
