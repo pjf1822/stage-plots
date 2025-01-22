@@ -21,3 +21,12 @@ export interface GetPlotByIdResponse {
   result: StagePlot & { inputs: Input[] };
   error?: string;
 }
+
+export interface StageElementPosition {
+  id: number;
+  x: number;
+  y: number;
+  title: string;
+  stage_plot_id: number;
+  created_at: string | null;
+}
