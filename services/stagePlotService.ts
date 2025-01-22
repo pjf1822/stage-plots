@@ -1,63 +1,92 @@
-// services/stagePlotService.ts
-
 import { Input, StagePlot, StagePlotWithInputs } from "@/types";
+
+const fetchWithErrorHandling = async (url: string, body: any) => {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    const errorResponse = await res.json();
+    throw new Error(errorResponse.message || `Failed to ${url}`);
+  }
+  return res.json();
+};
 
 export const submitStagePlotForm = async (
   originalPlotData: StagePlotWithInputs,
   formData: any
-): Promise<string> => {
-  const updateData: Record<string, any> = {};
-  // CHECK STAGE PLOT FIELDS
+): Promise<any[]> => {
+  // MASTER CHANGE OBJECT
+  const updatePromises: Promise<void>[] = [];
+  const updateStagePlotData: Record<string, any> = {};
   const fieldsToCheck: (keyof StagePlot)[] = ["name", "description"];
 
+  // CHECK STAGE PLOT FIELDS
   fieldsToCheck.forEach((field) => {
     if (originalPlotData[field] !== formData[field]) {
-      updateData[field] = formData[field];
+      updateStagePlotData[field] = formData[field];
     }
   });
-  // CHECK FOR STATE PLOT INPUTS
-  let updatedInputs: Input[] = [];
 
-  formData.inputs.forEach((input: Input) => {
-    const existingInput = originalPlotData.inputs.find(
-      (originalInput) =>
-        originalInput.name === input.name && originalInput.type === input.type
+  if (Object.keys(updateStagePlotData).length > 0) {
+    updatePromises.push(
+      fetchWithErrorHandling("/api/stage-plots/update", {
+        stage_plot_id: originalPlotData.id,
+        updateStagePlotData,
+      })
     );
-
-    if (!input.id) {
-      updatedInputs.push(input);
-    } else if (
-      !existingInput ||
-      existingInput.name !== input.name ||
-      existingInput.type !== input.type
-    ) {
-      updatedInputs.push(input);
-    }
+  }
+  // UPDATE INPUTS
+  const updatedInputs: Input[] = formData.inputs.filter((input: Input) => {
+    const existingInput = originalPlotData.inputs.find(
+      (originalInput) => originalInput.id === input.id
+    );
+    return (
+      input.id &&
+      existingInput &&
+      (existingInput.name !== input.name || existingInput.type !== input.type)
+    );
   });
-
   if (updatedInputs.length > 0) {
-    updateData.inputs = updatedInputs;
+    updatePromises.push(
+      fetchWithErrorHandling("/api/inputs/update", {
+        stage_plot_id: originalPlotData.id,
+        inputs: updatedInputs,
+      })
+    );
+  }
+  // ADD INPUTS
+  const newInputs: Input[] = formData.inputs.filter(
+    (input: Input) => !input.id
+  );
+
+  if (newInputs.length > 0) {
+    updatePromises.push(
+      fetchWithErrorHandling("/api/inputs/add", {
+        stage_plot_id: originalPlotData.id,
+        inputs: newInputs,
+      })
+    );
+  }
+  // DELETE INPUTS
+  const inputsToDelete: Input[] = originalPlotData.inputs.filter(
+    (originalInput) =>
+      !formData.inputs.some((input: Input) => input.id === originalInput.id)
+  );
+  if (inputsToDelete.length > 0) {
+    updatePromises.push(
+      fetchWithErrorHandling("/api/inputs/delete", {
+        inputs: inputsToDelete,
+      })
+    );
   }
 
-  if (!Object.keys(updateData).length)
-    return "No changes were made to the stage plot";
-
-  const response = await fetch("/api/stage-plots/edit", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      updateData,
-      stage_plot_id: originalPlotData.id,
-    }),
-  });
-  const result = await response.json();
-
-  if (response.ok) {
-    return result;
-  } else {
-    const result = await response.json();
-    throw new Error("Error updating stage plot: " + result.message);
+  try {
+    const results = await Promise.all(updatePromises);
+    return results;
+  } catch (error: any) {
+    throw new Error(error.message || "Error updating stage plot");
   }
 };

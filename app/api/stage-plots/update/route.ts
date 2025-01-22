@@ -5,24 +5,12 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   const supabase = await createClient();
 
-  const { data: user, error: userError } = await supabase.auth.getUser();
+  // DO I NEED TO AUTHENTICATE TEH ROUTES???LIKE DO I HAVE TO LOG IN THE FUCKING USER FOR THIS?
+  const { stage_plot_id, updateStagePlotData } = await req.json();
 
-  if (userError || !user) {
-    return NextResponse.json(
-      { message: "User not authenticated" },
-      { status: 401 }
-    );
-  }
-
-  const { stage_plot_id, updateData } = await req.json();
-
-  if (updateData.inputs) {
-    updateInputList(updateData.inputs, stage_plot_id);
-  }
-
-  const fieldsToUpdate = Object.keys(updateData).reduce((acc, key) => {
-    if (updateData[key]) {
-      acc[key] = updateData[key];
+  const fieldsToUpdate = Object.keys(updateStagePlotData).reduce((acc, key) => {
+    if (updateStagePlotData[key]) {
+      acc[key] = updateStagePlotData[key];
     }
     return acc;
   }, {} as Record<string, any>);

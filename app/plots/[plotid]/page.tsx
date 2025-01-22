@@ -11,6 +11,7 @@ const StagePlotPage = async ({
   const { plotid } = await params;
 
   const { result: plot, error } = await getPlotById(plotid);
+
   if (!plot || error) {
     return <div>Error loading plot.</div>;
   }
