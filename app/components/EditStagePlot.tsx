@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form"; // Import FormProvider
 import InputList from "./InputList";
 import StagePlotGraphic from "./StagePlotGraphic";
-import { Input, StagePlotWithInputs } from "@/types";
+import { StagePlotWithInputs } from "@/types";
 import { submitStagePlotForm } from "@/services/stagePlotService";
 
 const stagePlotSchema = z.object({
@@ -43,6 +43,7 @@ const EditStagePlot = ({ plot }: { plot: StagePlotWithInputs }) => {
   const submitForm = async (formData: StagePlotFormData) => {
     try {
       const result = await submitStagePlotForm(plot, formData);
+      console.log(result, "back on the front end");
     } catch (error: any) {
       alert(error.message);
     }
