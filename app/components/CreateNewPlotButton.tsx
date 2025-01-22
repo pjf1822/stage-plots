@@ -28,10 +28,6 @@ const CreateNewPlotButton = () => {
       }
 
       const data = await response.json();
-      console.log("New stage plot created:", data);
-
-      // Optionally navigate to the new plot page or update the UI
-      // window.location.href = `/stage-plots/${data.id}`; // Example redirection
 
       router.push(`/plots/${data.stagePlot.id}`);
     } catch (error: any) {

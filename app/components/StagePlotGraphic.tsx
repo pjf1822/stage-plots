@@ -1,40 +1,31 @@
-import DraggableItem from "@/components/DraggableItem";
+import DraggableItem from "@/app/components/DraggableItem";
+import { handleStageElements } from "@/services/stageElementsService";
+import { StageElement } from "@/types";
 import { DndContext } from "@dnd-kit/core";
 import React from "react";
 import { useRef } from "react";
-import { useEffect } from "react";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
-interface StageElementPosition {
-  id: string;
-  x: number;
-  y: number;
-}
-const StagePlotGraphic = () => {
-  const [stageElements, setStageElements] = useState<StageElementPosition[]>([
-    { id: "1", x: 0, y: 0 },
-    { id: "2", x: 50, y: 0 },
-    { id: "3", x: 100, y: 0 },
-  ]);
+const StagePlotGraphic = ({ stageElements, plotid }: any) => {
+  console.log(stageElements);
+  const [currentStageElements, setCurrentStageElements] =
+    useState(stageElements);
   const [draggingId, setDraggingId] = useState<string | number>("");
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isPositionSet, setIsPositionSet] = useState(false);
+  const [isPositionSet, setIsPositionSet] = useState(true);
 
-  console.log(stageElements, draggingId, "the stage elements");
-  useEffect(() => {
-    const container = containerRef.current;
-    if (container) {
-      const rect = container.getBoundingClientRect();
-      setStageElements(
-        stageElements.map((stageElement, index) => ({
-          ...stageElement,
-          x: rect.left + index * 50,
-          y: rect.top,
-        }))
-      );
-      setIsPositionSet(true);
-    }
-  }, []);
+  const addStageElement = () => {
+    const newElement: StageElement = {
+      id: uuidv4(),
+      x: 50 * stageElements.length,
+      y: 50,
+      title: "guitar",
+      stage_plot_id: plotid,
+    };
+
+    setCurrentStageElements((prevElements) => [...prevElements, newElement]);
+  };
 
   const onDragEnd = ({ delta, active }: any) => {
     const container = containerRef.current;
@@ -42,21 +33,19 @@ const StagePlotGraphic = () => {
       const rect = container.getBoundingClientRect();
       const itemSize = 40;
 
-      setStageElements((prevElements) =>
+      setCurrentStageElements((prevElements) =>
         prevElements.map((stageElement) => {
           if (stageElement.id === active.id) {
-            // Calculate new position for the dragged guitar
             let newX = stageElement.x + delta.x;
             let newY = stageElement.y + delta.y;
 
-            // Boundary checks
             if (
               newX < 0 ||
               newX + itemSize > rect.width ||
               newY < 0 ||
               newY + itemSize > rect.height
             ) {
-              return stageElement; // Keep original position if out of bounds
+              return stageElement;
             }
 
             return { ...stageElement, x: newX, y: newY };
@@ -86,7 +75,7 @@ const StagePlotGraphic = () => {
         onDragEnd={onDragEnd}
       >
         {isPositionSet &&
-          stageElements.map((stageElement) => (
+          currentStageElements?.map((stageElement) => (
             <DraggableItem
               key={stageElement.id}
               id={stageElement.id}
@@ -96,6 +85,18 @@ const StagePlotGraphic = () => {
             />
           ))}
       </DndContext>
+      <button
+        onClick={addStageElement}
+        style={{ position: "absolute", top: 10, left: 10 }}
+      >
+        Add New Element
+      </button>
+      <button
+        onClick={() => handleStageElements(stageElements, currentStageElements)}
+        style={{ position: "absolute", bottom: 10, left: 10 }}
+      >
+        Update Elements
+      </button>
     </div>
   );
 };

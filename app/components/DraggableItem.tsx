@@ -1,9 +1,10 @@
+import { StageElement } from "@/types";
 import { useDraggable } from "@dnd-kit/core";
 import Image from "next/image";
 import React from "react";
 
 interface DraggableItemProps {
-  id: string;
+  id: string | number;
   x: number;
   y: number;
   dragging: boolean;
@@ -29,7 +30,12 @@ function DraggableItem({ id, x, y, dragging }: DraggableItemProps) {
           : "none",
       }}
     >
-      <Image src="/guitar.svg" alt="Guitar" layout="fill" objectFit="contain" />
+      <Image
+        src="/guitar.svg"
+        alt="Guitar"
+        style={{ objectFit: "contain" }}
+        fill
+      />
     </div>
   );
 }

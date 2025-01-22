@@ -22,11 +22,11 @@ export interface GetPlotByIdResponse {
   error?: string;
 }
 
-export interface StageElementPosition {
-  id: number;
+export interface StageElement {
+  id: number | string;
   x: number;
   y: number;
   title: string;
   stage_plot_id: number;
-  created_at: string | null;
+  created_at?: string | null;
 }
