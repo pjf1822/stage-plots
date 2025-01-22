@@ -11,31 +11,26 @@ import { submitStagePlotForm } from "@/services/stagePlotService";
 
 const stagePlotSchema = z.object({
   name: z.string().min(1, "Stage Plot Name is required"),
-  description: z.string().min(5, "Description must be at least 5 characters"),
-  // inputs: z
-  //   .array(
-  //     z.object({
-  //       id: z.number().optional(),
-  //       name: z.string().min(1, "Input name is required"),
-  //       type: z.string().optional(),
-  //     })
-  //   )
-  //   .default([]),
+  description: z.string(),
+  inputs: z
+    .array(
+      z.object({
+        id: z.number().optional(),
+        name: z.string().min(1, "Input name is required"),
+        type: z.string().optional(),
+      })
+    )
+    .default([]),
 });
 type StagePlotFormData = z.infer<typeof stagePlotSchema>;
 
 const EditStagePlot = ({ plot }: { plot: StagePlotWithInputs }) => {
-  const sanitizeInput = (input: Input) => {
-    const { created_at, stage_plot_id, ...sanitizedInput } = input;
-    return sanitizedInput;
-  };
-
   const methods = useForm<StagePlotFormData>({
     resolver: zodResolver(stagePlotSchema),
     defaultValues: {
       name: plot.name,
       description: plot.description || "",
-      // inputs: plot.inputs.map(sanitizeInput),
+      inputs: plot.inputs || [],
     },
   });
 
@@ -48,7 +43,6 @@ const EditStagePlot = ({ plot }: { plot: StagePlotWithInputs }) => {
   const submitForm = async (formData: StagePlotFormData) => {
     try {
       const result = await submitStagePlotForm(plot, formData);
-      console.log(result, "hey the result");
     } catch (error: any) {
       alert(error.message);
     }
@@ -82,7 +76,7 @@ const EditStagePlot = ({ plot }: { plot: StagePlotWithInputs }) => {
               <p className="error">{errors.description.message}</p>
             )}
           </div>
-          {/* <InputList inputs={plot?.inputs} /> */}
+          <InputList />
 
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Submitting..." : "Save Stage Plot"}

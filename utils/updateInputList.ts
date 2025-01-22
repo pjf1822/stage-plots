@@ -20,9 +20,10 @@ export const updateInputList = async (
 
     return data;
   });
+  console.log(inputListData, "the input list data");
   const { error: inputError } = await supabase
     .from("inputs")
-    .upsert(inputListData); // Use 'id' as the unique conflict key
+    .upsert(inputListData);
 
   if (inputError) {
     throw new Error(`Failed to add/update inputs: ${inputError.message}`);

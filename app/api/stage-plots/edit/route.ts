@@ -16,6 +16,10 @@ export async function POST(req: NextRequest) {
 
   const { stage_plot_id, updateData } = await req.json();
 
+  if (updateData.inputs) {
+    updateInputList(updateData.inputs, stage_plot_id);
+  }
+
   const fieldsToUpdate = Object.keys(updateData).reduce((acc, key) => {
     if (updateData[key]) {
       acc[key] = updateData[key];
