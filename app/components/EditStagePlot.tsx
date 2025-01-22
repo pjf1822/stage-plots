@@ -6,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form"; // Import FormProvider
 import InputList from "./InputList";
 import StagePlotGraphic from "./StagePlotGraphic";
-import { StagePlotWithInputs } from "@/types";
 import { submitStagePlotForm } from "@/services/stagePlotService";
 
 const stagePlotSchema = z.object({
@@ -24,7 +23,7 @@ const stagePlotSchema = z.object({
 });
 type StagePlotFormData = z.infer<typeof stagePlotSchema>;
 
-const EditStagePlot = ({ plot }: { plot: StagePlotWithInputs }) => {
+const EditStagePlot = ({ plot }: any) => {
   const methods = useForm<StagePlotFormData>({
     resolver: zodResolver(stagePlotSchema),
     defaultValues: {
@@ -43,7 +42,6 @@ const EditStagePlot = ({ plot }: { plot: StagePlotWithInputs }) => {
   const submitForm = async (formData: StagePlotFormData) => {
     try {
       const result = await submitStagePlotForm(plot, formData);
-      console.log(result, "back on the front end");
     } catch (error: any) {
       alert(error.message);
     }
@@ -52,11 +50,7 @@ const EditStagePlot = ({ plot }: { plot: StagePlotWithInputs }) => {
   return (
     <FormProvider {...methods}>
       <div>
-        <form
-          onSubmit={handleSubmit(submitForm, (errors) => {
-            console.log("Validation errors on form submission:", errors);
-          })}
-        >
+        <form onSubmit={handleSubmit(submitForm, (errors) => {})}>
           <div>
             <label htmlFor="name">Stage Plot Name:</label>
             <input
@@ -83,7 +77,10 @@ const EditStagePlot = ({ plot }: { plot: StagePlotWithInputs }) => {
             {isSubmitting ? "Submitting..." : "Save Stage Plot"}
           </button>
         </form>
-        <StagePlotGraphic />
+        <StagePlotGraphic
+          stageElements={plot.stage_elements}
+          plotid={plot.id}
+        />
       </div>
     </FormProvider>
   );
