@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       {
-        message: "Stage elements created successfully",
+        message: "Stage elements created succedssfully",
         data: insertedElements,
       },
       { status: 200 }
