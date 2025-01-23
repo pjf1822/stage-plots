@@ -35,31 +35,48 @@ export const submitStagePlotForm = async (
   if (changedFields["inputs"]) {
     const { added, deleted, updated } = changedFields["inputs"];
 
-    // If there are added inputs, send them to the API
     if (added.length > 0) {
       updatePromises.push(
         fetchWithErrorHandling("/api/inputs/add", {
           stage_plot_id: originalPlotData.id,
-          inputs: added, // The added inputs
+          inputs: added,
         })
       );
     }
 
-    // If there are deleted inputs, send them to the API
     if (deleted.length > 0) {
       updatePromises.push(
         fetchWithErrorHandling("/api/inputs/delete", {
-          inputs: deleted, // The deleted inputs
+          inputs: deleted,
         })
       );
     }
 
-    // If there are updated inputs, send them to the API
     if (updated.length > 0) {
       updatePromises.push(
         fetchWithErrorHandling("/api/inputs/update", {
           stage_plot_id: originalPlotData.id,
-          inputs: updated, // The updated inputs
+          inputs: updated,
+        })
+      );
+    }
+  }
+
+  if (changedFields["stage_elements"]) {
+    const { added, updated } = changedFields["stage_elements"];
+
+    if (added.length > 0) {
+      updatePromises.push(
+        fetchWithErrorHandling("/api/stage-elements/create", {
+          stage_elements: added,
+        })
+      );
+    }
+
+    if (updated.length > 0) {
+      updatePromises.push(
+        fetchWithErrorHandling("/api/stage-elements/update", {
+          stage_elements: updated,
         })
       );
     }

@@ -25,7 +25,9 @@ const EditStagePlot = ({ plot }: any) => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    watch,
   } = methods;
+  const shit = watch();
 
   const submitForm = async (formData: StagePlotFormData) => {
     try {
@@ -34,7 +36,6 @@ const EditStagePlot = ({ plot }: any) => {
       alert(error.message);
     }
   };
-
   return (
     <FormProvider {...methods}>
       <div>
@@ -64,10 +65,7 @@ const EditStagePlot = ({ plot }: any) => {
           <button type="submit">
             {isSubmitting ? "Submitting..." : "Save Stage Plot"}
           </button>
-          <StagePlotGraphic
-            stageElements={plot.stage_elements}
-            stagePlotId={plot.id}
-          />
+          <StagePlotGraphic stagePlotId={plot.id} />
         </form>
       </div>
     </FormProvider>

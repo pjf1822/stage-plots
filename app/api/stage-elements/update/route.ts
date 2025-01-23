@@ -1,14 +1,13 @@
 import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function PUT(req: NextRequest) {
+export async function POST(req: NextRequest) {
   const supabase = await createClient();
   try {
-    const stageElements = await req.json();
-
+    const { stage_elements } = await req.json();
     const { data, error } = await supabase
       .from("stage_elements")
-      .upsert(stageElements, { onConflict: "id" }) // Specify `id` for conflict resolution
+      .upsert(stage_elements, { onConflict: "id" })
       .select();
 
     return NextResponse.json(

@@ -5,28 +5,19 @@ import { DndContext } from "@dnd-kit/core";
 import React from "react";
 import { useRef } from "react";
 import { useState } from "react";
-import { FieldValues, useFieldArray, useFormContext } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
-const StagePlotGraphic = ({ stageElements, stagePlotId }) => {
-  const [currentStageElements, setCurrentStageElements] =
-    useState(stageElements);
+const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
+  const { control, setValue } = useFormContext();
+
+  const { fields, append, update, remove } = useFieldArray({
+    control,
+    name: "stage_elements",
+    keyName: "fieldId",
+  });
   const [draggingId, setDraggingId] = useState<string | number>("");
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isPositionSet, setIsPositionSet] = useState(true);
-
-  console.log(currentStageElements, "show me the stage elements");
-  const addStageElement = () => {
-    const newElement: StageElement = {
-      id: uuidv4(),
-      x: 50 * stageElements.length,
-      y: 50,
-      title: "guitar",
-      stage_plot_id: stagePlotId,
-    };
-
-    setCurrentStageElements((prevElements) => [...prevElements, newElement]);
-  };
 
   const onDragEnd = ({ delta, active }: any) => {
     const container = containerRef.current;
@@ -34,26 +25,35 @@ const StagePlotGraphic = ({ stageElements, stagePlotId }) => {
       const rect = container.getBoundingClientRect();
       const itemSize = 40;
 
-      setCurrentStageElements((prevElements) =>
-        prevElements.map((stageElement) => {
-          if (stageElement.id === active.id) {
-            let newX = stageElement.x + delta.x;
-            let newY = stageElement.y + delta.y;
+      const updatedElements = fields.map((element) => {
+        if (element.id === active.id) {
+          let newX = element.x + delta.x;
+          let newY = element.y + delta.y;
 
-            if (
-              newX < 0 ||
-              newX + itemSize > rect.width ||
-              newY < 0 ||
-              newY + itemSize > rect.height
-            ) {
-              return stageElement;
-            }
-
-            return { ...stageElement, x: newX, y: newY };
+          // Ensure element stays within bounds
+          if (
+            newX >= 0 &&
+            newX + itemSize <= rect.width &&
+            newY >= 0 &&
+            newY + itemSize <= rect.height
+          ) {
+            // Update position in the form state
+            update(
+              fields.findIndex((el) => el.id === element.id),
+              {
+                ...element,
+                x: newX,
+                y: newY,
+              }
+            );
           }
-          return stageElement;
-        })
-      );
+
+          return { ...element, x: newX, y: newY };
+        }
+        return element;
+      });
+
+      setValue("stage_elements", updatedElements); // Update the entire field array
     }
     setDraggingId("");
   };
@@ -74,19 +74,27 @@ const StagePlotGraphic = ({ stageElements, stagePlotId }) => {
         }}
         onDragEnd={onDragEnd}
       >
-        {isPositionSet &&
-          currentStageElements?.map((stageElement, index) => (
-            <DraggableItem
-              key={stageElement.id}
-              id={stageElement.id}
-              x={stageElement.x}
-              y={stageElement.y}
-              dragging={draggingId === stageElement.id}
-            />
-          ))}
+        {fields.map((stageElement, index) => (
+          <DraggableItem
+            key={stageElement.id}
+            id={stageElement.id}
+            x={stageElement.x}
+            y={stageElement.y}
+            dragging={draggingId === stageElement.id}
+          />
+        ))}
       </DndContext>
       <button
-        onClick={addStageElement}
+        type="button"
+        onClick={() =>
+          append({
+            id: uuidv4(),
+            x: 50 * fields.length,
+            y: 50,
+            title: "New Element",
+            stage_plot_id: stagePlotId,
+          })
+        }
         style={{ position: "absolute", top: 10, left: 10 }}
       >
         Add New Element
