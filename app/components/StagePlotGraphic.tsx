@@ -2,6 +2,7 @@ import DraggableItem from "@/app/components/DraggableItem";
 import { handleStageElements } from "@/services/stageElementsService";
 import { StageElement } from "@/types";
 import { DndContext } from "@dnd-kit/core";
+import Image from "next/image";
 import React from "react";
 import { useRef } from "react";
 import { useState } from "react";
@@ -18,9 +19,11 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
   });
   const [draggingId, setDraggingId] = useState<string | number>("");
   const containerRef = useRef<HTMLDivElement>(null);
+  const trashCanRef = useRef<HTMLDivElement>(null); // Trash can reference
 
   const onDragEnd = ({ delta, active }: any) => {
     const container = containerRef.current;
+    const trashCan = trashCanRef.current;
     if (container) {
       const rect = container.getBoundingClientRect();
       const itemSize = 40;
@@ -46,6 +49,32 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
                 y: newY,
               }
             );
+          }
+          const trashCanRect = trashCan.getBoundingClientRect();
+
+          // Expand the trash can's area by 50px on each side
+          const expandedRect = {
+            left: trashCanRect.left - 50,
+            right: trashCanRect.right + 50,
+            top: trashCanRect.top - 50,
+            bottom: trashCanRect.bottom + 50,
+          };
+
+          console.log(newX, expandedRect.left);
+          // Check if the element is within the expanded trash area
+          if (
+            newX >= expandedRect.left &&
+            newX <= expandedRect.right &&
+            newY >= expandedRect.top &&
+            newY <= expandedRect.bottom
+          ) {
+            console.log("Element is on top of the expanded trash can area!");
+            // Delete the element from the stage_elements array
+            remove(fields.findIndex((el) => el.id === element.id));
+            setValue(
+              "stage_elements",
+              fields.filter((el) => el.id !== element.id)
+            ); // Immediately update the state
           }
 
           return { ...element, x: newX, y: newY };
@@ -84,6 +113,29 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           />
         ))}
       </DndContext>
+      <div
+        ref={trashCanRef}
+        style={{
+          position: "absolute",
+          bottom: "20px",
+          right: "20px",
+          width: "50px",
+          height: "50px",
+          backgroundColor: "#f0f0f0",
+          borderRadius: "50%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          border: "2px solid #ccc",
+        }}
+      >
+        <Image
+          src="/trash.svg"
+          alt="trash"
+          style={{ objectFit: "contain" }}
+          fill
+        />
+      </div>
       <button
         type="button"
         onClick={() =>
