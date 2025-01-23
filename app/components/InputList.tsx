@@ -32,9 +32,7 @@ const InputList = ({ stagePlotId }: { stagePlotId: string }) => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full  mx-auto p-6">
-      <h2 className="text-2xl font-semibold text-center mb-6">
-        Input List (Microphones, DIs, Channels, etc.):
-      </h2>
+      <h2 className="text-2xl font-semibold text-center mb-6">Input List</h2>
       <div className="overflow-x-auto w-full mb-6">
         <table className="min-w-full table-auto border-collapse border border-black">
           <thead>
