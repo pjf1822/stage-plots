@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
 import { FieldValues, useFieldArray, useFormContext } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
 
-const InputList = () => {
+const InputList = ({ stagePlotId }: { stagePlotId: string }) => {
   const {
     control,
     register,
@@ -13,6 +14,7 @@ const InputList = () => {
     control,
     name: "inputs",
   });
+
   return (
     <div>
       <label>Input List (Microphones, DIs, Channels, etc.):</label>
@@ -29,7 +31,7 @@ const InputList = () => {
           )}
 
           <input
-            {...register(`inputs.${index}.type`)}
+            {...register(`inputs.${index}.mic`)}
             placeholder="Type (e.g., Mic, DI)"
           />
 
@@ -38,7 +40,20 @@ const InputList = () => {
           </button>
         </div>
       ))}
-      <button type="button" onClick={() => append({ name: "", type: "" })}>
+      <button
+        type="button"
+        onClick={() =>
+          append({
+            id: uuidv4(),
+            name: "",
+            channel: null,
+            mic: "",
+            stand: "",
+            notes: "",
+            stage_plot_id: stagePlotId,
+          })
+        }
+      >
         Add input
       </button>
     </div>

@@ -17,6 +17,7 @@ const StagePlots = () => {
   if (isLoading) {
     return <Skeleton className="w-[100px] h-[20px] rounded-full" />;
   }
+
   return (
     <div>
       {data?.data?.map((plot: any, index: number) => (

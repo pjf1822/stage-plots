@@ -5,7 +5,7 @@ import React, { useState } from "react";
 const CreateNewPlotButton = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter(); // Use the router hook for navigation
+  const router = useRouter();
 
   const createStagePlot = async () => {
     setLoading(true);

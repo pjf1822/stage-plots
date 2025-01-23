@@ -7,16 +7,9 @@ export async function POST(req: NextRequest) {
   // DO I NEED TO AUTHENTICATE TEH ROUTES???LIKE DO I HAVE TO LOG IN THE FUCKING USER FOR THIS?
   const { stage_plot_id, updateStagePlotData } = await req.json();
 
-  const fieldsToUpdate = Object.keys(updateStagePlotData).reduce((acc, key) => {
-    if (updateStagePlotData[key]) {
-      acc[key] = updateStagePlotData[key];
-    }
-    return acc;
-  }, {} as Record<string, any>);
-
   const { data, error } = await supabase
     .from("stage_plots")
-    .update(fieldsToUpdate)
+    .update(updateStagePlotData)
     .eq("id", stage_plot_id)
     .select();
 
