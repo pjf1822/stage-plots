@@ -10,20 +10,19 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
 const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
-  const { control, setValue } = useFormContext();
+  const { control } = useFormContext();
 
   const { fields, append, update, remove } = useFieldArray({
     control,
     name: "stage_elements",
-    keyName: "fieldId",
+    keyName: "fuckingbullshitfield",
   });
   const [draggingId, setDraggingId] = useState<string | number>("");
   const containerRef = useRef<HTMLDivElement>(null);
-  const trashCanRef = useRef<HTMLDivElement>(null); // Trash can reference
+  const trashCanRef = useRef<HTMLDivElement>(null);
 
   const onDragEnd = ({ delta, active }: any) => {
     const container = containerRef.current;
-    const trashCan = trashCanRef.current;
     if (container) {
       const rect = container.getBoundingClientRect();
       const itemSize = 40;
@@ -50,39 +49,30 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
               }
             );
           }
-          const trashCanRect = trashCan.getBoundingClientRect();
+          const trashCanRight = rect.width - 50;
+          const trashCanBottom = rect.height - 50;
 
-          // Expand the trash can's area by 50px on each side
-          const expandedRect = {
-            left: trashCanRect.left - 50,
-            right: trashCanRect.right + 50,
-            top: trashCanRect.top - 50,
-            bottom: trashCanRect.bottom + 50,
-          };
+          const isInTrash =
+            newX >= trashCanRight - 50 &&
+            newX <= trashCanRight + 50 &&
+            newY >= trashCanBottom - 50 &&
+            newY <= trashCanBottom + 50;
 
-          console.log(newX, expandedRect.left);
-          // Check if the element is within the expanded trash area
-          if (
-            newX >= expandedRect.left &&
-            newX <= expandedRect.right &&
-            newY >= expandedRect.top &&
-            newY <= expandedRect.bottom
-          ) {
-            console.log("Element is on top of the expanded trash can area!");
+          if (isInTrash) {
             // Delete the element from the stage_elements array
-            remove(fields.findIndex((el) => el.id === element.id));
-            setValue(
-              "stage_elements",
-              fields.filter((el) => el.id !== element.id)
-            ); // Immediately update the state
+            const indexToRemove = fields.findIndex(
+              (el) => el.id === element.id
+            );
+
+            remove(indexToRemove);
+          } else {
+            console.log("not on top of the fucking trash");
           }
 
           return { ...element, x: newX, y: newY };
         }
         return element;
       });
-
-      setValue("stage_elements", updatedElements); // Update the entire field array
     }
     setDraggingId("");
   };
@@ -127,6 +117,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           justifyContent: "center",
           alignItems: "center",
           border: "2px solid #ccc",
+          zIndex: "-1",
         }}
       >
         <Image
