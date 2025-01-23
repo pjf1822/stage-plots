@@ -2,7 +2,7 @@
 
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, FormProvider } from "react-hook-form"; // Import FormProvider
+import { useForm, FormProvider } from "react-hook-form";
 import InputList from "./InputList";
 import StagePlotGraphic from "./StagePlotGraphic";
 import { submitStagePlotForm } from "@/services/stagePlotService";
@@ -13,8 +13,11 @@ const EditStagePlot = ({ plot }: any) => {
     resolver: zodResolver(stagePlotSchema),
     defaultValues: {
       name: plot.name,
-      description: plot.description || "",
-      inputs: plot.inputs || [],
+      description: plot.description,
+      inputs: plot.inputs,
+      stage_elements: plot.stage_elements,
+      created_by: plot.created_by,
+      id: plot.id,
     },
   });
 
@@ -22,7 +25,9 @@ const EditStagePlot = ({ plot }: any) => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    watch,
   } = methods;
+  const shit = watch();
 
   const submitForm = async (formData: StagePlotFormData) => {
     try {
@@ -31,7 +36,6 @@ const EditStagePlot = ({ plot }: any) => {
       alert(error.message);
     }
   };
-
   return (
     <FormProvider {...methods}>
       <div>
@@ -56,16 +60,13 @@ const EditStagePlot = ({ plot }: any) => {
               <p className="error">{errors.description.message}</p>
             )}
           </div>
-          <InputList />
+          <InputList stagePlotId={plot.id} />
 
-          <button type="submit" disabled={isSubmitting}>
+          <button type="submit">
             {isSubmitting ? "Submitting..." : "Save Stage Plot"}
           </button>
+          <StagePlotGraphic stagePlotId={plot.id} />
         </form>
-        <StagePlotGraphic
-          stageElements={plot.stage_elements}
-          plotid={plot.id}
-        />
       </div>
     </FormProvider>
   );

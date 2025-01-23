@@ -1,10 +1,9 @@
 import { createClient } from "@/utils/supabase/server";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
+export async function POST() {
   const supabase = await createClient();
 
-  // Get the current user session
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -19,9 +18,8 @@ export async function POST(req: NextRequest) {
     .from("stage_plots")
     .insert([
       {
-        name: "test nanme",
-        description: "desc",
-        created_by: user.id, // Include the user ID
+        name: "Add a title",
+        description: "",
       },
     ])
     .select();

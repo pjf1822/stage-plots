@@ -4,19 +4,21 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   const supabase = await createClient();
 
-  const response = await req.json(); // Expecting an array of elements
+  const { stage_elements } = await req.json(); // Expecting an array of elements
 
-  const insertPromises = response.map((element: any) => {
+  const insertPromises = stage_elements.map((element: any) => {
     return supabase
-      .from("stage_elements") // Assuming you have a table `stage_elements` to store positions
+      .from("stage_elements")
       .insert([
         {
+          id: element.id,
           x: element.x,
           y: element.y,
           title: element.title,
           stage_plot_id: element.stage_plot_id,
         },
-      ]);
+      ])
+      .select();
   });
   try {
     const results = await Promise.all(insertPromises);

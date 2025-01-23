@@ -14,6 +14,7 @@ export async function POST(req: NextRequest) {
       }))
     )
     .select();
+  console.log(data, error, "the dadded one");
 
   if (error) {
     return NextResponse.json(

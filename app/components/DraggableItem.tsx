@@ -1,4 +1,3 @@
-import { StageElement } from "@/types";
 import { useDraggable } from "@dnd-kit/core";
 import Image from "next/image";
 import React from "react";
