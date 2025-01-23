@@ -149,7 +149,18 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       </button>
       <ChooseInstrumentModal
         isOpen={isModalOpen}
-        items={["Guitar", "Flute", "Man", "Woman"]} // List of items to choose from
+        items={[
+          "Guitar",
+          "Flute",
+          "Man",
+          "Woman",
+          "Violin",
+          "Trumpet",
+          "Drum-Kit",
+          "Sax",
+          "Monitor",
+          "Power",
+        ]} // List of items to choose from
         onSelect={handleItemSelect}
         onClose={closeModal}
       />

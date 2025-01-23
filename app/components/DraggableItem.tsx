@@ -10,21 +10,21 @@ interface DraggableItemProps {
   title: string;
 }
 function DraggableItem({ id, x, y, dragging, title }: DraggableItemProps) {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+  const { listeners, setNodeRef, transform } = useDraggable({
     id: id,
   });
 
   return (
     <div
       ref={setNodeRef}
-      {...attributes}
+      // {...attributes}
       {...listeners}
       style={{
         position: "absolute",
         top: y,
         left: x,
-        width: 40,
-        height: 40,
+        width: 50,
+        height: 50,
         transform: dragging
           ? `translate(${transform?.x || 0}px, ${transform?.y || 0}px)`
           : "none",
@@ -33,7 +33,10 @@ function DraggableItem({ id, x, y, dragging, title }: DraggableItemProps) {
       <Image
         src={`/${title}.svg`} // Use backticks for template literals to dynamically set the src
         alt={title}
-        style={{ objectFit: "contain" }}
+        style={{
+          objectFit: "contain",
+          transform: title === "Monitor" ? "rotate(270deg)" : "rotate(0deg)",
+        }}
         fill
       />
     </div>

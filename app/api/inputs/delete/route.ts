@@ -5,7 +5,9 @@ export async function POST(req: NextRequest) {
   const supabase = await createClient();
   const { inputs } = await req.json();
 
-  const inputIds = inputs.map((input: any) => input.id).filter((id) => !!id);
+  const inputIds = inputs
+    .map((input: any) => input.id)
+    .filter((id: string) => !!id);
 
   const { data, error } = await supabase
     .from("inputs")
