@@ -67,7 +67,6 @@ export const submitStagePlotForm = async (
 
   try {
     const results = await Promise.all(updatePromises);
-    console.log(results, "what do the results look like in every position");
     return results;
   } catch (error: any) {
     throw new Error(error.message || "Error updating stage plot");

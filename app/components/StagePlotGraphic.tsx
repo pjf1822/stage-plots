@@ -8,66 +8,55 @@ import { useState } from "react";
 import { FieldValues, useFieldArray, useFormContext } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
-const StagePlotGraphic = () => {
-  const {
-    control,
-    register,
-    formState: { errors },
-  } = useFormContext<FieldValues>();
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "stage_elements",
-  });
+const StagePlotGraphic = ({ stageElements, stagePlotId }) => {
+  const [currentStageElements, setCurrentStageElements] =
+    useState(stageElements);
   const [draggingId, setDraggingId] = useState<string | number>("");
   const containerRef = useRef<HTMLDivElement>(null);
   const [isPositionSet, setIsPositionSet] = useState(true);
 
+  console.log(currentStageElements, "show me the stage elements");
   const addStageElement = () => {
     const newElement: StageElement = {
       id: uuidv4(),
-      x: 50 * fields.length,
+      x: 50 * stageElements.length,
       y: 50,
       title: "guitar",
-      stage_plot_id: 1,
+      stage_plot_id: stagePlotId,
     };
 
-    append(newElement);
+    setCurrentStageElements((prevElements) => [...prevElements, newElement]);
   };
+
   const onDragEnd = ({ delta, active }: any) => {
     const container = containerRef.current;
     if (container) {
       const rect = container.getBoundingClientRect();
       const itemSize = 40;
 
-      const updatedElement = fields.find(
-        (stageElement) => stageElement.id === active.id
+      setCurrentStageElements((prevElements) =>
+        prevElements.map((stageElement) => {
+          if (stageElement.id === active.id) {
+            let newX = stageElement.x + delta.x;
+            let newY = stageElement.y + delta.y;
+
+            if (
+              newX < 0 ||
+              newX + itemSize > rect.width ||
+              newY < 0 ||
+              newY + itemSize > rect.height
+            ) {
+              return stageElement;
+            }
+
+            return { ...stageElement, x: newX, y: newY };
+          }
+          return stageElement;
+        })
       );
-
-      // If the element exists and was found in the fields
-      if (updatedElement) {
-        let newX = updatedElement.x + delta.x;
-        let newY = updatedElement.y + delta.y;
-
-        if (
-          newX < 0 ||
-          newX + itemSize > rect.width ||
-          newY < 0 ||
-          newY + itemSize > rect.height
-        ) {
-          return;
-        }
-        const updatedStageElement = { ...updatedElement, x: newX, y: newY };
-
-        const index = fields.findIndex((element) => element.id === active.id);
-        if (index !== -1) {
-          remove(index);
-          append(updatedStageElement);
-        }
-      }
     }
     setDraggingId("");
   };
-
   return (
     <div
       ref={containerRef}
@@ -86,7 +75,7 @@ const StagePlotGraphic = () => {
         onDragEnd={onDragEnd}
       >
         {isPositionSet &&
-          fields?.map((stageElement, index) => (
+          currentStageElements?.map((stageElement, index) => (
             <DraggableItem
               key={stageElement.id}
               id={stageElement.id}
