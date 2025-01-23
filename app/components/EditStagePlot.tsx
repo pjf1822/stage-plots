@@ -38,7 +38,7 @@ const EditStagePlot = ({ plot }: any) => {
   };
   return (
     <FormProvider {...methods}>
-      <div>
+      <div className="relative">
         <form onSubmit={handleSubmit(submitForm, (errors) => {})}>
           <div>
             <label htmlFor="name">Stage Plot Name:</label>
@@ -49,7 +49,7 @@ const EditStagePlot = ({ plot }: any) => {
             />
             {errors.name && <p className="error">{errors.name.message}</p>}
           </div>
-          <div>
+          <div id="fuck-eyah">
             <label htmlFor="description">Description:</label>
             <textarea
               id="description"
@@ -60,12 +60,15 @@ const EditStagePlot = ({ plot }: any) => {
               <p className="error">{errors.description.message}</p>
             )}
           </div>
-          <InputList stagePlotId={plot.id} />
 
-          <button type="submit">
+          <StagePlotGraphic stagePlotId={plot.id} />
+          <InputList stagePlotId={plot.id} />
+          <button
+            type="submit"
+            className="bg-blue-500 text-white py-1 px-4 rounded-md hover:bg-red-600 m-auto w-full"
+          >
             {isSubmitting ? "Submitting..." : "Save Stage Plot"}
           </button>
-          <StagePlotGraphic stagePlotId={plot.id} />
         </form>
       </div>
     </FormProvider>
