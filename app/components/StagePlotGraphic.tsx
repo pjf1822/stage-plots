@@ -2,6 +2,7 @@ import DraggableItem from "@/app/components/DraggableItem";
 import { handleStageElements } from "@/services/stageElementsService";
 import { StageElement } from "@/types";
 import { DndContext } from "@dnd-kit/core";
+import Image from "next/image";
 import React from "react";
 import { useRef } from "react";
 import { useState } from "react";
@@ -9,15 +10,16 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
 const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
-  const { control, setValue } = useFormContext();
+  const { control } = useFormContext();
 
   const { fields, append, update, remove } = useFieldArray({
     control,
     name: "stage_elements",
-    keyName: "fieldId",
+    keyName: "fuckingbullshitfield",
   });
   const [draggingId, setDraggingId] = useState<string | number>("");
   const containerRef = useRef<HTMLDivElement>(null);
+  const trashCanRef = useRef<HTMLDivElement>(null);
 
   const onDragEnd = ({ delta, active }: any) => {
     const container = containerRef.current;
@@ -47,13 +49,30 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
               }
             );
           }
+          const trashCanRight = rect.width - 50;
+          const trashCanBottom = rect.height - 50;
+
+          const isInTrash =
+            newX >= trashCanRight - 50 &&
+            newX <= trashCanRight + 50 &&
+            newY >= trashCanBottom - 50 &&
+            newY <= trashCanBottom + 50;
+
+          if (isInTrash) {
+            // Delete the element from the stage_elements array
+            const indexToRemove = fields.findIndex(
+              (el) => el.id === element.id
+            );
+
+            remove(indexToRemove);
+          } else {
+            console.log("not on top of the fucking trash");
+          }
 
           return { ...element, x: newX, y: newY };
         }
         return element;
       });
-
-      setValue("stage_elements", updatedElements); // Update the entire field array
     }
     setDraggingId("");
   };
@@ -84,6 +103,30 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           />
         ))}
       </DndContext>
+      <div
+        ref={trashCanRef}
+        style={{
+          position: "absolute",
+          bottom: "20px",
+          right: "20px",
+          width: "50px",
+          height: "50px",
+          backgroundColor: "#f0f0f0",
+          borderRadius: "50%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          border: "2px solid #ccc",
+          zIndex: "-1",
+        }}
+      >
+        <Image
+          src="/trash.svg"
+          alt="trash"
+          style={{ objectFit: "contain" }}
+          fill
+        />
+      </div>
       <button
         type="button"
         onClick={() =>

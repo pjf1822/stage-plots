@@ -28,6 +28,7 @@ const EditStagePlot = ({ plot }: any) => {
     watch,
   } = methods;
   const shit = watch();
+  // console.log(shit.stage_elements, "the edit page parent");
 
   const submitForm = async (formData: StagePlotFormData) => {
     try {

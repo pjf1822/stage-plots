@@ -8,6 +8,7 @@ export const submitStagePlotForm = async (
 ): Promise<any[]> => {
   const changedFields = getChangedFields(originalPlotData, formData);
 
+  console.log(changedFields, "are the fields changed");
   if (Object.keys(changedFields).length === 0) {
     console.log("No changes detected!");
     return [];
@@ -63,7 +64,7 @@ export const submitStagePlotForm = async (
   }
 
   if (changedFields["stage_elements"]) {
-    const { added, updated } = changedFields["stage_elements"];
+    const { added, updated, deleted } = changedFields["stage_elements"];
 
     if (added.length > 0) {
       updatePromises.push(
@@ -77,6 +78,13 @@ export const submitStagePlotForm = async (
       updatePromises.push(
         fetchWithErrorHandling("/api/stage-elements/update", {
           stage_elements: updated,
+        })
+      );
+    }
+    if (deleted.length > 0) {
+      updatePromises.push(
+        fetchWithErrorHandling("/api/stage-elements/delete", {
+          stage_elements: deleted,
         })
       );
     }
