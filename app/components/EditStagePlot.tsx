@@ -15,6 +15,7 @@ const EditStagePlot = ({ plot }: any) => {
       name: plot.name,
       description: plot.description || "",
       inputs: plot.inputs || [],
+      stage_elements: plot.stage_elements || [],
     },
   });
 
@@ -61,11 +62,8 @@ const EditStagePlot = ({ plot }: any) => {
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Submitting..." : "Save Stage Plot"}
           </button>
+          <StagePlotGraphic />
         </form>
-        <StagePlotGraphic
-          stageElements={plot.stage_elements}
-          plotid={plot.id}
-        />
       </div>
     </FormProvider>
   );

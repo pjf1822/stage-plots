@@ -1,13 +1,8 @@
-import {
-  Input,
-  StagePlot,
-  StagePlotFormData,
-  StagePlotWithInputs,
-} from "@/types";
+import { FullStagePlot, Input, StagePlot, StagePlotFormData } from "@/types";
 import { fetchWithErrorHandling } from "@/utils/fetchWithErrorHandling";
 
 export const submitStagePlotForm = async (
-  originalPlotData: StagePlotWithInputs,
+  originalPlotData: FullStagePlot,
   formData: any
 ): Promise<any[]> => {
   // MASTER CHANGE OBJECT

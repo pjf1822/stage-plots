@@ -1,19 +1,18 @@
 "use client";
 import React from "react";
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { FieldValues, useFieldArray, useFormContext } from "react-hook-form";
 
 const InputList = () => {
   const {
     control,
     register,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext<FieldValues>();
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "inputs",
   });
-
   return (
     <div>
       <label>Input List (Microphones, DIs, Channels, etc.):</label>
