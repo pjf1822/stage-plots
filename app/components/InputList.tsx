@@ -15,6 +15,21 @@ const InputList = ({ stagePlotId }: { stagePlotId: string }) => {
     name: "inputs",
   });
 
+  const handleAddInput = () => {
+    // Calculate the next channel number (length of the array + 1)
+    const nextChannel = fields.length + 1;
+
+    append({
+      id: uuidv4(),
+      name: "",
+      channel: nextChannel, // Set the channel number
+      mic: "",
+      stand: "",
+      notes: "",
+      stage_plot_id: stagePlotId,
+    });
+  };
+
   return (
     <div className="flex flex-col items-center justify-center w-full  mx-auto p-6">
       <h2 className="text-2xl font-semibold text-center mb-6">
@@ -35,15 +50,8 @@ const InputList = ({ stagePlotId }: { stagePlotId: string }) => {
           <tbody>
             {fields.map((item, index) => (
               <tr key={item.id} className="border-b border-black">
-                <td className="px-1  border-l border-r border-black">
-                  <input
-                    type="number"
-                    {...register(`inputs.${index}.channel`, {
-                      valueAsNumber: true,
-                    })}
-                    placeholder="Channel"
-                    className="p-2  rounded-md w-full"
-                  />
+                <td className="px-1 border-l border-r border-black">
+                  {index + 1} {/* Channel number starts at 1 */}
                 </td>
                 <td className="px-1  border-l border-r border-black">
                   <input
@@ -96,17 +104,7 @@ const InputList = ({ stagePlotId }: { stagePlotId: string }) => {
 
       <button
         type="button"
-        onClick={() =>
-          append({
-            id: uuidv4(),
-            name: "",
-            channel: null,
-            mic: "",
-            stand: "",
-            notes: "",
-            stage_plot_id: stagePlotId,
-          })
-        }
+        onClick={handleAddInput}
         className="bg-green-500 text-white p-4 rounded-md font-semibold hover:bg-green-600 mt-6"
       >
         Add Input
