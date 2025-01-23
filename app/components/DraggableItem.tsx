@@ -3,12 +3,13 @@ import Image from "next/image";
 import React from "react";
 
 interface DraggableItemProps {
-  id: string | number;
+  id: string;
   x: number;
   y: number;
   dragging: boolean;
+  title: string;
 }
-function DraggableItem({ id, x, y, dragging }: DraggableItemProps) {
+function DraggableItem({ id, x, y, dragging, title }: DraggableItemProps) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: id,
   });
@@ -30,8 +31,8 @@ function DraggableItem({ id, x, y, dragging }: DraggableItemProps) {
       }}
     >
       <Image
-        src="/guitar.svg"
-        alt="Guitar"
+        src={`/${title}.svg`} // Use backticks for template literals to dynamically set the src
+        alt={title}
         style={{ objectFit: "contain" }}
         fill
       />
