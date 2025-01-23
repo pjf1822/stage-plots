@@ -62,7 +62,7 @@ const EditStagePlot = ({ plot }: any) => {
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Submitting..." : "Save Stage Plot"}
           </button>
-          <StagePlotGraphic />
+          <StagePlotGraphic stagePlotId={plot.id} />
         </form>
       </div>
     </FormProvider>

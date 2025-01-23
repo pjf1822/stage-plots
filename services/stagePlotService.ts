@@ -1,4 +1,10 @@
-import { FullStagePlot, Input, StagePlot, StagePlotFormData } from "@/types";
+import {
+  FullStagePlot,
+  Input,
+  StageElement,
+  StagePlot,
+  StagePlotFormData,
+} from "@/types";
 import { fetchWithErrorHandling } from "@/utils/fetchWithErrorHandling";
 
 export const submitStagePlotForm = async (
@@ -70,6 +76,50 @@ export const submitStagePlotForm = async (
     );
   }
 
+  const newElements = formData.stage_elements.filter(
+    (el) => typeof el.id === "string"
+  );
+
+  if (newElements.length > 0) {
+    const response = await fetch("/api/stage-elements/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newElements),
+    });
+
+    return await response.json();
+  }
+
+  const modifiedExistingElements = formData.stage_elements
+    .filter((currentElement) => {
+      // Find the corresponding initial element
+      const initialElement = originalPlotData.stage_elements.find(
+        (initialElement) => initialElement.id === currentElement.id
+      );
+
+      // Check if the element has changed (x, y, or title)
+      return (
+        initialElement &&
+        (currentElement.x !== initialElement.x ||
+          currentElement.y !== initialElement.y ||
+          currentElement.title !== initialElement.title)
+      );
+    })
+    .filter((el) => typeof el.id === "number");
+
+  if (modifiedExistingElements.length > 0) {
+    const response = await fetch("/api/stage-elements/update", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(modifiedExistingElements),
+    });
+
+    return await response.json();
+  }
   try {
     const results = await Promise.all(updatePromises);
     return results;

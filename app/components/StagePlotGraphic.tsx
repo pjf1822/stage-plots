@@ -8,7 +8,7 @@ import { useState } from "react";
 import { FieldValues, useFieldArray, useFormContext } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
-const StagePlotGraphic = () => {
+const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: number }) => {
   const {
     control,
     register,
@@ -28,11 +28,12 @@ const StagePlotGraphic = () => {
       x: 50 * fields.length,
       y: 50,
       title: "guitar",
-      stage_plot_id: 1,
+      stage_plot_id: stagePlotId,
     };
 
     append(newElement);
   };
+
   const onDragEnd = ({ delta, active }: any) => {
     const container = containerRef.current;
     if (container) {
@@ -97,6 +98,7 @@ const StagePlotGraphic = () => {
           ))}
       </DndContext>
       <button
+        type="button"
         onClick={addStageElement}
         style={{ position: "absolute", top: 10, left: 10 }}
       >
