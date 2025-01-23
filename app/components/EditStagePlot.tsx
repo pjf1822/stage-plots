@@ -60,12 +60,12 @@ const EditStagePlot = ({ plot }: any) => {
               <p className="error">{errors.description.message}</p>
             )}
           </div>
-          <InputList stagePlotId={plot.id} />
 
           <button type="submit">
             {isSubmitting ? "Submitting..." : "Save Stage Plot"}
           </button>
           <StagePlotGraphic stagePlotId={plot.id} />
+          <InputList stagePlotId={plot.id} />
         </form>
       </div>
     </FormProvider>

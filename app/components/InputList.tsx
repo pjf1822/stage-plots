@@ -16,30 +16,84 @@ const InputList = ({ stagePlotId }: { stagePlotId: string }) => {
   });
 
   return (
-    <div>
-      <label>Input List (Microphones, DIs, Channels, etc.):</label>
-      {fields.map((item, index) => (
-        <div key={item.id} className="input-row">
-          <input
-            {...register(`inputs.${index}.name`, {
-              required: "input name is required",
-            })}
-            placeholder={`input ${index + 1}`}
-          />
-          {errors.inputs?.[index]?.name && (
-            <p className="error">{errors.inputs[index].name?.message}</p>
-          )}
+    <div className="flex flex-col items-center justify-center w-full  mx-auto p-6">
+      <h2 className="text-2xl font-semibold text-center mb-6">
+        Input List (Microphones, DIs, Channels, etc.):
+      </h2>
+      <div className="overflow-x-auto w-full mb-6">
+        <table className="min-w-full table-auto border-collapse border border-black">
+          <thead>
+            <tr>
+              <th className="px-1  text-left bg-gray-200">Channel</th>
+              <th className="px-1  text-left bg-gray-200">Input Name</th>
+              <th className="px-1  text-left bg-gray-200">Mic Type</th>
+              <th className="px-1  text-left bg-gray-200">Stand</th>
+              <th className="px-1  text-left bg-gray-200">Notes</th>
+              <th className="px-1  text-left bg-gray-200">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {fields.map((item, index) => (
+              <tr key={item.id} className="border-b border-black">
+                <td className="px-1  border-l border-r border-black">
+                  <input
+                    type="number"
+                    {...register(`inputs.${index}.channel`, {
+                      valueAsNumber: true,
+                    })}
+                    placeholder="Channel"
+                    className="p-2  rounded-md w-full"
+                  />
+                </td>
+                <td className="px-1  border-l border-r border-black">
+                  <input
+                    {...register(`inputs.${index}.name`, {
+                      required: "Input name is required",
+                    })}
+                    placeholder={`Input ${index + 1}`}
+                    className="p-2  rounded-md w-full"
+                  />
+                </td>
 
-          <input
-            {...register(`inputs.${index}.mic`)}
-            placeholder="Type (e.g., Mic, DI)"
-          />
+                <td className="px-1  border-l border-r border-black">
+                  <input
+                    {...register(`inputs.${index}.mic`)}
+                    placeholder="Mic/DI"
+                    className="p-2  rounded-md w-full"
+                  />
+                </td>
 
-          <button type="button" onClick={() => remove(index)}>
-            Remove
-          </button>
-        </div>
-      ))}
+                <td className="px-1  border-l border-r border-black">
+                  <input
+                    {...register(`inputs.${index}.stand`)}
+                    placeholder="Stand"
+                    className="p-2  rounded-md w-full"
+                  />
+                </td>
+
+                <td className="px-1  border-l border-r border-black">
+                  <textarea
+                    {...register(`inputs.${index}.notes`)}
+                    placeholder="Notes"
+                    className="p-2  rounded-md w-full resize-none min-h-[60px]"
+                  />
+                </td>
+
+                <td className="px-1">
+                  <button
+                    type="button"
+                    onClick={() => remove(index)}
+                    className="bg-red-500 text-white py-1 px-1 rounded-md hover:bg-red-600"
+                  >
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
       <button
         type="button"
         onClick={() =>
@@ -53,8 +107,9 @@ const InputList = ({ stagePlotId }: { stagePlotId: string }) => {
             stage_plot_id: stagePlotId,
           })
         }
+        className="bg-green-500 text-white p-4 rounded-md font-semibold hover:bg-green-600 mt-6"
       >
-        Add input
+        Add Input
       </button>
     </div>
   );
