@@ -8,6 +8,7 @@ import StagePlotGraphic from "./StagePlotGraphic";
 import { submitStagePlotForm } from "@/services/stagePlotService";
 import { StagePlotFormData, stagePlotSchema } from "@/types";
 import { useState } from "react";
+import { toast } from "@/hooks/use-toast";
 
 const EditStagePlot = ({ plot }: any) => {
   const [currentPlot, setCurrentPlot] = useState(plot);
@@ -35,9 +36,11 @@ const EditStagePlot = ({ plot }: any) => {
   const submitForm = async (formData: StagePlotFormData) => {
     try {
       const result = await submitStagePlotForm(currentPlot, formData);
+      toast({
+        title: "Scheduled: Catch up",
+        description: "Friday, February 10, 2023 at 5:57 PM",
+      });
       if ("success" in result && result.success) {
-        // If the response indicates no changes, skip state update
-        console.log(result.message);
         return;
       }
       setCurrentPlot(result);
