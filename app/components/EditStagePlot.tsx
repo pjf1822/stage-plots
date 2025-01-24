@@ -7,17 +7,20 @@ import InputList from "./InputList";
 import StagePlotGraphic from "./StagePlotGraphic";
 import { submitStagePlotForm } from "@/services/stagePlotService";
 import { StagePlotFormData, stagePlotSchema } from "@/types";
+import { useState } from "react";
 
 const EditStagePlot = ({ plot }: any) => {
+  const [currentPlot, setCurrentPlot] = useState(plot);
+
   const methods = useForm<StagePlotFormData>({
     resolver: zodResolver(stagePlotSchema),
     defaultValues: {
-      name: plot.name,
-      description: plot.description,
-      inputs: plot.inputs,
-      stage_elements: plot.stage_elements,
-      created_by: plot.created_by,
-      id: plot.id,
+      name: currentPlot.name,
+      description: currentPlot.description,
+      inputs: currentPlot.inputs,
+      stage_elements: currentPlot.stage_elements,
+      created_by: currentPlot.created_by,
+      id: currentPlot.id,
     },
   });
 
@@ -31,7 +34,13 @@ const EditStagePlot = ({ plot }: any) => {
 
   const submitForm = async (formData: StagePlotFormData) => {
     try {
-      const result = await submitStagePlotForm(plot, formData);
+      const result = await submitStagePlotForm(currentPlot, formData);
+      if ("success" in result && result.success) {
+        // If the response indicates no changes, skip state update
+        console.log(result.message);
+        return;
+      }
+      setCurrentPlot(result);
     } catch (error: any) {
       alert(error.message);
     }
@@ -59,8 +68,8 @@ const EditStagePlot = ({ plot }: any) => {
             />
           </div>
 
-          <StagePlotGraphic stagePlotId={plot.id} />
-          <InputList stagePlotId={plot.id} />
+          <StagePlotGraphic stagePlotId={currentPlot.id} />
+          <InputList stagePlotId={currentPlot.id} />
           <button
             type="submit"
             className="bg-blue-500 text-white py-1 px-4 rounded-md hover:bg-red-600 m-auto w-full"
