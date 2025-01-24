@@ -10,7 +10,7 @@ interface DraggableItemProps {
   title: string;
 }
 function DraggableItem({ id, x, y, dragging, title }: DraggableItemProps) {
-  const { listeners, setNodeRef, transform } = useDraggable({
+  const { listeners, setNodeRef, transform, attributes } = useDraggable({
     id: id,
   });
 
