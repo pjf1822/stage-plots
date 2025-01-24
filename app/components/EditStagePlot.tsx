@@ -9,6 +9,9 @@ import { submitStagePlotForm } from "@/services/stagePlotService";
 import { StagePlotFormData, stagePlotSchema } from "@/types";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 
 const EditStagePlot = ({ plot }: any) => {
   const [currentPlot, setCurrentPlot] = useState(plot);
@@ -37,8 +40,7 @@ const EditStagePlot = ({ plot }: any) => {
     try {
       const result = await submitStagePlotForm(currentPlot, formData);
       toast({
-        title: "Scheduled: Catch up",
-        description: "Friday, February 10, 2023 at 5:57 PM",
+        title: "Stage Plot Updated",
       });
       if ("success" in result && result.success) {
         return;
@@ -54,7 +56,7 @@ const EditStagePlot = ({ plot }: any) => {
         <form onSubmit={handleSubmit(submitForm, (errors) => {})}>
           <div className="mb-6">
             <label htmlFor="name">Stage Plot Name:</label>
-            <input
+            <Input
               id="name"
               {...register("name")}
               placeholder="Enter stage plot name"
@@ -63,7 +65,7 @@ const EditStagePlot = ({ plot }: any) => {
           </div>
           <div className="mb-6">
             <label htmlFor="description">Description:</label>
-            <textarea
+            <Textarea
               id="description"
               {...register("description")}
               placeholder="Enter description"
@@ -73,12 +75,11 @@ const EditStagePlot = ({ plot }: any) => {
 
           <StagePlotGraphic stagePlotId={currentPlot.id} />
           <InputList stagePlotId={currentPlot.id} />
-          <button
-            type="submit"
-            className="bg-blue-500 text-white py-1 px-4 rounded-md hover:bg-red-600 m-auto w-full"
-          >
-            {isSubmitting ? "Submitting..." : "Save Stage Plot"}
-          </button>
+          <div className="flex justify-center ">
+            <Button type="submit" variant="default" size="lg">
+              {isSubmitting ? "Submitting..." : "Save Stage Plot"}
+            </Button>
+          </div>
         </form>
       </div>
     </FormProvider>
