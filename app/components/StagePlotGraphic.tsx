@@ -8,6 +8,7 @@ import { useRef } from "react";
 import { useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
+import ChooseInstrumentModal from "./ChooseInstrumentModal";
 
 const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
   const { control } = useFormContext();
@@ -18,6 +19,8 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
     keyName: "fuckingbullshitfield",
   });
   const [draggingId, setDraggingId] = useState<string | number>("");
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
+
   const containerRef = useRef<HTMLDivElement>(null);
   const trashCanRef = useRef<HTMLDivElement>(null);
 
@@ -32,14 +35,12 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           let newX = element.x + delta.x;
           let newY = element.y + delta.y;
 
-          // Ensure element stays within bounds
           if (
             newX >= 0 &&
             newX + itemSize <= rect.width &&
             newY >= 0 &&
             newY + itemSize <= rect.height
           ) {
-            // Update position in the form state
             update(
               fields.findIndex((el) => el.id === element.id),
               {
@@ -59,22 +60,33 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
             newY <= trashCanBottom + 50;
 
           if (isInTrash) {
-            // Delete the element from the stage_elements array
             const indexToRemove = fields.findIndex(
               (el) => el.id === element.id
             );
 
             remove(indexToRemove);
-          } else {
-            console.log("not on top of the fucking trash");
           }
-
           return { ...element, x: newX, y: newY };
         }
         return element;
       });
     }
     setDraggingId("");
+  };
+
+  const openModal = () => setIsModalOpen(true); // Open modal
+  const closeModal = () => setIsModalOpen(false); // Close modal
+
+  const handleItemSelect = (item: string) => {
+    closeModal(); // Close the modal after selection
+    // Create new element with the selected item as the title
+    append({
+      id: uuidv4(),
+      x: 50 * fields.length,
+      y: 50,
+      title: item, // Use the selected item as the title
+      stage_plot_id: stagePlotId,
+    });
   };
   return (
     <div
@@ -99,6 +111,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
             id={stageElement.id}
             x={stageElement.x}
             y={stageElement.y}
+            title={stageElement.title}
             dragging={draggingId === stageElement.id}
           />
         ))}
@@ -129,19 +142,29 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       </div>
       <button
         type="button"
-        onClick={() =>
-          append({
-            id: uuidv4(),
-            x: 50 * fields.length,
-            y: 50,
-            title: "New Element",
-            stage_plot_id: stagePlotId,
-          })
-        }
+        onClick={openModal} // Open the modal when clicked
         style={{ position: "absolute", top: 10, left: 10 }}
       >
         Add New Element
       </button>
+      <ChooseInstrumentModal
+        isOpen={isModalOpen}
+        items={[
+          "Guitar",
+          "Flute",
+          "Man",
+          "Woman",
+          "Violin",
+          "Trumpet",
+          "Drum-Kit",
+          "Sax",
+          "Monitor",
+          "Power",
+          "Mic-stand",
+        ]} // List of items to choose from
+        onSelect={handleItemSelect}
+        onClose={closeModal}
+      />
     </div>
   );
 };

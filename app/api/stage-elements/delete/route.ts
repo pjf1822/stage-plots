@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
 
   const elementIds = stage_elements
     .map((element: any) => element.id)
-    .filter((id) => !!id);
+    .filter((id: string) => !!id);
 
   console.log(elementIds, "show me the stuff");
   const { data, error } = await supabase
