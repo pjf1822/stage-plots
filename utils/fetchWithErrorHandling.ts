@@ -7,7 +7,7 @@ export const fetchWithErrorHandling = async (url: string, body: any) => {
 
   if (!res.ok) {
     const errorResponse = await res.json();
-    throw new Error(errorResponse.message || `Failed to ${url}`);
+    throw new Error(errorResponse.message || `Failed to0 ${url}`);
   }
   return res.json();
 };
