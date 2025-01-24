@@ -14,6 +14,9 @@ export async function getPlots() {
       .eq("created_by", user?.user?.id);
     return { data };
   } catch (error) {
-    return { error: error.message }; // Optionally return an error object for better error handling
+    if (error instanceof Error) {
+      return { error: error.message }; // Safe to access message
+    }
+    return { error: "An unknown error occurred" }; // Fallback for non-Error objects
   }
 }

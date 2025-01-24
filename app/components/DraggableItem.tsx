@@ -15,7 +15,6 @@ function DraggableItem({ id, x, y, dragging, title }: DraggableItemProps) {
   });
 
   const imageSrc = title === "Mic-stand" ? `/${title}.jpg` : `/${title}.svg`;
-  console.log(imageSrc);
   return (
     <div
       ref={setNodeRef}
