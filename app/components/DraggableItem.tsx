@@ -18,7 +18,7 @@ function DraggableItem({ id, x, y, dragging, title }: DraggableItemProps) {
   return (
     <div
       ref={setNodeRef}
-      // {...attributes}
+      {...attributes}
       {...listeners}
       style={{
         position: "absolute",
