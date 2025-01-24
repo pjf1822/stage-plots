@@ -11,18 +11,19 @@ export async function POST(req: NextRequest) {
     .from("stage_plots")
     .update(updateStagePlotData)
     .eq("id", stage_plot_id)
-    .select();
+    .select(...Object.keys(updateStagePlotData));
 
   if (error) {
     return NextResponse.json(
-      { message: "Failed to update stage plot", error: error.message },
+      { success: false, error: error.message },
       { status: 500 }
     );
   }
+  console.log(data[0], "hey bitch");
 
   return NextResponse.json(
     {
-      message: "Stage plot and inputs processed successfully",
+      success: true,
       stagePlot: data[0],
     },
     { status: 200 }
