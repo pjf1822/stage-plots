@@ -32,7 +32,7 @@ function DraggableItem({ id, x, y, dragging, title }: DraggableItemProps) {
       }}
     >
       <Image
-        src={imageSrc} // Use the dynamically set src
+        src={imageSrc}
         alt={title}
         style={{
           objectFit: "contain",
