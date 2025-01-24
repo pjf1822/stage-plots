@@ -14,8 +14,8 @@ export async function getPlots() {
     return { data };
   } catch (error) {
     if (error instanceof Error) {
-      return { error: error.message }; // Safe to access message
+      return { error: error.message };
     }
-    return { error: "An unknown error occurred" }; // Fallback for non-Error objects
+    return { error: "An unknown error occurred" };
   }
 }
