@@ -8,6 +8,7 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import ChooseInstrumentModal from "./ChooseInstrumentModal";
 import { StagePlotFormData } from "@/types";
+import { Button } from "@/components/ui/button";
 
 const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
   const { control } = useFormContext<StagePlotFormData>();
@@ -75,17 +76,15 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
     setDraggingId("");
   };
 
-  const openModal = () => setIsModalOpen(true); // Open modal
-  const closeModal = () => setIsModalOpen(false); // Close modal
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   const handleItemSelect = (item: string) => {
-    closeModal(); // Close the modal after selection
-    // Create new element with the selected item as the title
     append({
       id: uuidv4(),
       x: 50 * fields.length,
       y: 50,
-      title: item, // Use the selected item as the title
+      title: item,
       stage_plot_id: stagePlotId,
     });
   };
@@ -131,7 +130,6 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           justifyContent: "center",
           alignItems: "center",
           border: "2px solid #ccc",
-          zIndex: "-1",
         }}
       >
         <Image
@@ -141,13 +139,14 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           fill
         />
       </div>
-      <button
+      <Button
         type="button"
-        onClick={openModal} // Open the modal when clicked
-        style={{ position: "absolute", top: 10, left: 10 }}
+        onClick={openModal}
+        className="absolute top-2 left-2"
       >
         Add New Element
-      </button>
+      </Button>
+
       <ChooseInstrumentModal
         isOpen={isModalOpen}
         items={[

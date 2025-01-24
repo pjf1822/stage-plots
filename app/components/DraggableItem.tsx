@@ -18,14 +18,14 @@ function DraggableItem({ id, x, y, dragging, title }: DraggableItemProps) {
   return (
     <div
       ref={setNodeRef}
-      // {...attributes}
       {...listeners}
       style={{
         position: "absolute",
         top: y,
         left: x,
-        width: 50,
-        height: 50,
+        width: 60,
+        height: 60,
+        zIndex: 100,
         transform: dragging
           ? `translate(${transform?.x || 0}px, ${transform?.y || 0}px)`
           : "none",
