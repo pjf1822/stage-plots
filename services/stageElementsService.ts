@@ -9,7 +9,8 @@ export const handleStageElements = async (
     .filter((currentElement) => {
       // Find the corresponding initial element
       const initialElement = initialStageElements.find(
-        (initialElement) => initialElement.id === currentElement.id
+        (initialElement: StageElement) =>
+          initialElement.id === currentElement.id
       );
 
       // Check if the element has changed (x, y, or title)

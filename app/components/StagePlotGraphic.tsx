@@ -1,6 +1,4 @@
 import DraggableItem from "@/app/components/DraggableItem";
-import { handleStageElements } from "@/services/stageElementsService";
-import { StageElement } from "@/types";
 import { DndContext } from "@dnd-kit/core";
 import Image from "next/image";
 import React from "react";
@@ -9,15 +7,17 @@ import { useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import ChooseInstrumentModal from "./ChooseInstrumentModal";
+import { StagePlotFormData } from "@/types";
 
 const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
-  const { control } = useFormContext();
+  const { control } = useFormContext<StagePlotFormData>();
 
   const { fields, append, update, remove } = useFieldArray({
     control,
     name: "stage_elements",
-    keyName: "fuckingbullshitfield",
+    keyName: "suckmyfuckingdidck",
   });
+
   const [draggingId, setDraggingId] = useState<string | number>("");
   const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
 
@@ -31,6 +31,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       const itemSize = 40;
 
       const updatedElements = fields.map((element) => {
+        console.log(element.id, "what is the element", active.id);
         if (element.id === active.id) {
           let newX = element.x + delta.x;
           let newY = element.y + delta.y;
