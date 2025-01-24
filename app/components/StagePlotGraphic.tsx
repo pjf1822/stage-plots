@@ -160,6 +160,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           "Sax",
           "Monitor",
           "Power",
+          "Mic-stand",
         ]} // List of items to choose from
         onSelect={handleItemSelect}
         onClose={closeModal}

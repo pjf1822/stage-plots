@@ -14,6 +14,8 @@ function DraggableItem({ id, x, y, dragging, title }: DraggableItemProps) {
     id: id,
   });
 
+  const imageSrc = title === "Mic-stand" ? `/${title}.jpg` : `/${title}.svg`;
+  console.log(imageSrc);
   return (
     <div
       ref={setNodeRef}
@@ -31,7 +33,7 @@ function DraggableItem({ id, x, y, dragging, title }: DraggableItemProps) {
       }}
     >
       <Image
-        src={`/${title}.svg`} // Use backticks for template literals to dynamically set the src
+        src={imageSrc} // Use the dynamically set src
         alt={title}
         style={{
           objectFit: "contain",
