@@ -12,14 +12,14 @@ export async function POST(req: NextRequest) {
 
   if (error) {
     return NextResponse.json(
-      { message: "Failed to upsert inputs", error: error.message },
+      { success: false, error: error.message },
       { status: 500 }
     );
   }
 
   return NextResponse.json(
     {
-      message: "Inputs upserted successfully",
+      success: true,
       upsertedInputs: data,
     },
     { status: 200 }

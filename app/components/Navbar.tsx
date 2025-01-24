@@ -19,9 +19,7 @@ const Navbar = () => {
       <Link href="/">
         <Button className="text-white hover:bg-gray-600">Home</Button>
       </Link>
-      <Link href="/plots">
-        <Button className="text-white hover:bg-gray-600">My Plots</Button>
-      </Link>
+
       <Button onClick={logout} className="text-white hover:bg-gray-600">
         Logout
       </Button>
