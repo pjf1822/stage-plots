@@ -16,7 +16,11 @@ const StagePlotPage = async ({
     return <div>Stage Plot doesnt exist</div>;
   }
 
-  return <EditStagePlot plot={plot} />;
+  return (
+    <div className="min-h-screen bg-themeOne flex items-center justify-center">
+      <EditStagePlot plot={plot} />
+    </div>
+  );
 };
 
 export default StagePlotPage;

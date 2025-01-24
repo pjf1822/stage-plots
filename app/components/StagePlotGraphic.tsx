@@ -87,12 +87,13 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       title: item,
       stage_plot_id: stagePlotId,
     });
+    closeModal();
   };
   return (
     <div
       ref={containerRef}
       style={{
-        height: "60vh",
+        height: "80vh",
         width: "70vw",
         position: "relative",
         border: "2px solid black",
@@ -161,7 +162,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           "Monitor",
           "Power",
           "Mic-stand",
-        ]} // List of items to choose from
+        ]}
         onSelect={handleItemSelect}
         onClose={closeModal}
       />

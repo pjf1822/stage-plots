@@ -6,6 +6,15 @@ type ModalProps = {
   onSelect: (item: string) => void;
   onClose: () => void;
 };
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 const ChooseInstrumentModal = ({
   isOpen,
@@ -16,21 +25,14 @@ const ChooseInstrumentModal = ({
   if (!isOpen) return null; // Don't render the modal if it's closed
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        zIndex: 1000,
-      }}
-    >
-      <div
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      {" "}
+      {/* Bind modal open state to isOpen and onClose */}
+      <DialogTrigger asChild>
+        {/* Trigger to open the modal, you can replace with a button or any other component */}
+        <button style={{ display: "none" }}></button>
+      </DialogTrigger>
+      <DialogContent
         style={{
           background: "#fff",
           padding: "20px",
@@ -41,38 +43,26 @@ const ChooseInstrumentModal = ({
           minWidth: "200px",
         }}
       >
-        <h3>Select an Item</h3>
-        {items.map((item, index) => (
-          <button
-            key={index}
-            style={{
-              margin: "10px 0",
-              padding: "10px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-              cursor: "pointer",
-              backgroundColor: "#f0f0f0",
-            }}
-            onClick={() => onSelect(item)}
-          >
-            {item}
-          </button>
-        ))}
-        <button
-          style={{
-            marginTop: "10px",
-            padding: "10px",
-            borderRadius: "5px",
-            border: "1px solid #ccc",
-            cursor: "pointer",
-            backgroundColor: "#f0f0f0",
-          }}
-          onClick={onClose}
-        >
-          Cancel
-        </button>
-      </div>
-    </div>
+        <DialogHeader>
+          <DialogTitle>Select an Item</DialogTitle>
+          <DialogDescription>
+            Choose an instrument from the list below.
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="grid grid-cols-2 gap-4">
+          {items.map((item, index) => (
+            <Button
+              key={index}
+              onClick={() => onSelect(item)}
+              className="w-full"
+            >
+              {item}
+            </Button>
+          ))}
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 

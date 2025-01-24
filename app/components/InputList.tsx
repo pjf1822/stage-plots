@@ -53,7 +53,7 @@ const InputList = ({ stagePlotId }: { stagePlotId: string }) => {
               <TableHead>Mic Type</TableHead>
               <TableHead>Stand</TableHead>
               <TableHead>Notes</TableHead>
-              <TableHead>Action</TableHead>
+              <TableHead></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
