@@ -8,6 +8,7 @@ export async function GET(request: Request) {
   // if "next" is in param, use it as the redirect URL
   const next = searchParams.get("next") ?? "/";
 
+  console.log(process.env.NODE_ENV, "what do we ahve");
   if (code) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
@@ -15,9 +16,10 @@ export async function GET(request: Request) {
       const forwardedHost = request.headers.get("x-forwarded-host"); // original dforigin before load balancer
       const isLocalEnv = process.env.NODE_ENV === "development";
       if (isLocalEnv) {
-        return NextResponse.redirect(`${origin}${next}`);
-      } else if (forwardedHost) {
+        // return NextResponse.redirect(`${origin}${next}`);
         return NextResponse.redirect(`https://${forwardedHost}${next}`);
+      } else if (forwardedHost) {
+        return NextResponse.redirect(`http://${forwardedHost}${next}`);
       } else {
         return NextResponse.redirect(`${origin}${next}`);
       }
