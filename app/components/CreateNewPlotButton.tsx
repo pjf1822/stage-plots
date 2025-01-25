@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation"; // Import useRouter from next/navigation
 import React, { useState } from "react";
 
@@ -39,9 +40,9 @@ const CreateNewPlotButton = () => {
     }
   };
   return (
-    <button onClick={createStagePlot} disabled={loading}>
+    <Button onClick={createStagePlot} disabled={loading}>
       {loading ? "Creating..." : "Create new plot"}
-    </button>
+    </Button>
   );
 };
 
