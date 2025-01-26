@@ -3,9 +3,16 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import { createClient } from "@/utils/supabase/client";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const supabase = createClient();
+  const pathname = usePathname();
+
+  // Hide Navbar on login page
+  if (pathname === "/login") {
+    return null;
+  }
 
   const handleLogout = async () => {
     try {
