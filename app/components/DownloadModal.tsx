@@ -1,24 +1,29 @@
 import {
-  Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 import React from "react";
 
-const DownloadModal = ({ image, downloadImage }) => {
+interface DownloadModalProps {
+  image: string | null; // Image is either a string (base64 URL) or null
+  downloadImage: () => void; // Function to trigger the image download
+}
+const DownloadModal: React.FC<DownloadModalProps> = ({
+  image,
+  downloadImage,
+}) => {
   return (
     <DialogContent>
       <DialogHeader>
         <DialogTitle>Are you absolutely sure?</DialogTitle>
-        {image && (
-          <div className="mt-4">
-            <img src={image} alt="Screenshot of the form" />
-            <button onClick={downloadImage}>Download Image</button>
-          </div>
-        )}
       </DialogHeader>
+      {image && (
+        <div className="mt-4">
+          <img src={image} alt="Screenshot of the form" />
+          <button onClick={downloadImage}>Download Image</button>
+        </div>
+      )}
     </DialogContent>
   );
 };

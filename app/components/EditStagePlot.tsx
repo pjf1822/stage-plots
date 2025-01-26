@@ -16,7 +16,6 @@ import { useScreenshot } from "use-react-screenshot";
 import { useRef } from "react";
 import DownloadModal from "./DownloadModal";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { DialogTrigger } from "@radix-ui/react-dialog";
 
 const EditStagePlot = ({ plot }: any) => {
   const [currentPlot, setCurrentPlot] = useState(plot);
