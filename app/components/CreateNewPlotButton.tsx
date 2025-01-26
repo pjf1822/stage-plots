@@ -40,7 +40,11 @@ const CreateNewPlotButton = () => {
     }
   };
   return (
-    <Button onClick={createStagePlot} disabled={loading}>
+    <Button
+      onClick={createStagePlot}
+      disabled={loading}
+      className="font-urbanist"
+    >
       {loading ? "Creating..." : "Create new plot"}
     </Button>
   );

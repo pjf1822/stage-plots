@@ -11,7 +11,7 @@ export default {
     extend: {
       colors: {
         themeOne: "#2C3531",
-        themeTwo: "116466",
+        themeTwo: "#116466",
         themeThree: "#D9B08C",
         themeFour: "#FFCB9A",
         themeFive: "#D1E8E2",
