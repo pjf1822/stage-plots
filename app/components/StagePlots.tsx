@@ -22,10 +22,6 @@ const StagePlots = () => {
     refetchOnWindowFocus: false,
   });
 
-  if (isLoading) {
-    return <Skeleton className="w-[100px] h-[20px] rounded-full" />;
-  }
-
   return (
     <div className="space-y-4">
       <Carousel opts={{ loop: true }}>

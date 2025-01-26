@@ -7,7 +7,6 @@ import { v4 as uuidv4 } from "uuid";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -47,7 +46,7 @@ const InputList = ({ stagePlotId }: { stagePlotId: string }) => {
       <div className="overflow-x-auto w-full mb-6">
         <Table>
           <TableHeader>
-            <TableRow>
+            <TableRow style={{ borderBottomWidth: 0 }}>
               <TableHead className="w-[100px]">Channel</TableHead>
               <TableHead>Input Name</TableHead>
               <TableHead>Mic Type</TableHead>
@@ -58,8 +57,8 @@ const InputList = ({ stagePlotId }: { stagePlotId: string }) => {
           </TableHeader>
           <TableBody>
             {fields.map((item, index) => (
-              <TableRow key={item.id}>
-                <TableCell className="text-center border border-gray-400 ">
+              <TableRow className="border-0" key={item.id}>
+                <TableCell className="p-0 text-center border border-gray-400 ">
                   {index + 1}
                 </TableCell>
                 <TableCell className="p-0 border border-gray-400 ">
@@ -68,38 +67,38 @@ const InputList = ({ stagePlotId }: { stagePlotId: string }) => {
                       required: "Input name is required",
                     })}
                     placeholder={`Input ${index + 1}`}
-                    className="p-2 rounded-md w-full border-none shadow-none focus-visible:ring-0"
+                    className="p-0 rounded-md w-full border-none shadow-none focus-visible:ring-0"
                   />
                 </TableCell>
                 <TableCell className="p-0 border border-gray-400 ">
                   <Input
                     {...register(`inputs.${index}.mic`)}
                     placeholder="Mic/DI"
-                    className="p-2 rounded-md w-full border-none shadow-none focus-visible:ring-0"
+                    className="p-0 rounded-md w-full border-none shadow-none focus-visible:ring-0"
                   />
                 </TableCell>
                 <TableCell className="p-0 border border-gray-400 ">
                   <Input
                     {...register(`inputs.${index}.stand`)}
                     placeholder="Stand"
-                    className="p-2 rounded-md w-full border-none shadow-none focus-visible:ring-0"
+                    className="p-0 rounded-md w-full border-none shadow-none focus-visible:ring-0"
                   />
                 </TableCell>
                 <TableCell className="p-0 border border-gray-400 ">
                   <Textarea
                     {...register(`inputs.${index}.notes`)}
                     placeholder="Notes"
-                    className="p-2 rounded-md w-full border-none shadow-none focus-visible:ring-0 resize-none"
+                    className="p-0 rounded-md w-full border-none shadow-none focus-visible:ring-0 resize-none"
                     rows={1}
                   />
                 </TableCell>
-                <TableCell className="flex items-center justify-center border-none  border-gray-400 ">
+                <TableCell className="p-0 flex items-center justify-center border-none  border-gray-400 ">
                   <Button
-                    variant="destructive"
-                    size="lg"
+                    variant="ghost"
+                    size="sm"
                     onClick={() => remove(index)}
                   >
-                    Remove
+                    x
                   </Button>
                 </TableCell>
               </TableRow>
@@ -111,10 +110,10 @@ const InputList = ({ stagePlotId }: { stagePlotId: string }) => {
       <Button
         type="button"
         variant="default"
-        size="lg"
+        size="sm"
         onClick={handleAddInput}
       >
-        Add input
+        Add Input
       </Button>
     </div>
   );
