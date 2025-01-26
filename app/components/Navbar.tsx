@@ -9,7 +9,6 @@ const Navbar = () => {
   const supabase = createClient();
   const pathname = usePathname();
 
-  // Hide Navbar on login page
   if (pathname === "/login") {
     return null;
   }
@@ -28,15 +27,22 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex items-center space-x-4 bg-themeFive p-4 border-b-4 border-themeFour">
-      <div>
-        <Image src="/logo.png" alt="Logo" width={160} height={160} />
-      </div>
+    <div className="flex justify-between items-center space-x-4 bg-themeOne p-4 border-b-4 border-themeFive">
       <Link href="/">
-        <Button className="text-white hover:bg-gray-600">Home</Button>
+        {/* Wrap the logo in a Link to make it clickable */}
+        <Image
+          src="/logo.png"
+          alt="Logo"
+          width={160}
+          height={160}
+          className="rounded-full cursor-pointer" // Add cursor-pointer for a clickable effect
+        />
       </Link>
 
-      <Button onClick={handleLogout} className="text-white hover:bg-gray-600">
+      <Button
+        onClick={handleLogout}
+        className="text-white hover:bg-gray-600 !mr-5 font-urbanist" // Adjusted margin-right to 20px (mr-5)
+      >
         Logout
       </Button>
     </div>
