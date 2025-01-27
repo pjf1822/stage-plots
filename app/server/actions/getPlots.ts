@@ -7,6 +7,7 @@ export async function getPlots() {
     const supabase = await createClient();
 
     const { data: user } = await supabase.auth.getUser();
+    console.log(user, "hey");
     const { data, error } = await supabase
       .from("stage_plots")
       .select("*")
