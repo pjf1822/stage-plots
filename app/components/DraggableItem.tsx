@@ -27,7 +27,7 @@ function DraggableItem({ id, x, y, dragging, title }: DraggableItemProps) {
         left: x,
         width: 60,
         height: 60,
-        zIndex: 23,
+        // zIndex: 23,
         transform: dragging
           ? `translate(${transform?.x || 0}px, ${transform?.y || 0}px)`
           : "none",

@@ -18,6 +18,7 @@ import DownloadModal from "./DownloadModal";
 import { Dialog } from "@/components/ui/dialog";
 import { useQuery } from "@tanstack/react-query";
 import { getPlotById } from "../server/actions/getPlotById";
+import { v4 as uuidv4 } from "uuid";
 
 const EditStagePlot = ({ plotid }: { plotid: string }) => {
   const { data: plot, isLoading } = useQuery({
@@ -27,7 +28,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
 
   if (isLoading) return <div>Loading...</div>;
   const [currentPlot, setCurrentPlot] = useState(plot);
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const methods = useForm<StagePlotFormData>({
     resolver: zodResolver(stagePlotSchema),
@@ -72,9 +73,26 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
     if (image) {
       const link = document.createElement("a");
       link.href = image;
-      link.download = "stage_plot.png";
+      link.download = `${currentPlot.name}.png`;
       link.click();
     }
+  };
+
+  const handleAddInput = () => {
+    const nextChannel = methods.getValues("inputs").length + 1;
+
+    methods.setValue("inputs", [
+      ...methods.getValues("inputs"),
+      {
+        id: uuidv4(),
+        name: "",
+        channel: nextChannel,
+        mic: "",
+        stand: "",
+        notes: "",
+        stage_plot_id: plotid,
+      },
+    ]);
   };
   return (
     <div>
@@ -102,22 +120,32 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
               </div>
 
               <StagePlotGraphic stagePlotId={currentPlot.id} />
-              <InputList stagePlotId={currentPlot.id} />
+              <InputList />
             </div>
-            <div className="flex justify-center">
+            <div className="fixed bottom-0 left-0 right-0 bg-white py-4 mt-4 shadow-lg flex justify-around gap-4 z-10 bg-themeFour z-99">
               <Button type="submit" variant="default" size="lg">
                 {isSubmitting ? "Submitting..." : "Save Stage Plot"}
+              </Button>
+              <Button
+                type="button"
+                variant="default"
+                size="lg"
+                onClick={handleAddInput}
+              >
+                Add Input
+              </Button>
+              <Button
+                onClick={getImage}
+                type="button"
+                variant="default"
+                size="lg"
+              >
+                Take Screenshot
               </Button>
             </div>
           </form>
         </div>
       </FormProvider>
-      <button
-        onClick={getImage}
-        className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
-      >
-        Take Screenshot
-      </button>
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         {image && <DownloadModal image={image} downloadImage={downloadImage} />}
