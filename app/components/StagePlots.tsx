@@ -15,11 +15,9 @@ import {
 } from "@/components/ui/carousel";
 
 const StagePlots = () => {
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["stagePlots"],
     queryFn: getPlots,
-    staleTime: 1000 * 60,
-    refetchOnWindowFocus: false,
   });
 
   return (

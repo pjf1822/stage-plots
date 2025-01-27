@@ -1,6 +1,10 @@
 import EditStagePlot from "@/app/components/EditStagePlot";
 import { getPlotById } from "@/app/server/actions/getPlotById";
-
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from "@tanstack/react-query";
 import React from "react";
 
 const StagePlotPage = async ({
@@ -10,15 +14,18 @@ const StagePlotPage = async ({
 }) => {
   const { plotid } = await params;
 
-  const { result: plot, error } = await getPlotById(plotid);
-
-  if (!plot || error) {
-    return <div>Stage Plot doesnt exist</div>;
-  }
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: ["plot", plotid],
+    queryFn: () => getPlotById(plotid),
+    staleTime: 1000 * 60 * 5,
+  });
 
   return (
     <div className="min-h-screen bg-themeOne flex items-center justify-center">
-      <EditStagePlot plot={plot} />
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <EditStagePlot plotid={plotid} />
+      </HydrationBoundary>
     </div>
   );
 };

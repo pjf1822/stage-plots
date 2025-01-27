@@ -1,3 +1,5 @@
+"use server";
+
 import { createClient } from "@/utils/supabase/server";
 
 export async function getPlotById(plotid: string) {
@@ -20,7 +22,7 @@ export async function getPlotById(plotid: string) {
       return { error: error?.message || "Stage plot not found." };
     }
 
-    return { result: data };
+    return data;
   } catch (error) {
     return { error: (error as Error).message };
   }
