@@ -15,9 +15,17 @@ import { Input } from "@/components/ui/input";
 import { useScreenshot } from "use-react-screenshot";
 import { useRef } from "react";
 import DownloadModal from "./DownloadModal";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Dialog } from "@/components/ui/dialog";
+import { useQuery } from "@tanstack/react-query";
+import { getPlotById } from "../server/actions/getPlotById";
 
-const EditStagePlot = ({ plot }: any) => {
+const EditStagePlot = ({ plotid }: { plotid: string }) => {
+  const { data: plot, isLoading } = useQuery({
+    queryKey: ["plot", plotid],
+    queryFn: () => getPlotById(plotid),
+  });
+
+  if (isLoading) return <div>Loading...</div>;
   const [currentPlot, setCurrentPlot] = useState(plot);
   const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
 
