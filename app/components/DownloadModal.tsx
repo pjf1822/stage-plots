@@ -16,7 +16,7 @@ const DownloadModal: React.FC<DownloadModalProps> = ({
   return (
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>Are you absolutely sure?</DialogTitle>
+        <DialogTitle></DialogTitle>
       </DialogHeader>
       {image && (
         <div className="mt-4">

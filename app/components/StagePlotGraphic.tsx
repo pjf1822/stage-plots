@@ -16,7 +16,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
   const { fields, append, update, remove } = useFieldArray({
     control,
     name: "stage_elements",
-    keyName: "suckmyfuckingdidck",
+    keyName: "....",
   });
 
   const [draggingId, setDraggingId] = useState<string | number>("");
