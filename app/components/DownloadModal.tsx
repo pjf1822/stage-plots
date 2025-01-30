@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   DialogContent,
   DialogHeader,
@@ -19,9 +20,11 @@ const DownloadModal: React.FC<DownloadModalProps> = ({
         <DialogTitle></DialogTitle>
       </DialogHeader>
       {image && (
-        <div className="mt-4">
-          <img src={image} alt="Screenshot of the form" />
-          <button onClick={downloadImage}>Download Image</button>
+        <div className="mt-4 flex flex-col items-center">
+          <img src={image} alt="Screenshot of the form" className="mb-4" />
+          <Button onClick={downloadImage} className="mx-auto block">
+            Download Image
+          </Button>
         </div>
       )}
     </DialogContent>

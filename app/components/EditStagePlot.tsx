@@ -80,15 +80,16 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
     window.addEventListener("message", async (event) => {
       if (event.data.type === "READY_FOR_SCREENSHOT") {
         setTimeout(async () => {
-          const element =
-            screenshotWindow?.document.querySelector("#previewRef");
+          const element = screenshotWindow?.document.querySelector(
+            "#previewRef"
+          ) as HTMLElement | null;
 
           const screenshot = await takeScreenshot(element);
 
-          // screenshotWindow?.close();
+          screenshotWindow?.close();
 
           setIsModalOpen(true);
-        }, 100);
+        }, 400);
       }
     });
   };
