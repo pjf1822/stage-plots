@@ -19,6 +19,7 @@ import { Dialog } from "@/components/ui/dialog";
 import { useQuery } from "@tanstack/react-query";
 import { getPlotById } from "../server/actions/getPlotById";
 import { v4 as uuidv4 } from "uuid";
+import StagePlotPreview from "./StagePlotPreview";
 
 const EditStagePlot = ({ plotid }: { plotid: string }) => {
   const { data: plot, isLoading } = useQuery({
@@ -29,6 +30,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
   if (isLoading) return <div>Loading...</div>;
   const [currentPlot, setCurrentPlot] = useState(plot);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const previewRef = useRef<HTMLDivElement>(null);
 
   const methods = useForm<StagePlotFormData>({
     resolver: zodResolver(stagePlotSchema),
@@ -66,10 +68,32 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
   const formRef = useRef<HTMLDivElement>(null);
 
   const [image, takeScreenshot] = useScreenshot();
+
   const getImage = () => {
-    setIsModalOpen(true);
-    takeScreenshot(formRef.current);
+    const formData = methods.getValues();
+
+    const screenshotWindow = window.open(
+      `/screenshot?plotData=${encodeURIComponent(JSON.stringify(formData))}`,
+      "Screenshot"
+    );
+
+    window.addEventListener("message", async (event) => {
+      if (event.data.type === "READY_FOR_SCREENSHOT") {
+        setTimeout(async () => {
+          const element = screenshotWindow?.document.querySelector(
+            "#previewRef"
+          ) as HTMLElement | null;
+
+          const screenshot = await takeScreenshot(element);
+
+          screenshotWindow?.close();
+
+          setIsModalOpen(true);
+        }, 400);
+      }
+    });
   };
+
   const downloadImage = () => {
     if (image) {
       const link = document.createElement("a");
@@ -96,18 +120,18 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
     ]);
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!methods.formState.isSubmitting) {
-        handleSubmit(submitForm)();
-      }
-    }, 10000);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     if (!methods.formState.isSubmitting) {
+  //       handleSubmit(submitForm)();
+  //     }
+  //   }, 10000);
 
-    return () => clearInterval(interval); // Cleanup on unmount
-  }, [methods, handleSubmit, submitForm]);
+  //   return () => clearInterval(interval); // Cleanup on unmount
+  // }, [methods, handleSubmit, submitForm]);
 
   return (
-    <div id="34">
+    <div>
       <FormProvider {...methods}>
         <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
           <form onSubmit={handleSubmit(submitForm, (errors) => {})}>
