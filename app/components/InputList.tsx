@@ -19,7 +19,6 @@ const InputList = () => {
   const firstColumn = fields.slice(0, rowsPerColumn); // First 15 rows
   const secondColumn = fields.slice(rowsPerColumn); // Remaining rows
   const hasSecondColumn = secondColumn.length > 0;
-  console.log(fields, "are we tehte ");
   return (
     <div className="flex flex-col items-center justify-center w-full mx-auto p-6">
       <div
