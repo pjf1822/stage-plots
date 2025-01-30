@@ -8,7 +8,6 @@ const ScreenshotPage = () => {
   const searchParams = useSearchParams();
   const previewRef = useRef<HTMLDivElement>(null);
 
-  // Get the data from URL parameters
   const plotData = searchParams.get("plotData")
     ? JSON.parse(decodeURIComponent(searchParams.get("plotData") || ""))
     : null;
@@ -16,7 +15,6 @@ const ScreenshotPage = () => {
   useEffect(() => {
     const element = previewRef.current;
     if (plotData && element) {
-      // Send the element size back to the parent window
       window.opener?.postMessage(
         {
           type: "READY_FOR_SCREENSHOT",
@@ -53,7 +51,6 @@ const ScreenshotPage = () => {
 
   return (
     <div className="p-8 bg-white min-h-screen">
-      asdf
       <div id="previewRef" ref={previewRef}>
         <StagePlotPreview formData={plotData} stagePlotId={plotData.id} />
       </div>
