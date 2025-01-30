@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider } from "react-hook-form";
 import InputList from "./InputList";
@@ -53,6 +53,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
       const result = await submitStagePlotForm(currentPlot, formData);
       toast({
         title: "Stage Plot Updated",
+        position: "top-center",
       });
       if ("success" in result && result.success) {
         return;
@@ -94,8 +95,19 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
       },
     ]);
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!methods.formState.isSubmitting) {
+        handleSubmit(submitForm)();
+      }
+    }, 10000);
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, [methods, handleSubmit, submitForm]);
+
   return (
-    <div>
+    <div id="34">
       <FormProvider {...methods}>
         <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
           <form onSubmit={handleSubmit(submitForm, (errors) => {})}>
