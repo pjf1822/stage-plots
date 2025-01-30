@@ -53,7 +53,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
       const result = await submitStagePlotForm(currentPlot, formData);
       toast({
         title: "Stage Plot Updated",
-        position: "top-center",
+        // position: "top-center",
       });
       if ("success" in result && result.success) {
         return;
