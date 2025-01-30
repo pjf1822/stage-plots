@@ -1,17 +1,8 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+
 import React from "react";
 import { FieldValues, useFieldArray, useFormContext } from "react-hook-form";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Textarea } from "@/components/ui/textarea";
+import TableSection from "./TableSection";
 
 const InputList = () => {
   const {
@@ -24,72 +15,37 @@ const InputList = () => {
     control,
     name: "inputs",
   });
-
+  const rowsPerColumn = 18;
+  const firstColumn = fields.slice(0, rowsPerColumn); // First 15 rows
+  const secondColumn = fields.slice(rowsPerColumn); // Remaining rows
+  const hasSecondColumn = secondColumn.length > 0;
+  console.log(fields, "are we tehte ");
   return (
-    <div className="flex flex-col items-center justify-center w-full  mx-auto p-6">
-      <h2 className="text-2xl font-semibold text-center mb-6">Input List</h2>
-      <div className="overflow-x-auto w-full mb-6">
-        <Table>
-          <TableHeader>
-            <TableRow style={{ borderBottomWidth: 0 }}>
-              <TableHead className="w-[100px]">Channel</TableHead>
-              <TableHead>Input Name</TableHead>
-              <TableHead>Mic Type</TableHead>
-              <TableHead>Stand</TableHead>
-              <TableHead>Notes</TableHead>
-              <TableHead></TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {fields.map((item, index) => (
-              <TableRow className="border-0" key={item.id}>
-                <TableCell className="p-0 text-center border border-gray-400 ">
-                  {index + 1}
-                </TableCell>
-                <TableCell className="p-0 border border-gray-400 ">
-                  <Input
-                    {...register(`inputs.${index}.name`, {
-                      required: "Input name is required",
-                    })}
-                    placeholder={`Input ${index + 1}`}
-                    className="p-0 rounded-md w-full border-none shadow-none focus-visible:ring-0"
-                  />
-                </TableCell>
-                <TableCell className="p-0 border border-gray-400 ">
-                  <Input
-                    {...register(`inputs.${index}.mic`)}
-                    placeholder="Mic/DI"
-                    className="p-0 rounded-md w-full border-none shadow-none focus-visible:ring-0"
-                  />
-                </TableCell>
-                <TableCell className="p-0 border border-gray-400 ">
-                  <Input
-                    {...register(`inputs.${index}.stand`)}
-                    placeholder="Stand"
-                    className="p-0 rounded-md w-full border-none shadow-none focus-visible:ring-0"
-                  />
-                </TableCell>
-                {/* <TableCell className="p-0 border border-gray-400 ">
-                  <Textarea
-                    {...register(`inputs.${index}.notes`)}
-                    placeholder="Notes"
-                    className="p-0 rounded-md w-full border-none shadow-none focus-visible:ring-0 resize-none"
-                    rows={1}
-                  />
-                </TableCell> */}
-                <TableCell className="p-0 flex items-center justify-center border-none  border-gray-400 ">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => remove(index)}
-                  >
-                    x
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+    <div className="flex flex-col items-center justify-center w-full mx-auto p-6">
+      <div
+        className={`overflow-x-auto w-full mb-6 grid ${
+          hasSecondColumn ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1"
+        } gap-4`}
+      >
+        <div className={`w-full ${hasSecondColumn ? "" : "col-span-2"}`}>
+          <TableSection
+            fields={firstColumn}
+            register={register}
+            remove={remove}
+            startIndex={0}
+          />
+        </div>
+
+        {hasSecondColumn && (
+          <div className="w-full">
+            <TableSection
+              fields={secondColumn}
+              register={register}
+              remove={remove}
+              startIndex={rowsPerColumn}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

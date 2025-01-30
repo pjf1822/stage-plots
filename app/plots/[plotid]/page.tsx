@@ -22,7 +22,7 @@ const StagePlotPage = async ({
   });
 
   return (
-    <div className="min-h-screen bg-themeOne flex items-center justify-center">
+    <div className="min-h-screen bg-themeOne flex items-center justify-center pb-24">
       <HydrationBoundary state={dehydrate(queryClient)}>
         <EditStagePlot plotid={plotid} />
       </HydrationBoundary>

@@ -53,6 +53,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
       const result = await submitStagePlotForm(currentPlot, formData);
       toast({
         title: "Stage Plot Updated",
+        position: "top-center",
       });
       if ("success" in result && result.success) {
         return;
@@ -95,7 +96,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
     ]);
   };
   return (
-    <div>
+    <div id="34">
       <FormProvider {...methods}>
         <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
           <form onSubmit={handleSubmit(submitForm, (errors) => {})}>
