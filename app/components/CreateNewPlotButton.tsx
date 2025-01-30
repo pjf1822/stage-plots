@@ -43,7 +43,8 @@ const CreateNewPlotButton = () => {
     <Button
       onClick={createStagePlot}
       disabled={loading}
-      className="font-urbanist"
+      variant={"outline"}
+      className="font-urbanist text-lg px-6 py-6 rounded-lg bg-gradient-to-r from-themeThree  to-themeOne hover:from-themeFive-600 hover:via-themeTwo-600 hover:to-themeOne-600 text-white shadow-xl transform transition-all hover:scale-105"
     >
       {loading ? "Creating..." : "Create new plot"}
     </Button>

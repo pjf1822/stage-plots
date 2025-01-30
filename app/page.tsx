@@ -18,12 +18,12 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen items-center bg-themeOne justify-items-center p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <div className="mb-16">
-        <CreateNewPlotButton />
-      </div>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <StagePlots />
       </HydrationBoundary>
+      <div className="mt-16">
+        <CreateNewPlotButton />
+      </div>
     </div>
   );
 }
