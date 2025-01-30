@@ -27,21 +27,21 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between items-center space-x-4 bg-themeOne p-4 border-b-4 border-themeFive">
+    <div className="flex justify-between items-center space-x-4 bg-customGray p-4 border-b-4 border-themeFive">
       <Link href="/">
-        {/* Wrap the logo in a Link to make it clickable */}
         <Image
-          src="/logo.png"
+          src="/logo-cropped.png"
           alt="Logo"
-          width={160}
-          height={160}
-          className="rounded-full cursor-pointer" // Add cursor-pointer for a clickable effect
+          width={130}
+          height={130}
+          className="cursor-pointer rounded-sm"
         />
       </Link>
 
       <Button
         onClick={handleLogout}
-        className="text-white hover:bg-gray-600 !mr-5 font-urbanist" // Adjusted margin-right to 20px (mr-5)
+        variant={"outline"}
+        className="font-urbanist text-lg px-6 py-6 rounded-lg bg-gradient-to-r from-themeThree  to-themeOne hover:from-themeFive-600 hover:via-themeTwo-600 hover:to-themeOne-600 text-white shadow-xl transform transition-all hover:scale-105"
       >
         Logout
       </Button>

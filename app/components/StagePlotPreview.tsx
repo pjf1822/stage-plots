@@ -9,13 +9,12 @@ const StagePlotPreview = ({
   stagePlotId: any;
 }) => {
   return (
-    // <div>
     <div className="bg-white p-8 max-w-4xl mx-auto">
       <CardContent>
         <div className="space-y-6">
           {/* Header */}
           <div className="text-center">
-            <h1 className="text-3xl font-bold mb-2">{formData.name}</h1>
+            <h1 className="text-3xl font-bold mb-16">{formData.name}</h1>
             <p className="text-gray-600">{formData.description}</p>
           </div>
 
