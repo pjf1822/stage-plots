@@ -15,7 +15,7 @@ const DownloadModal: React.FC<DownloadModalProps> = ({
   downloadImage,
 }) => {
   return (
-    <DialogContent className="p-0">
+    <DialogContent className="max-w-4xl w-full h-[600px] p-0">
       <DialogHeader>
         <DialogTitle></DialogTitle>
       </DialogHeader>

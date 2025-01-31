@@ -19,7 +19,7 @@ const CreateNewPlotButton = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: "New Stage Plot", // Example data
+          name: "New Stage Plot",
           description: "This is a new stage plot",
         }),
       });
