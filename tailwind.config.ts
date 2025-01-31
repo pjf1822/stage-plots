@@ -15,6 +15,7 @@ export default {
         themeThree: "#D9B08C",
         themeFour: "#FFCB9A",
         themeFive: "#D1E8E2",
+        customGray: "#151515",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

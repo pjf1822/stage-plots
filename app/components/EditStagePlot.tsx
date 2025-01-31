@@ -131,7 +131,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
   // }, [methods, handleSubmit, submitForm]);
 
   return (
-    <div>
+    <div className="mt-8">
       <FormProvider {...methods}>
         <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
           <form onSubmit={handleSubmit(submitForm, (errors) => {})}>
@@ -158,25 +158,29 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
               <StagePlotGraphic stagePlotId={currentPlot.id} />
               <InputList />
             </div>
-            <div className="fixed bottom-0 left-0 right-0 bg-white py-4 mt-4 shadow-lg flex justify-around gap-4 z-10 bg-themeFour z-99">
-              <Button type="submit" variant="default" size="lg">
-                {isSubmitting ? "Submitting..." : "Save Stage Plot"}
-              </Button>
-              <Button
-                type="button"
-                variant="default"
-                size="lg"
-                onClick={handleAddInput}
-              >
-                Add Input
-              </Button>
+            <div className="fixed bottom-0 left-0 right-0 bg-customGray py-4 mt-4 shadow-lg flex justify-around gap-4 z-10 z-99">
               <Button
                 onClick={getImage}
+                variant={"outline"}
                 type="button"
-                variant="default"
-                size="lg"
+                className="font-urbanist text-lg px-6 py-6 rounded-lg bg-gradient-to-r from-themeThree  to-themeOne hover:from-themeFive-600 hover:via-themeTwo-600 hover:to-themeOne-600 text-white shadow-xl transform transition-all hover:scale-105"
               >
                 Take Screenshot
+              </Button>
+              <Button
+                onClick={handleAddInput}
+                variant={"outline"}
+                type="button"
+                className="font-urbanist text-lg px-6 py-6 rounded-lg bg-gradient-to-r from-themeThree  to-themeOne hover:from-themeFive-600 hover:via-themeTwo-600 hover:to-themeOne-600 text-white shadow-xl transform transition-all hover:scale-105"
+              >
+                Add input
+              </Button>
+              <Button
+                variant={"outline"}
+                type="submit"
+                className="font-urbanist text-lg px-6 py-6 rounded-lg bg-gradient-to-r from-themeThree  to-themeOne hover:from-themeFive-600 hover:via-themeTwo-600 hover:to-themeOne-600 text-white shadow-xl transform transition-all hover:scale-105"
+              >
+                {isSubmitting ? "Submitting..." : "Save Stage Plot"}
               </Button>
             </div>
           </form>

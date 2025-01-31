@@ -15,14 +15,14 @@ const DownloadModal: React.FC<DownloadModalProps> = ({
   downloadImage,
 }) => {
   return (
-    <DialogContent>
+    <DialogContent className="p-0">
       <DialogHeader>
         <DialogTitle></DialogTitle>
       </DialogHeader>
       {image && (
         <div className="mt-4 flex flex-col items-center">
           <img src={image} alt="Screenshot of the form" className="mb-4" />
-          <Button onClick={downloadImage} className="mx-auto block">
+          <Button onClick={downloadImage} className="mx-auto block mb-1">
             Download Image
           </Button>
         </div>
