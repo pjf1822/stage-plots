@@ -86,7 +86,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
 
           const screenshot = await takeScreenshot(element);
 
-          // screenshotWindow?.close();
+          screenshotWindow?.close();
 
           setIsModalOpen(true);
         }, 400);

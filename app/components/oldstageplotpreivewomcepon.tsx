@@ -52,7 +52,7 @@ const ScreenshotPage = () => {
   return (
     <div className="p-8 bg-white min-h-screen">
       <div id="previewRef" ref={previewRef}>
-        <StagePlotPreview formData={plotData} stagePlotId={plotData.id} />
+        <StagePlotPreview formData={plotData} />
       </div>
     </div>
   );

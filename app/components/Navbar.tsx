@@ -27,7 +27,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between items-center space-x-4 bg-customGray p-4 border-b-4 border-themeFive">
+    <div className="flex justify-between items-center space-x-4 bg-customGray p-4 border-b-4 border-themeThree">
       <Link href="/">
         <Image
           src="/logo-cropped.png"
