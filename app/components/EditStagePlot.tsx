@@ -158,7 +158,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
               <StagePlotGraphic stagePlotId={currentPlot.id} />
               <InputList />
             </div>
-            <div className="fixed bottom-0 left-0 right-0 bg-customGray py-4 mt-4 shadow-lg flex justify-around gap-4 z-10 z-99">
+            <div className="fixed bottom-0 left-0 right-0 bg-customGray py-4 mt-4 shadow-lg flex justify-around gap-4 z-10 z-99 border-t-2 border-themeThree">
               <Button
                 onClick={getImage}
                 variant={"outline"}
