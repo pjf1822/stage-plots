@@ -19,7 +19,6 @@ import { Dialog } from "@/components/ui/dialog";
 import { useQuery } from "@tanstack/react-query";
 import { getPlotById } from "../server/actions/getPlotById";
 import { v4 as uuidv4 } from "uuid";
-import StagePlotPreview from "./StagePlotPreview";
 
 const EditStagePlot = ({ plotid }: { plotid: string }) => {
   const { data: plot, isLoading } = useQuery({
@@ -80,6 +79,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
     window.addEventListener("message", async (event) => {
       if (event.data.type === "READY_FOR_SCREENSHOT") {
         setTimeout(async () => {
+          console.log("how far are we getting");
           const element = screenshotWindow?.document.querySelector(
             "#previewRef"
           ) as HTMLElement | null;
@@ -105,6 +105,14 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
 
   const handleAddInput = () => {
     const nextChannel = methods.getValues("inputs").length + 1;
+
+    if (nextChannel > 48) {
+      toast({
+        title: "Cannot add more than 48 channels",
+        variant: "destructive",
+      });
+      return;
+    }
 
     methods.setValue("inputs", [
       ...methods.getValues("inputs"),

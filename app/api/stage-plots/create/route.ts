@@ -14,7 +14,7 @@ export async function POST() {
     );
   }
 
-  const { data, error } = await supabase
+  const { data: stagePlotData, error: stagePlotError } = await supabase
     .from("stage_plots")
     .insert([
       {
@@ -23,15 +23,37 @@ export async function POST() {
       },
     ])
     .select();
-  if (error) {
+
+  if (stagePlotError) {
     return NextResponse.json(
-      { message: "Failed to create stage plot", error: error.message },
+      { message: "Failed to create stage plot", error: stagePlotError.message },
+      { status: 500 }
+    );
+  }
+  const { data: inputData, error: inputError } = await supabase
+    .from("inputs")
+    .insert([
+      {
+        stage_plot_id: stagePlotData[0].id,
+        name: "kikkkk",
+        mic: "",
+        channel: 1,
+      },
+    ])
+    .select();
+
+  if (inputError) {
+    return NextResponse.json(
+      {
+        message: "Stage plot created but failed to add input",
+        error: inputError.message,
+      },
       { status: 500 }
     );
   }
 
   return NextResponse.json(
-    { message: "Stage plot created successfully", stagePlot: data[0] },
+    { message: "Stage plot created successfully", stagePlot: stagePlotData[0] },
     { status: 200 }
   );
 }

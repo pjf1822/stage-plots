@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Provider from "@/utils/Providers";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "@/components/ui/toaster";
+import MobileDisclaimer from "./components/MobileDisclaimer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +40,7 @@ export default function RootLayout({
       >
         <Provider>
           <Navbar />
+          <MobileDisclaimer />
           {children}
           <SpeedInsights />
           <Toaster />
