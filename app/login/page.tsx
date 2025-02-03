@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function LoginPage() {
   const supabase = createClient();
@@ -37,6 +38,11 @@ export default function LoginPage() {
           Sign in with Google
         </Button>
       </Card>
+      <div className="absolute bottom-4 right-4 text-sm text-gray-300">
+        <Link href="/privacy" className="underline hover:text-white">
+          Privacy Policy
+        </Link>
+      </div>
     </div>
   );
 }
