@@ -9,7 +9,7 @@ const Navbar = () => {
   const supabase = createClient();
   const pathname = usePathname();
 
-  if (pathname === "/login") {
+  if (pathname === "/login" || pathname === "/privacy") {
     return null;
   }
 

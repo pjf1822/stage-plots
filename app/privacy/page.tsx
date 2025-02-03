@@ -1,8 +1,7 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import Link from "next/link";
-
-const inter = Inter({ subsets: ["latin"] });
+import Image from "next/image";
 
 export default function PrivacyPolicy() {
   return (
@@ -15,12 +14,21 @@ export default function PrivacyPolicy() {
         />
       </Head>
       <main
-        className={`bg-black text-white min-h-screen ${inter.className}`}
+        className={`bg-black text-white min-h-screen font-urbanist`}
         style={{ fontFamily: "Urbanist, sans-serif" }}
       >
-        <div className="max-w-3xl mx-auto p-6">
+        <Image
+          src="/newlogo.png"
+          alt="logo"
+          width={400}
+          height={400}
+          className="mx-auto"
+        />
+        <div className="max-w-3xl mx-auto p-6  border-t-4">
           <h1 className="text-3xl font-bold mb-4 text-white">Privacy Policy</h1>
-          <p className="text-sm text-gray-400 mb-6">Last updated: Feb 3 2025</p>
+          <p className="text-sm text-gray-400 mb-6">
+            Last updated: February 3, 2025
+          </p>
 
           <section className="mb-6">
             <h2 className="text-xl font-semibold mb-2 text-white">
