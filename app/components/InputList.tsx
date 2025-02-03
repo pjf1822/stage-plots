@@ -22,7 +22,7 @@ const InputList = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full mx-auto p-6">
       <div
-        className={`overflow-x-auto w-full mb-6 grid ${
+        className={`w-full mb-6 grid ${
           hasSecondColumn ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1"
         } gap-4`}
       >

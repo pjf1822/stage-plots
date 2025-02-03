@@ -29,8 +29,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
   if (isLoading) return <div>Loading...</div>;
   const [currentPlot, setCurrentPlot] = useState(plot);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const previewRef = useRef<HTMLDivElement>(null);
-
+  const formRef = useRef<HTMLDivElement>(null);
   const methods = useForm<StagePlotFormData>({
     resolver: zodResolver(stagePlotSchema),
     defaultValues: {
@@ -54,7 +53,6 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
       const result = await submitStagePlotForm(currentPlot, formData);
       toast({
         title: "Stage Plot Updated",
-        // position: "top-center",
       });
       if ("success" in result && result.success) {
         return;
@@ -64,10 +62,9 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
       alert(error.message);
     }
   };
-  const formRef = useRef<HTMLDivElement>(null);
 
+  // GET IMAGE STUFF
   const [image, takeScreenshot] = useScreenshot();
-
   const getImage = () => {
     const formData = methods.getValues();
 
@@ -79,7 +76,6 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
     window.addEventListener("message", async (event) => {
       if (event.data.type === "READY_FOR_SCREENSHOT") {
         setTimeout(async () => {
-          console.log("how far are we getting");
           const element = screenshotWindow?.document.querySelector(
             "#previewRef"
           ) as HTMLElement | null;

@@ -5,7 +5,7 @@ import { FieldValues, useFieldArray, useFormContext } from "react-hook-form";
 import TableSection from "./TableSection";
 
 const PreviewInputList = ({ inputs }: { inputs: any }) => {
-  const rowsPerColumn = 18;
+  const rowsPerColumn = 24;
   const firstColumn = inputs.slice(0, rowsPerColumn); // First 15 rows
   const secondColumn = inputs.slice(rowsPerColumn); // Remaining rows
   const hasSecondColumn = secondColumn.length > 0;
@@ -20,23 +20,35 @@ const PreviewInputList = ({ inputs }: { inputs: any }) => {
           <table className="w-full border-collapse">
             <thead>
               <tr>
-                <th className="border border-gray-300 bg-gray-100 p-2 text-left">
+                <th className="border border-gray-300 bg-gray-100 p-2 pb-4 pt-0 text-left">
                   Channel
                 </th>
-                <th className="border border-gray-300 bg-gray-100 p-2 text-left">
+                <th className="border border-gray-300 bg-gray-100 p-2 pb-4 pt-0 text-left">
                   Name
                 </th>
-                <th className="border border-gray-300 bg-gray-100 p-2 text-left">
+                <th className="border border-gray-300 bg-gray-100 p-2 pb-4 pt-0 text-left">
                   Mic
+                </th>
+                <th className="border border-gray-300 bg-gray-100 p-2 pb-4 pt-0 text-left">
+                  Stand
                 </th>
               </tr>
             </thead>
             <tbody>
               {firstColumn.map((input: any, index: number) => (
                 <tr key={input.id}>
-                  <td className="border border-gray-300 p-2">Ch {index + 1}</td>
-                  <td className="border border-gray-300 p-2">{input.name}</td>
-                  <td className="border border-gray-300 p-2">{input.mic}</td>
+                  <td className="border border-gray-300 p-2 pb-4 pt-0">
+                    Ch {index + 1}
+                  </td>
+                  <td className="border border-gray-300 p-2 pb-4 pt-0">
+                    {input.name}
+                  </td>
+                  <td className="border border-gray-300 p-2 pb-4 pt-0">
+                    {input.mic}
+                  </td>
+                  <td className="border border-gray-300 p-2 pb-4 pt-0">
+                    {input.stand}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -48,25 +60,35 @@ const PreviewInputList = ({ inputs }: { inputs: any }) => {
             <table className="w-full border-collapse">
               <thead>
                 <tr>
-                  <th className="border border-gray-300 bg-gray-100 p-2 text-left">
+                  <th className="border border-gray-300 bg-gray-100 p-2 pb-4 pt-0 text-left">
                     Channel
                   </th>
-                  <th className="border border-gray-300 bg-gray-100 p-2 text-left">
+                  <th className="border border-gray-300 bg-gray-100 p-2 pb-4 pt-0 text-left">
                     Name
                   </th>
-                  <th className="border border-gray-300 bg-gray-100 p-2 text-left">
+                  <th className="border border-gray-300 bg-gray-100 p-2 pb-4 pt-0 text-left">
                     Mic
+                  </th>
+                  <th className="border border-gray-300 bg-gray-100 p-2 pb-4 pt-0 text-left">
+                    Stand
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {secondColumn.map((input: any, index: number) => (
                   <tr key={input.id}>
-                    <td className="border border-gray-300 p-2">
+                    <td className="border border-gray-300 p-2 pb-4 pt-0">
                       Ch {index + rowsPerColumn + 1}
                     </td>
-                    <td className="border border-gray-300 p-2">{input.name}</td>
-                    <td className="border border-gray-300 p-2">{input.mic}</td>
+                    <td className="border border-gray-300 p-2 pb-4 pt-0">
+                      {input.name}
+                    </td>
+                    <td className="border border-gray-300 p-2 pb-4 pt-0">
+                      {input.mic}
+                    </td>
+                    <td className="border border-gray-300 p-2 pb-4 pt-0">
+                      {input.stand}
+                    </td>
                   </tr>
                 ))}
               </tbody>

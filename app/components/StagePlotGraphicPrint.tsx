@@ -24,8 +24,8 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
               position: "absolute",
               top: stageElement.y,
               left: stageElement.x,
-              width: 80,
-              height: 80,
+              width: 80 * stageElement?.scale,
+              height: 80 * stageElement?.scale,
             }}
           >
             <Image
