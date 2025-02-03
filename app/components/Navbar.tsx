@@ -27,7 +27,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between items-center space-x-4 bg-black border-b-4 border-themeThree">
+    <div className="flex justify-between items-center  bg-black border-b-4">
       <Link href="/">
         <Image
           src="/newlogo3.png"
@@ -41,7 +41,7 @@ const Navbar = () => {
       <Button
         onClick={handleLogout}
         variant={"outline"}
-        className="font-urbanist text-lg px-6 py-6 rounded-lg bg-gradient-to-r from-themeThree  to-themeOne hover:from-themeFive-600 hover:via-themeTwo-600 hover:to-themeOne-600 text-white shadow-xl transform transition-all hover:scale-105"
+        className="font-urbanist bg-black mr-8 text-lg px-6 py-6 rounded-lg text-white shadow-xl transform transition-all hover:scale-105"
       >
         Logout
       </Button>
