@@ -9,8 +9,10 @@ const StagePlotPreview = ({ formData }: { formData: any }) => {
       <CardContent className="p-0">
         <div className="space-y-6">
           <div className="text-center">
-            <h1 className="text-3xl font-bold mt-4 mb-2">{formData.name}</h1>
-            <p className="text-gray-600 my-2">{formData.description}</p>
+            <h1 className="text-3xl font-bold mt-4 mb-6">{formData.name}</h1>
+            {formData.description && (
+              <p className="text-gray-600 my-2">{formData.description}</p>
+            )}
           </div>
 
           <div className="my-8">
