@@ -22,7 +22,7 @@ const ChooseInstrumentModal = ({
   onSelect,
   onClose,
 }: ModalProps) => {
-  if (!isOpen) return null; // Don't render the modal if it's closed
+  if (!isOpen) return null;
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>

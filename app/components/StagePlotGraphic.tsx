@@ -182,6 +182,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           "Monitor",
           "Power",
           "Mic-stand",
+          "Keys",
         ]}
         onSelect={handleItemSelect}
         onClose={closeModal}
