@@ -5,7 +5,13 @@ import React from "react";
 import { getPlots } from "../server/actions/getPlots";
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -13,12 +19,25 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import useEmblaCarousel from "embla-carousel-react";
+import { useCallback } from "react";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const StagePlots = () => {
   const { data } = useQuery({
     queryKey: ["stagePlots"],
     queryFn: getPlots,
   });
+  const [emblaRef, emblaApi] = useEmblaCarousel();
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
 
   if (!data || data?.data?.length === 0) {
     return (
@@ -33,7 +52,6 @@ const StagePlots = () => {
   return (
     <div className="space-y-4">
       {data?.data?.length === 1 ? (
-        // If there's only one item, just render a single card (No Carousel)
         <Link href={`/plots/${data.data[0].id}`}>
           <Card className="w-full  h-full max-w-md mx-auto p-4 bg-white shadow-lg hover:shadow-2xl transition-shadow rounded-lg cursor-pointer transform hover:scale-105">
             <CardHeader>
@@ -49,42 +67,46 @@ const StagePlots = () => {
           </Card>
         </Link>
       ) : (
-        <Carousel
-          opts={{ loop: true }}
-          className="relative max-w-[75vw] mx-auto"
-        >
-          <CarouselContent className="h-full">
+        <div className="overflow-hidden  max-w-[700px]" ref={emblaRef}>
+          <div style={{ display: "flex" }}>
             {data?.data?.map((plot: any) => (
-              <CarouselItem
+              <div
                 key={plot.id}
-                className="md:basis-1/2 lg:basis-1/2 pl-4 "
+                style={{ flex: "0 0 66.66%" }}
+                className="flex-shrink-0"
               >
-                <Link href={`/plots/${plot.id}`}>
-                  <Card className="w-full h-full  mx-auto p-4 bg-white shadow-lg hover:shadow-2xl transition-shadow rounded-lg cursor-pointer  border-2  border-themeThree">
-                    <CardHeader>
-                      <h2 className="text-xl font-semibold text-gray-800 truncate font-urbanist">
+                <Card className="h-[500px] mr-16  shadow-lg hover:shadow-xl transition-shadow duration-300 flex justify-center items-center flex-col">
+                  <Image src="/logo.png" alt="logo" width={100} height={100} />
+                  <CardHeader className=" justify-between">
+                    <div>
+                      <CardTitle className="text-2xl mb-4 font-urbanist">
                         {plot.name || "Untitled Plot"}
-                      </h2>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-gray-500 font-urbanist">
+                      </CardTitle>
+                      <CardDescription className="text-lg font-urbanist">
                         {plot.description || "No description available"}
-                      </p>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </CarouselItem>
+                      </CardDescription>
+                    </div>
+                  </CardHeader>
+                </Card>
+              </div>
             ))}
-          </CarouselContent>
-          <div className="absolute top-1/2 left-0 right-0 flex justify-between transform -translate-y-1/2 px-6">
-            <CarouselPrevious className="bg-themeThree text-white p-2 rounded-full hover:bg-themeTwo transition duration-300 ease-in-out">
-              Prev
-            </CarouselPrevious>
-            <CarouselNext className="bg-themeThree text-white p-2 rounded-full hover:bg-themeTwo transition duration-300 ease-in-out">
-              Next
-            </CarouselNext>
           </div>
-        </Carousel>
+
+          <div className="w-full flex justify-between">
+            <Button
+              className="embla__prev  z-10 px-4 py-2 rounded-full"
+              onClick={scrollPrev}
+            >
+              Prev
+            </Button>
+            <Button
+              className="embla__next  z-10 px-4 py-2 rounded-full"
+              onClick={scrollNext}
+            >
+              Next
+            </Button>
+          </div>
+        </div>
       )}
     </div>
   );
