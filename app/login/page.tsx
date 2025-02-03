@@ -28,11 +28,11 @@ export default function LoginPage() {
         alt="Logo"
         width={200}
         height={200}
-        className="mb-4 rounded-full w-[280px] h-[280px] sm:w-[300px] sm:h-[300px] lg:w-[400px] lg:h-[400px]"
+        className="mb-0 rounded-full w-[280px] h-[280px] sm:w-[300px] sm:h-[300px] lg:w-[400px] lg:h-[400px]"
       />
       <Button
         onClick={handleGoogleSignIn}
-        className="z-10 px-6 py-3 rounded-full bg-black text-white border border-white hover:bg-white hover:text-black transition-all duration-300 ease-in-out transform hover:scale-105 font-urbanist"
+        className="z-10 px-8 py-4 text-xl rounded-full bg-black text-white border border-white hover:bg-white hover:text-black transition-all duration-300 ease-in-out transform hover:scale-105 font-urbanist"
       >
         Sign in with Google
       </Button>
