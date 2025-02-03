@@ -162,12 +162,12 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
               <StagePlotGraphic stagePlotId={currentPlot.id} />
               <InputList />
             </div>
-            <div className="fixed bottom-0 left-0 right-0 bg-customGray py-4 mt-4 shadow-lg flex justify-around gap-4 z-10 z-99 border-t-2 border-themeThree">
+            <div className="fixed bottom-0 left-0 right-0 bg-black py-4 mt-4 shadow-lg flex justify-around gap-4 z-10 z-99 border-t-2 ">
               <Button
                 onClick={getImage}
                 variant={"outline"}
                 type="button"
-                className="font-urbanist text-lg px-6 py-6 rounded-lg bg-gradient-to-r from-themeThree  to-themeOne hover:from-themeFive-600 hover:via-themeTwo-600 hover:to-themeOne-600 text-white shadow-xl transform transition-all hover:scale-105"
+                className="font-urbanist bg-black text-lg px-6 py-6 rounded-lg text-white shadow-xl transform transition-all hover:scale-105"
               >
                 Take Screenshot
               </Button>
@@ -175,14 +175,14 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
                 onClick={handleAddInput}
                 variant={"outline"}
                 type="button"
-                className="font-urbanist text-lg px-6 py-6 rounded-lg bg-gradient-to-r from-themeThree  to-themeOne hover:from-themeFive-600 hover:via-themeTwo-600 hover:to-themeOne-600 text-white shadow-xl transform transition-all hover:scale-105"
+                className="font-urbanist bg-black text-lg px-6 py-6 rounded-lg text-white shadow-xl transform transition-all hover:scale-105"
               >
                 Add input
               </Button>
               <Button
                 variant={"outline"}
                 type="submit"
-                className="font-urbanist text-lg px-6 py-6 rounded-lg bg-gradient-to-r from-themeThree  to-themeOne hover:from-themeFive-600 hover:via-themeTwo-600 hover:to-themeOne-600 text-white shadow-xl transform transition-all hover:scale-105"
+                className="font-urbanist bg-black text-lg px-6 py-6 rounded-lg text-white shadow-xl transform transition-all hover:scale-105"
               >
                 {isSubmitting ? "Submitting..." : "Save Stage Plot"}
               </Button>

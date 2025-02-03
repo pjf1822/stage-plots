@@ -1,24 +1,15 @@
 "use client";
-
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { getPlots } from "../server/actions/getPlots";
-import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback } from "react";
 import { Button } from "@/components/ui/button";
@@ -29,6 +20,34 @@ const StagePlots = () => {
     queryKey: ["stagePlots"],
     queryFn: getPlots,
   });
+  // const data = {
+  //   data: [
+  //     {
+  //       name: "fuck",
+  //       description: "sjhit",
+  //       created_by: "53c17524-7fdc-49a3-8e22-0abddf4d9a28",
+  //       id: "7e29aa46-255e-4585-a0bd-a847ceadade5",
+  //     },
+  //     {
+  //       name: "fuckasdf",
+  //       description: "sjhit",
+  //       created_by: "53c17524-7fdc-49a3-8e22-0abddf4d9a28",
+  //       id: "7e29ada46-2554d-4585-a0bd-a847ceadade5",
+  //     },
+  //     {
+  //       name: "fuckasdf",
+  //       description: "sjhit",
+  //       created_by: "53c17524-7fdc-49a3-8e22-0abddf4d9a28",
+  //       id: "7e29a4a46-2554d-4585-a0bd-a847ceadade5",
+  //     },
+  //     {
+  //       name: "fuckasdf",
+  //       description: "sjhit",
+  //       created_by: "53c17524-7fdc-49a3-8e22-0abddf4d9a28",
+  //       id: "7e29aat46-255f4-4585-a0bd-a847ceadade5",
+  //     },
+  //   ],
+  // };
   const [emblaRef, emblaApi] = useEmblaCarousel();
 
   const scrollPrev = useCallback(() => {
@@ -42,7 +61,7 @@ const StagePlots = () => {
   if (!data || data?.data?.length === 0) {
     return (
       <div className="text-center py-4">
-        <p className="font-urbanist text-4xl font-bold text-themeThree">
+        <p className="font-urbanist text-4xl font-bold text-white">
           Add your first stage plot! ya bish!
         </p>
       </div>
@@ -51,68 +70,56 @@ const StagePlots = () => {
 
   return (
     <div className="space-y-4">
-      {data?.data?.length === 1 ? (
-        <Link href={`/plots/${data.data[0].id}`}>
-          <Card className="w-full  h-full max-w-md mx-auto p-4 bg-white shadow-lg hover:shadow-2xl transition-shadow rounded-lg cursor-pointer transform hover:scale-105">
-            <CardHeader>
-              <h2 className="text-xl font-semibold text-gray-800 truncate font-urbanist">
-                {data.data[0].name || "Untitled Plot"}
-              </h2>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-gray-500 font-urbanist">
-                {data.data[0].description || "No description available"}
-              </p>
-            </CardContent>
-          </Card>
-        </Link>
-      ) : (
-        <div className="overflow-hidden  max-w-[700px]" ref={emblaRef}>
-          <div style={{ display: "flex" }}>
-            {data?.data?.map((plot: any) => (
-              <div
-                key={plot.id}
-                style={{ flex: "0 0 66.66%" }}
-                className="flex-shrink-0"
-              >
-                <Link href={`/plots/${plot.id}`}>
-                  <Card className="h-[500px] mr-16 bg-black  shadow-lg hover:shadow-xl transition-shadow duration-300 flex justify-center items-center flex-col">
-                    <Image
-                      src="/favicon.png"
-                      alt="logo"
-                      width={100}
-                      height={100}
-                    />
-                    <CardHeader className=" justify-between">
-                      <div>
-                        <CardTitle className="text-2xl mb-4 font-urbanist text-white">
-                          {plot.name || "Untitled Plot"}
-                        </CardTitle>
-                        <CardDescription className="text-lg font-urbanist text-white">
-                          {plot.description || "No description available"}
-                        </CardDescription>
-                      </div>
-                    </CardHeader>
-                  </Card>
-                </Link>
-              </div>
-            ))}
-          </div>
-
-          <div className="w-full flex justify-between">
-            <Button
-              className="embla__prev  z-10 px-4 py-2 rounded-full"
-              onClick={scrollPrev}
+      <div className="overflow-hidden  max-w-[900px]" ref={emblaRef}>
+        <div style={{ display: "flex" }}>
+          {data?.data?.map((plot: any) => (
+            <div
+              key={plot.id}
+              style={{ flex: "0 0 66.66%" }}
+              className="flex-shrink-0 "
             >
-              Prev
-            </Button>
-            <Button
-              className="embla__next  z-10 px-4 py-2 rounded-full"
-              onClick={scrollNext}
-            >
-              Next
-            </Button>
-          </div>
+              <Link href={`/plots/${plot.id}`}>
+                <Card
+                  className={`h-[500px] ${
+                    data?.data?.length === 1 ? "" : "mr-16"
+                  } bg-black min-w-[300px] shadow-lg hover:shadow-xl transition-shadow duration-300 flex justify-center items-center flex-col`}
+                >
+                  <Image
+                    src="/favicon.png"
+                    alt="logo"
+                    width={100}
+                    height={100}
+                  />
+                  <CardHeader className=" justify-between">
+                    <div>
+                      <CardTitle className="text-2xl mb-4 font-urbanist text-white">
+                        {plot.name || "Untitled Plot"}
+                      </CardTitle>
+                      <CardDescription className="text-lg font-urbanist text-white">
+                        {plot.description}
+                      </CardDescription>
+                    </div>
+                  </CardHeader>
+                </Card>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+      {data?.data?.length > 1 && (
+        <div className="w-full flex justify-between pt-8">
+          <Button
+            className="z-10 px-6 py-3 rounded-full bg-black text-white border border-white hover:bg-white hover:text-black transition-all duration-300 ease-in-out transform hover:scale-105 font-urbanist"
+            onClick={scrollPrev}
+          >
+            Prev
+          </Button>
+          <Button
+            className="z-10 px-6 py-3 rounded-full bg-black text-white border border-white hover:bg-white hover:text-black transition-all duration-300 ease-in-out transform hover:scale-105 font-urbanist"
+            onClick={scrollNext}
+          >
+            Next
+          </Button>
         </div>
       )}
     </div>
