@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import ChooseInstrumentModal from "./ChooseInstrumentModal";
 import { StagePlotFormData } from "@/types";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/hooks/use-toast";
 
 const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
   const { control } = useFormContext<StagePlotFormData>();
@@ -54,7 +55,6 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           const trashCanRight = rect.width - 50;
           const trashCanBottom = rect.height - 50;
 
-          console.log(newX, trashCanRight - itemSize);
           const isInTrash =
             newX >= trashCanRight - itemSize - 30 &&
             newX <= trashCanRight + itemSize + 30 &&
@@ -66,6 +66,9 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
               (el) => el.id === element.id
             );
 
+            toast({
+              title: "Deleted item!",
+            });
             remove(indexToRemove);
           }
 
