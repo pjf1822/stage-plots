@@ -22,12 +22,12 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex flex-col justify-around items-center min-h-screen bg-themeFive p-6">
+    <div className="flex flex-col justify-around items-center min-h-screen bg-black p-6">
       <Image
-        src="/logo.png"
+        src="/newLogo.png"
         alt="Logo"
-        width={400}
-        height={400}
+        width={200}
+        height={200}
         className="mb-4 rounded-full w-[280px] h-[280px] sm:w-[300px] sm:h-[300px] lg:w-[400px] lg:h-[400px]"
       />
       <Card className="w-full max-w-xs sm:max-w-sm p-4 sm:p-6 shadow-xl rounded-lg bg-themeOne">
