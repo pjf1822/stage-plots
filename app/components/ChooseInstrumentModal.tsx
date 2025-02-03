@@ -36,7 +36,7 @@ const ChooseInstrumentModal = ({
           borderRadius: "8px",
           display: "flex",
           flexDirection: "column",
-          maxWidth: "300px",
+          // maxWidth: "300px",
           minWidth: "200px",
         }}
       >
@@ -47,16 +47,21 @@ const ChooseInstrumentModal = ({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="grid grid-cols-2 gap-4">
-          {items.map((item, index) => (
-            <Button
-              key={index}
-              onClick={() => onSelect(item)}
-              className="w-full"
-            >
-              {item}
-            </Button>
-          ))}
+        <div className="grid grid-cols-4 gap-4">
+          {items.map((item, index) => {
+            // Replace dash with space
+            const formattedItem = item.replace(/-/g, " ");
+
+            return (
+              <Button
+                key={index}
+                onClick={() => onSelect(item)}
+                className="w-full"
+              >
+                {formattedItem}
+              </Button>
+            );
+          })}
         </div>
       </DialogContent>
     </Dialog>
