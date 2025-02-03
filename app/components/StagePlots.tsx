@@ -76,19 +76,19 @@ const StagePlots = () => {
                 className="flex-shrink-0"
               >
                 <Link href={`/plots/${plot.id}`}>
-                  <Card className="h-[500px] mr-16  shadow-lg hover:shadow-xl transition-shadow duration-300 flex justify-center items-center flex-col">
+                  <Card className="h-[500px] mr-16 bg-black  shadow-lg hover:shadow-xl transition-shadow duration-300 flex justify-center items-center flex-col">
                     <Image
-                      src="/logo.png"
+                      src="/favicon.png"
                       alt="logo"
                       width={100}
                       height={100}
                     />
                     <CardHeader className=" justify-between">
                       <div>
-                        <CardTitle className="text-2xl mb-4 font-urbanist">
+                        <CardTitle className="text-2xl mb-4 font-urbanist text-white">
                           {plot.name || "Untitled Plot"}
                         </CardTitle>
-                        <CardDescription className="text-lg font-urbanist">
+                        <CardDescription className="text-lg font-urbanist text-white">
                           {plot.description || "No description available"}
                         </CardDescription>
                       </div>
