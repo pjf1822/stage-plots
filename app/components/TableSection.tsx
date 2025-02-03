@@ -28,12 +28,20 @@ const TableSection = ({
   return (
     <Table className="overflow-visible">
       <TableHeader>
-        <TableRow style={{ borderBottomWidth: 0 }}>
-          <TableHead className="w-[100px]">Channel</TableHead>
-          <TableHead>Input Name</TableHead>
-          <TableHead>Mic</TableHead>
-          <TableHead>Stand</TableHead>
-          <TableHead></TableHead>
+        <TableRow>
+          <TableHead className="w-[100px] border border-gray-400   text-black">
+            Channel
+          </TableHead>
+          <TableHead className=" border border-gray-400  text-black">
+            Input Name
+          </TableHead>
+          <TableHead className=" border border-gray-400  text-black">
+            Mic
+          </TableHead>
+          <TableHead className=" border border-gray-400  text-black">
+            Stand
+          </TableHead>
+          {/* <TableHead className="bg-gray-100 text-black"></TableHead> */}
         </TableRow>
       </TableHeader>
       <TableBody>

@@ -10,7 +10,6 @@ const ScreenshotPage = () => {
   const previewRef = useRef<HTMLDivElement>(null);
   const [plotData, setPlotData] = useState<any>(null);
 
-  // Retrieve and parse the plotData from the search params
   useEffect(() => {
     const plotDataParam = searchParams.get("plotData");
     if (plotDataParam) {

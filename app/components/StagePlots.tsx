@@ -80,7 +80,7 @@ const StagePlots = () => {
             >
               <Link href={`/plots/${plot.id}`}>
                 <Card
-                  className={`h-[500px] ${
+                  className={`h-[350px] ${
                     data?.data?.length === 1 ? "" : "mr-16"
                   } bg-black min-w-[300px] shadow-lg hover:shadow-xl transition-shadow duration-300 flex justify-center items-center flex-col`}
                 >
