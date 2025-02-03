@@ -27,13 +27,13 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between items-center space-x-4 bg-customGray p-4 border-b-4 border-themeThree">
+    <div className="flex justify-between items-center space-x-4 bg-black border-b-4 border-themeThree">
       <Link href="/">
         <Image
-          src="/logo-cropped.png"
+          src="/newlogo3.png"
           alt="Logo"
-          width={130}
-          height={130}
+          width={170}
+          height={170}
           className="cursor-pointer rounded-sm"
         />
       </Link>
