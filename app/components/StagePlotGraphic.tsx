@@ -18,7 +18,6 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
     name: "stage_elements",
     keyName: "....",
   });
-
   const [draggingId, setDraggingId] = useState<string | number>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -29,18 +28,18 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
     const container = containerRef.current;
     if (container) {
       const rect = container.getBoundingClientRect();
-      const itemSize = 40;
 
       const updatedElements = fields.map((element) => {
+        const itemSize = 35 * element.scale;
         if (element.id === active.id) {
           let newX = element.x + delta.x;
           let newY = element.y + delta.y;
 
           if (
-            newX >= 0 &&
-            newX + itemSize <= rect.width &&
-            newY >= 0 &&
-            newY + itemSize <= rect.height
+            newX >= -20 &&
+            newX + itemSize <= rect.width - 10 &&
+            newY >= -20 &&
+            newY + itemSize <= rect.height - 10
           ) {
             update(
               fields.findIndex((el) => el.id === element.id),
@@ -51,14 +50,16 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
               }
             );
           }
+
           const trashCanRight = rect.width - 50;
           const trashCanBottom = rect.height - 50;
 
+          console.log(newX, trashCanRight - itemSize);
           const isInTrash =
-            newX >= trashCanRight - 50 &&
-            newX <= trashCanRight + 50 &&
-            newY >= trashCanBottom - 50 &&
-            newY <= trashCanBottom + 50;
+            newX >= trashCanRight - itemSize - 30 &&
+            newX <= trashCanRight + itemSize + 30 &&
+            newY >= trashCanBottom - itemSize - 30 &&
+            newY <= trashCanBottom + itemSize + 30;
 
           if (isInTrash) {
             const indexToRemove = fields.findIndex(
@@ -67,6 +68,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
 
             remove(indexToRemove);
           }
+
           return { ...element, x: newX, y: newY };
         }
         return element;
