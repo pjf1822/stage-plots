@@ -86,7 +86,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
   const handleItemSelect = (item: string) => {
     append({
       id: uuidv4(),
-      x: 50 * fields.length,
+      x: 50,
       y: 50,
       title: item,
       stage_plot_id: stagePlotId,
@@ -181,6 +181,8 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           "Man",
           "Woman",
           "Keys",
+          "Vocal",
+
           "Flute",
           "Violin",
           "Trumpet",
@@ -202,7 +204,6 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           "Harmonica",
           "Oboe",
           "Podium",
-          "Vocal",
         ]}
         onSelect={handleItemSelect}
         onClose={closeModal}
