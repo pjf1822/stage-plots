@@ -17,6 +17,7 @@ export const submitStagePlotForm = async (
     console.log("No changes detected!");
     return { success: true, message: "No changes were made" }; // Return the flag with correct type
   }
+  console.log("hey 1");
 
   const updatePromises: Promise<any>[] = [];
   const updatedPlot: FullStagePlot = { ...originalPlotData };
@@ -42,6 +43,8 @@ export const submitStagePlotForm = async (
       })
     );
   }
+
+  console.log("hey 2");
 
   // // UPDATE INPUTS
   if (changedFields["inputs"]) {
@@ -84,10 +87,12 @@ export const submitStagePlotForm = async (
       );
     }
   }
+  console.log("hey 3");
 
   if (changedFields["stage_elements"]) {
     const { added, updated, deleted } = changedFields["stage_elements"];
 
+    console.log(added, updated, deleted, "what sup");
     if (added.length > 0) {
       updatePromises.push(
         fetchWithErrorHandling("/api/stage-elements/create", {

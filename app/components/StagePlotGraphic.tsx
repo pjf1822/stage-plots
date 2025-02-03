@@ -20,7 +20,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
   });
 
   const [draggingId, setDraggingId] = useState<string | number>("");
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const trashCanRef = useRef<HTMLDivElement>(null);
@@ -32,7 +32,6 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       const itemSize = 40;
 
       const updatedElements = fields.map((element) => {
-        console.log(element.id, "what is the element", active.id);
         if (element.id === active.id) {
           let newX = element.x + delta.x;
           let newY = element.y + delta.y;
@@ -86,9 +85,21 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       y: 50,
       title: item,
       stage_plot_id: stagePlotId,
+      scale: 1.0,
     });
     closeModal();
   };
+
+  const handleScaleChange = (elementId: string, newScale: number) => {
+    const elementIndex = fields.findIndex((el) => el.id === elementId);
+    if (elementIndex !== -1) {
+      update(elementIndex, {
+        ...fields[elementIndex],
+        scale: newScale,
+      });
+    }
+  };
+
   return (
     <div
       ref={containerRef}
@@ -114,6 +125,10 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
             y={stageElement.y}
             title={stageElement.title}
             dragging={draggingId === stageElement.id}
+            scale={stageElement.scale}
+            onScaleChange={(newScale) =>
+              handleScaleChange(stageElement.id, newScale)
+            }
           />
         ))}
       </DndContext>

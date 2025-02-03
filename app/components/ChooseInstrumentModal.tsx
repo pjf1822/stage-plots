@@ -26,9 +26,7 @@ const ChooseInstrumentModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      {/* Bind modal open state to isOpen and onClose */}
       <DialogTrigger asChild>
-        {/* Trigger to open the modal, you can replace with a button or any other component */}
         <button style={{ display: "none" }}></button>
       </DialogTrigger>
       <DialogContent
