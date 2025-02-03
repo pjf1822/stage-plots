@@ -106,7 +106,7 @@ const StagePlots = () => {
           ))}
         </div>
       </div>
-      {data?.data?.length > 1 && (
+      {data?.data?.length && data.data.length > 1 && (
         <div className="w-full flex justify-between pt-8">
           <Button
             className="z-10 px-6 py-3 rounded-full bg-black text-white border border-white hover:bg-white hover:text-black transition-all duration-300 ease-in-out transform hover:scale-105 font-urbanist"
