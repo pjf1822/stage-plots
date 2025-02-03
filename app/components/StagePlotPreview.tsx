@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import { CardContent } from "@/components/ui/card";
 import StagePlotGraphicPrint from "./StagePlotGraphicPrint";
 import PreviewInputList from "./PreviewInputList";
 
