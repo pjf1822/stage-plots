@@ -23,17 +23,12 @@ function DraggableItem({
     id: id,
   });
 
-  const imageSrc = `/${title.toLowerCase()}.${
-    title === "Mic-stand" ? "jpg" : "svg"
-  }`;
-
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
 
     const startX = e.clientX;
     const startY = e.clientY;
-    const startScale = scale;
 
     const handleMouseMove = (moveEvent: MouseEvent) => {
       // if (isResizing) {
@@ -82,7 +77,7 @@ function DraggableItem({
       {/* Draggable area */}
       <div ref={setNodeRef} {...listeners} className="w-full h-full relative">
         <Image
-          src={imageSrc}
+          src={`/${title.toLowerCase()}.svg`}
           alt={title}
           style={{
             objectFit: "contain",
@@ -92,7 +87,6 @@ function DraggableItem({
         />
       </div>
 
-      {/* Resize handle - outside the draggable area */}
       <div
         className="absolute bottom-0 right-0 w-4 h-4 bg-blue-500 cursor-se-resize rounded-sm opacity-50 hover:opacity-100"
         onMouseDown={handleMouseDown}
