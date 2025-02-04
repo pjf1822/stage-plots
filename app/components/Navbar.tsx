@@ -9,7 +9,7 @@ const Navbar = () => {
   const supabase = createClient();
   const pathname = usePathname();
 
-  if (pathname === "/login" || pathname === "/privacy") {
+  if (pathname === "/" || pathname === "/privacy") {
     return null;
   }
 
@@ -28,7 +28,7 @@ const Navbar = () => {
 
   return (
     <div className="flex justify-between items-center  bg-black border-b-4">
-      <Link href="/">
+      <Link href="/dashboard">
         <Image
           src="/newlogo3.png"
           alt="Logo"
