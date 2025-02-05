@@ -13,10 +13,6 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
       }}
     >
       {stage_elements?.map((stageElement: any, index: any) => {
-        // const imageSrc = `/${stageElement.title.toLowerCase()}.${
-        //   stageElement.title === "Mic-stand" ? "jpg" : "svg"
-        // }`;
-
         return (
           <div
             key={index}

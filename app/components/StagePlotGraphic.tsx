@@ -171,6 +171,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       <ChooseInstrumentModal
         isOpen={isModalOpen}
         items={[
+          "Vocal",
           "Guitar",
           "Drum-Kit",
           "Monitor",
@@ -180,7 +181,6 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           "Man",
           "Woman",
           "Keys",
-          "Vocal",
 
           "Flute",
           "Violin",

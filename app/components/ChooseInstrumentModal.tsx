@@ -23,8 +23,8 @@ const ChooseInstrumentModal = ({
   onClose,
 }: ModalProps) => {
   if (!isOpen) return null;
-  const topPriorityItems = items.slice(0, 12); // Get first 10 items
-  const secondaryItems = items.slice(12); // Get the rest of the items
+  const topPriorityItems = items.slice(0, 10); // Get first 10 items
+  const secondaryItems = items.slice(10); // Get the rest of the items
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
