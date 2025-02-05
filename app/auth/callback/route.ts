@@ -31,13 +31,13 @@ export async function GET(request: Request) {
           .from("fuckinlogs")
           .insert({ log_data: `2   ${forwardedHost} and${next}` });
 
-        return NextResponse.redirect(`https://thestageplotter.com/dashboard`);
+        return NextResponse.redirect("https://thestageplotter.com/dashboard");
       } else {
         const { error: shitError } = await supabase
           .from("fuckinlogs")
           .insert({ log_data: `3 ${origin} and${next}` });
 
-        return NextResponse.redirect(`${origin}${next}`);
+        return NextResponse.redirect("https://thestageplotter.com/dashboard");
       }
     }
   }
