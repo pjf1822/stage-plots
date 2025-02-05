@@ -19,7 +19,6 @@ export async function POST(req: NextRequest) {
       { status: 500 }
     );
   }
-  console.log(data[0], "hey bitch");
 
   return NextResponse.json(
     {

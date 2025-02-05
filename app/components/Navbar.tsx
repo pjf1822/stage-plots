@@ -23,7 +23,6 @@ const Navbar = () => {
           return;
         }
         const avatarUrl = data?.session?.user?.user_metadata?.avatar_url || "";
-        console.log("Avatar URL:", avatarUrl);
         setUserProfilePic(avatarUrl);
       } catch (err) {
         console.error("Unexpected error fetching session:", err);
