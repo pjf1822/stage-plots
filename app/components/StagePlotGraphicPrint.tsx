@@ -13,9 +13,9 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
       }}
     >
       {stage_elements?.map((stageElement: any, index: any) => {
-        const imageSrc = `/${stageElement.title.toLowerCase()}.${
-          stageElement.title === "Mic-stand" ? "jpg" : "svg"
-        }`;
+        // const imageSrc = `/${stageElement.title.toLowerCase()}.${
+        //   stageElement.title === "Mic-stand" ? "jpg" : "svg"
+        // }`;
 
         return (
           <div
@@ -29,7 +29,7 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
             }}
           >
             <Image
-              src={imageSrc}
+              src={`/${stageElement.title.toLowerCase()}.svg`}
               alt={stageElement.title}
               style={{
                 objectFit: "contain",

@@ -175,7 +175,6 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           "Drum-Kit",
           "Monitor",
           "Power",
-          "Mic-Stand",
           "Electric-Guitar",
           "Bass",
           "Man",

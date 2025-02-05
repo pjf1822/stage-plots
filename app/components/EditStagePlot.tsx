@@ -124,15 +124,15 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
     ]);
   };
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     if (!methods.formState.isSubmitting) {
-  //       handleSubmit(submitForm)();
-  //     }
-  //   }, 10000);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!methods.formState.isSubmitting) {
+        handleSubmit(submitForm)();
+      }
+    }, 30000);
 
-  //   return () => clearInterval(interval); // Cleanup on unmount
-  // }, [methods, handleSubmit, submitForm]);
+    return () => clearInterval(interval);
+  }, [methods, handleSubmit, submitForm]);
 
   return (
     <div className="mt-8">
