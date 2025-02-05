@@ -4,6 +4,7 @@ import { createClient } from "@/utils/supabase/server";
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
+
   const code = searchParams.get("code");
   // if "next" is in param, use it as the redirect URL
   const next = searchParams.get("next") ?? "/dashboard";
@@ -22,7 +23,7 @@ export async function GET(request: Request) {
       } else if (forwardedHost) {
         console.log("2", forwardedHost, next);
 
-        return NextResponse.redirect(`https://${forwardedHost}${next}`);
+        return NextResponse.redirect(`https://thestageplotter.com/dashboard`);
       } else {
         console.log("3", origin, next);
 
