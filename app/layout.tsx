@@ -26,6 +26,69 @@ const urbanist = Urbanist({
 export const metadata: Metadata = {
   title: "Stage plotter",
   description: "Plotting made easy",
+  keywords: [
+    "stage plot",
+    "band setup",
+    "music tools",
+    "live performance",
+    "production",
+  ],
+  authors: [{ name: "Peter Forbes", url: "https://github.com/pjf1822" }],
+  creator: "Peter Forbes",
+  applicationName: "Stage Plotter",
+  openGraph: {
+    title: "Stage Plotter",
+    description: "Plotting made easy",
+    url: "https://www.thestageplotter.com",
+    siteName: "Stage Plotter",
+    images: [
+      {
+        url: "/newlogo.png",
+        width: 1200,
+        height: 630,
+        alt: "Stage Plotter Preview",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    site: "@pforbeswebdev12576",
+    creator: "@peterforbes",
+    title: "Stage Plotter",
+    description: "Plotting made easy",
+    images: ["/newlogo.png"], // Stored in /public
+  },
+  themeColor: "#000000",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/newlogo.png",
+    shortcut: "/newlogo.png",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+  },
+  other: {
+    "application/ld+json": JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "Stage Plotter",
+      url: "https://www.thestageplotter.com",
+      description: "Plotting made easy",
+      publisher: {
+        "@type": "Organization",
+        name: "Stage Plotter",
+        logo: {
+          "@type": "ImageObject",
+          url: "/newlogo.png",
+        },
+      },
+    }),
+  },
 };
 
 export default function RootLayout({
