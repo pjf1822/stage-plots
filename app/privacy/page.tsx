@@ -7,11 +7,12 @@ export default function PrivacyPolicy() {
   return (
     <>
       <Head>
-        <title>Privacy Policy | Stage Plotter</title>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700&display=swap"
-          rel="stylesheet"
-        />
+        <title>Privacy</title>
+        <meta name="description" content="privacy" />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="privacy" />
+        <meta property="og:description" content="privacy" />
+        <meta property="og:type" content="website" />
       </Head>
       <main
         className={`bg-black text-white min-h-screen font-urbanist`}

@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>LandingPAge</title>
+        <title>LandingPage</title>
         <meta name="description" content="landingPage" />
         <meta name="robots" content="index, follow" />
         <meta property="og:title" content="landingPage" />
