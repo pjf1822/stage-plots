@@ -23,9 +23,13 @@ export async function GET(request: Request) {
         // we can be sure that there is n load balancer in between, so no need to watch for X-Forwarded-Host
         return NextResponse.redirect(`${origin}${next}`);
       } else if (forwardedHost) {
-        return NextResponse.redirect(`https://${forwardedHost}/dashboard`);
+        return NextResponse.redirect(
+          `https://www.thestageplotter.com/dashboard`
+        );
       } else {
-        return NextResponse.redirect(`${origin}/dashboard`);
+        return NextResponse.redirect(
+          `https://www.thestageplotter.com/dashboard`
+        );
       }
     }
   }
