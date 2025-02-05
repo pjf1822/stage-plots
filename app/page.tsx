@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/client";
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -21,33 +22,46 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col justify-around items-center min-h-screen bg-black p-6">
-      <Image
-        src="/newlogo.png"
-        alt="Logo"
-        width={250}
-        height={250}
-        className="mb-0 rounded-full w-[280px] h-[280px] sm:w-[300px] sm:h-[300px] lg:w-[500px] lg:h-[500px] transform -translate-y-10"
-      />
-      {/* App Description */}
-      <div className="text-center text-white max-w-2xl font-urbanist transform -translate-y-20">
-        <p className="text-xl text-gray-300 font-urbanist">
-          Stage Plotter is a platform for production people to create, manage,
-          and share professional stage plots effortlessly. Visualize your stage
-          setup, communicate with your team, and simplify your workflow.
-        </p>
+    <>
+      <Head>
+        <title>LandingPAge</title>
+        <meta name="description" content="landingPage" />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="landingPage" />
+        <meta property="og:description" content="landingPage" />
+        <meta property="og:type" content="website" />
+      </Head>
+      <div className="flex flex-col justify-around items-center min-h-screen bg-black p-6">
+        <Image
+          src="/newlogo.png"
+          alt="Logo"
+          width={250}
+          height={250}
+          className="mb-0 rounded-full w-[280px] h-[280px] sm:w-[300px] sm:h-[300px] lg:w-[500px] lg:h-[500px] transform -translate-y-10"
+        />
+        {/* App Description */}
+        <div className="text-center text-white max-w-2xl font-urbanist transform -translate-y-20">
+          <p className="text-xl text-gray-300 font-urbanist">
+            Stage Plotter is a platform for production people to create, manage,
+            and share professional stage plots effortlessly. Visualize your
+            stage setup, communicate with your team, and simplify your workflow.
+          </p>
+        </div>
+        <Button
+          onClick={handleGoogleSignIn}
+          className="z-10 px-12 py-6 text-xl rounded-full bg-black text-white border border-white hover:bg-white hover:text-black transition-all duration-300 ease-in-out transform hover:scale-105 font-urbanist"
+        >
+          Sign in with Google
+        </Button>
+        <div className="absolute bottom-4 right-4 text-sm text-gray-300">
+          <Link
+            href="/privacy"
+            className="underline hover:text-white font-urbanist"
+          >
+            Privacy Policy
+          </Link>
+        </div>
       </div>
-      <Button
-        onClick={handleGoogleSignIn}
-        className="z-10 px-12 py-6 text-xl rounded-full bg-black text-white border border-white hover:bg-white hover:text-black transition-all duration-300 ease-in-out transform hover:scale-105 font-urbanist"
-      >
-        Sign in with Google
-      </Button>
-      <div className="absolute bottom-4 right-4 text-sm text-gray-300">
-        <Link href="/privacy" className="underline hover:text-white">
-          Privacy Policy
-        </Link>
-      </div>
-    </div>
+    </>
   );
 }
