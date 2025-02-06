@@ -70,7 +70,6 @@ export const metadata: Metadata = {
     description: "Plotting made easy",
     images: ["/newlogo.png"], // Stored in /public
   },
-  themeColor: "#000000",
   icons: {
     icon: "/favicon.ico",
     apple: "/newlogo.png",
