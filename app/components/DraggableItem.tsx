@@ -60,6 +60,9 @@ function DraggableItem({
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
   };
+  const itemSize = title === "Riser" ? 160 : 80;
+
+  const zIndex = title === "Riser" ? 8 : 13;
 
   return (
     <div
@@ -67,21 +70,28 @@ function DraggableItem({
         position: "absolute",
         top: y,
         left: x,
-        width: 80 * scale,
-        height: 80 * scale,
+        width: itemSize * scale,
+        height: itemSize * scale,
         transform: dragging
           ? `translate(${transform?.x || 0}px, ${transform?.y || 0}px)`
           : "none",
+        zIndex: zIndex,
       }}
     >
       {/* Draggable area */}
       <div ref={setNodeRef} {...listeners} className="w-full h-full relative">
         <Image
-          src={`/${title.toLowerCase()}.svg`}
+          src={
+            ["audio-console", "monitor", "riser", "spd", "di"].includes(
+              title.toLowerCase()
+            )
+              ? `/${title.toLowerCase()}.png` // PNG for audio-console or monitor
+              : `/${title.toLowerCase()}.svg` // SVG for other items
+          }
           alt={title}
           style={{
             objectFit: "contain",
-            transform: title === "Monitor" ? "rotate(270deg)" : "rotate(0deg)",
+            transform: title === "Monitor" ? "rotate(280deg)" : "rotate(0deg)",
           }}
           fill
         />
