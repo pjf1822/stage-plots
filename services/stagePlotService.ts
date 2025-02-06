@@ -16,7 +16,6 @@ export const submitStagePlotForm = async (
   if (Object.keys(changedFields).length === 0) {
     return { success: true, message: "No changes were made" }; // Return the flag with correct type
   }
-  console.log(formData, "hey");
 
   const updatePromises: Promise<any>[] = [];
   const updatedPlot: FullStagePlot = { ...originalPlotData };
