@@ -1,5 +1,6 @@
 import { useDraggable } from "@dnd-kit/core";
 import Image from "next/image";
+import { useRef, useState } from "react";
 
 interface DraggableItemProps {
   id: string;
@@ -9,7 +10,9 @@ interface DraggableItemProps {
   dragging: boolean;
   label: string;
   scale: number;
+  rotate: number;
   onScaleChange?: (newScale: number) => void;
+  onRotateChange?: (newRotation: number) => void; // New callback to update rotation
 }
 function DraggableItem({
   id,
@@ -19,11 +22,61 @@ function DraggableItem({
   dragging,
   label,
   scale = 1,
+  rotate = 0,
   onScaleChange,
+  onRotateChange,
 }: DraggableItemProps) {
   const { listeners, setNodeRef, transform, attributes } = useDraggable({
     id: id,
   });
+
+  const startAngleRef = useRef(0);
+  const startRotationRef = useRef(0);
+
+  // Function to handle the rotation logic
+  const handleRotateStart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const element = e.currentTarget.parentElement;
+    if (!element) return;
+
+    const rect = element.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    // Calculate the starting angle
+    const startAngle =
+      Math.atan2(e.clientY - centerY, e.clientX - centerX) * (180 / Math.PI);
+
+    startAngleRef.current = startAngle;
+    startRotationRef.current = rotate; // Use the current rotation prop value
+
+    const handleRotateMove = (moveEvent: MouseEvent) => {
+      const currentAngle =
+        Math.atan2(moveEvent.clientY - centerY, moveEvent.clientX - centerX) *
+        (180 / Math.PI);
+
+      // Calculate the difference and update rotation
+      let deltaAngle = currentAngle - startAngleRef.current;
+
+      // Normalize the rotation to keep it between 0 and 360
+      let newRotation = (startRotationRef.current + deltaAngle) % 360;
+      if (newRotation < 0) newRotation += 360;
+
+      onRotateChange?.(newRotation); // Call the parent's onRotateChange function to update the rotation
+    };
+
+    const handleRotateEnd = () => {
+      document.removeEventListener("mousemove", handleRotateMove);
+      document.removeEventListener("mouseup", handleRotateEnd);
+    };
+
+    document.addEventListener("mousemove", handleRotateMove);
+    document.addEventListener("mouseup", handleRotateEnd);
+  };
+
+  // Rest of your component remains the same...
 
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -133,8 +186,10 @@ function DraggableItem({
         width: itemSize * scale,
         height: itemSize * scale,
         transform: dragging
-          ? `translate(${transform?.x || 0}px, ${transform?.y || 0}px)`
-          : "none",
+          ? `translate(${transform?.x || 0}px, ${
+              transform?.y || 0
+            }px) rotate(${rotate}deg)`
+          : `rotate(${rotate}deg)`, // Apply rotation here
         zIndex: zIndex,
       }}
     >
@@ -184,6 +239,15 @@ function DraggableItem({
           }}
         />
       )}
+      <div
+        className="absolute top-0 right-0 w-4 h-4 bg-red-500 cursor-pointer rounded-full opacity-50 hover:opacity-100"
+        onMouseDown={handleRotateStart}
+        style={{
+          touchAction: "none",
+          pointerEvents: "auto",
+          zIndex: 10,
+        }}
+      />
     </div>
   );
 }

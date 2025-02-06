@@ -23,6 +23,7 @@ const AddText: React.FC<AddTextProps> = ({ stagePlotId, append }) => {
       stage_plot_id: stagePlotId,
       scale: 1.0,
       label: text,
+      rotate: 0,
     });
     setText("");
   };
