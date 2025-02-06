@@ -82,16 +82,18 @@ function DraggableItem({
     >
       <div ref={setNodeRef} {...listeners} className="w-full h-full relative">
         {label ? (
-          // If label is not empty, show the label as plain text
           <span
             style={{
+              fontFamily: "urbanist",
               position: "absolute",
               bottom: 0,
               left: "50%",
               transform: "translateX(-50%)",
-              fontSize: "14px",
+              fontSize: "22px",
               color: "black", // You can customize the text color here
               pointerEvents: "none", // Prevent interaction while dragging
+              width: "200px", // Adjust the width of the image
+              height: "auto",
             }}
           >
             {label}
@@ -116,15 +118,17 @@ function DraggableItem({
         )}
       </div>
 
-      <div
-        className="absolute bottom-0 right-0 w-4 h-4 bg-blue-500 cursor-se-resize rounded-sm opacity-50 hover:opacity-100"
-        onMouseDown={handleMouseDown}
-        style={{
-          touchAction: "none",
-          pointerEvents: "auto",
-          zIndex: 10,
-        }}
-      />
+      {!label && (
+        <div
+          className="absolute bottom-0 right-0 w-4 h-4 bg-blue-500 cursor-se-resize rounded-sm opacity-50 hover:opacity-100"
+          onMouseDown={handleMouseDown}
+          style={{
+            touchAction: "none",
+            pointerEvents: "auto",
+            zIndex: 10,
+          }}
+        />
+      )}
     </div>
   );
 }
