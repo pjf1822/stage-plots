@@ -45,7 +45,7 @@ function DraggableItem({
       const newScale = Math.max(
         0.7,
         Math.min(
-          2,
+          2.2,
           roundToDecimalPlaces(
             scale + distance * Math.sign(deltaX) * scaleFactor
           )
@@ -62,9 +62,9 @@ function DraggableItem({
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
   };
-  const itemSize = title === "Riser" ? 160 : 80;
+  const itemSize = title === "riser" ? 160 : 120;
 
-  const zIndex = title === "Riser" ? 8 : 13;
+  const zIndex = title === "riser" ? 8 : 13;
 
   return (
     <div
@@ -101,17 +101,14 @@ function DraggableItem({
         ) : (
           <Image
             src={
-              ["audio-console", "monitor", "riser", "spd", "di"].includes(
-                title.toLowerCase()
-              )
-                ? `/${title.toLowerCase()}.png` // PNG for audio-console or monitor
-                : `/${title.toLowerCase()}.svg` // SVG for other items
+              // PNG for audio-console or monitor
+              `/${title}.svg` // SVG for other items
             }
             alt={title}
             style={{
               objectFit: "contain",
-              transform:
-                title === "Monitor" ? "rotate(280deg)" : "rotate(0deg)",
+              // transform:
+              //   title === "Monitor" ? "rotate(280deg)" : "rotate(0deg)",
             }}
             fill
           />

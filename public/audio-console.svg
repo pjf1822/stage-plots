@@ -1,0 +1,27 @@
+<svg width="200" height="300" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Console base -->
+  <polygon points="50,30 50,270 150,250 150,50" fill="#444"/>
+
+  <!-- Side face -->
+  <polygon points="150,50 150,250 170,270 170,70" fill="#333"/>
+
+  <!-- Front face -->
+  <polygon points="50,270 150,250 170,270 70,290" fill="#222"/>
+
+  <!-- Display screen -->
+  <rect x="60" y="70" width="30" height="60" fill="#009688" stroke="#222" stroke-width="2"/>
+
+  <!-- Knobs -->
+  <circle cx="65" cy="150" r="5" fill="#666"/>
+  <circle cx="65" cy="170" r="5" fill="#666"/>
+  <circle cx="65" cy="190" r="5" fill="#666"/>
+  <circle cx="65" cy="210" r="5" fill="#666"/>
+
+  <!-- Faders -->
+  <rect x="100" y="80" width="30" height="5" fill="#bbb"/>
+  <rect x="90" y="110" width="40" height="5" fill="#bbb"/>
+  <rect x="110" y="140" width="20" height="5" fill="#bbb"/>
+  <rect x="95" y="170" width="35" height="5" fill="#bbb"/>
+  <rect x="105" y="200" width="25" height="5" fill="#bbb"/>
+  <rect x="85" y="230" width="45" height="5" fill="#bbb"/>
+</svg>
