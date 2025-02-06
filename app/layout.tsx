@@ -112,11 +112,11 @@ export default function RootLayout({
       >
         <Provider>
           <Navbar />
-          <MobileDisclaimer />
           {children}
           <SpeedInsights />
           <Toaster />
         </Provider>
+        <MobileDisclaimer />
         <GoogleAnalytics gaId="G-GDCC7LPM64" />
       </body>
     </html>

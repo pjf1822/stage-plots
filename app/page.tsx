@@ -65,7 +65,7 @@ export default function Home() {
         {/* App Description */}
         <div className="text-center text-white max-w-2xl font-urbanist transform -translate-y-20">
           <p className="text-xl text-gray-300 font-urbanist">
-            Stage Plotter is a platform for musicians production people to
+            Stage Plotter is a platform for musicians and production people to
             create, manage, and share professional stage plots effortlessly.
             Visualize your stage setup, communicate with your team, and simplify
             your workflow.
