@@ -13,6 +13,10 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
       }}
     >
       {stage_elements?.map((stageElement: any, index: any) => {
+        const itemSize = stageElement.title === "Riser" ? 160 : 80;
+
+        const zIndex = stageElement.title === "Riser" ? 8 : 13;
+
         return (
           <div
             key={index}
@@ -20,22 +24,48 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
               position: "absolute",
               top: stageElement.y,
               left: stageElement.x,
-              width: 80 * stageElement?.scale,
-              height: 80 * stageElement?.scale,
+              width: itemSize * stageElement?.scale,
+              height: itemSize * stageElement?.scale,
+              zIndex: zIndex,
             }}
           >
-            <Image
-              src={`/${stageElement.title.toLowerCase()}.svg`}
-              alt={stageElement.title}
-              style={{
-                objectFit: "contain",
-                transform:
-                  stageElement.title === "Monitor"
-                    ? "rotate(270deg)"
-                    : "rotate(0deg)",
-              }}
-              fill
-            />
+            {stageElement.label ? (
+              <span
+                style={{
+                  fontFamily: "urbanist",
+                  position: "absolute",
+                  bottom: 0,
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  fontSize: "22px",
+                  color: "black", // You can customize the text color here
+                  pointerEvents: "none", // Prevent interaction while dragging
+                  width: "200px", // Adjust the width of the image
+                  height: "auto",
+                }}
+              >
+                {stageElement.label}
+              </span>
+            ) : (
+              <Image
+                src={
+                  ["audio-console", "monitor", "riser", "spd", "di"].includes(
+                    stageElement.title.toLowerCase()
+                  )
+                    ? `/${stageElement.title.toLowerCase()}.png` // PNG for audio-console or monitor
+                    : `/${stageElement.title.toLowerCase()}.svg` // SVG for other items
+                }
+                alt={stageElement.title}
+                style={{
+                  objectFit: "contain",
+                  transform:
+                    stageElement.title === "Monitor"
+                      ? "rotate(280deg)"
+                      : "rotate(0deg)",
+                }}
+                fill
+              />
+            )}
           </div>
         );
       })}

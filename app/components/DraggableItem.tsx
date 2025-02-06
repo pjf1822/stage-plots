@@ -7,6 +7,7 @@ interface DraggableItemProps {
   y: number;
   title: string;
   dragging: boolean;
+  label: string;
   scale: number;
   onScaleChange?: (newScale: number) => void;
 }
@@ -16,6 +17,7 @@ function DraggableItem({
   y,
   title,
   dragging,
+  label,
   scale = 1,
   onScaleChange,
 }: DraggableItemProps) {
@@ -78,34 +80,55 @@ function DraggableItem({
         zIndex: zIndex,
       }}
     >
-      {/* Draggable area */}
       <div ref={setNodeRef} {...listeners} className="w-full h-full relative">
-        <Image
-          src={
-            ["audio-console", "monitor", "riser", "spd", "di"].includes(
-              title.toLowerCase()
-            )
-              ? `/${title.toLowerCase()}.png` // PNG for audio-console or monitor
-              : `/${title.toLowerCase()}.svg` // SVG for other items
-          }
-          alt={title}
-          style={{
-            objectFit: "contain",
-            transform: title === "Monitor" ? "rotate(280deg)" : "rotate(0deg)",
-          }}
-          fill
-        />
+        {label ? (
+          <span
+            style={{
+              fontFamily: "urbanist",
+              position: "absolute",
+              bottom: 0,
+              left: "50%",
+              transform: "translateX(-50%)",
+              fontSize: "22px",
+              color: "black", // You can customize the text color here
+              pointerEvents: "none", // Prevent interaction while dragging
+              width: "200px", // Adjust the width of the image
+              height: "auto",
+            }}
+          >
+            {label}
+          </span>
+        ) : (
+          <Image
+            src={
+              ["audio-console", "monitor", "riser", "spd", "di"].includes(
+                title.toLowerCase()
+              )
+                ? `/${title.toLowerCase()}.png` // PNG for audio-console or monitor
+                : `/${title.toLowerCase()}.svg` // SVG for other items
+            }
+            alt={title}
+            style={{
+              objectFit: "contain",
+              transform:
+                title === "Monitor" ? "rotate(280deg)" : "rotate(0deg)",
+            }}
+            fill
+          />
+        )}
       </div>
 
-      <div
-        className="absolute bottom-0 right-0 w-4 h-4 bg-blue-500 cursor-se-resize rounded-sm opacity-50 hover:opacity-100"
-        onMouseDown={handleMouseDown}
-        style={{
-          touchAction: "none",
-          pointerEvents: "auto",
-          zIndex: 10,
-        }}
-      />
+      {!label && (
+        <div
+          className="absolute bottom-0 right-0 w-4 h-4 bg-blue-500 cursor-se-resize rounded-sm opacity-50 hover:opacity-100"
+          onMouseDown={handleMouseDown}
+          style={{
+            touchAction: "none",
+            pointerEvents: "auto",
+            zIndex: 10,
+          }}
+        />
+      )}
     </div>
   );
 }

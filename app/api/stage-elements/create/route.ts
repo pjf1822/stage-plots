@@ -6,6 +6,7 @@ export async function POST(req: NextRequest) {
 
   const { stage_elements } = await req.json();
 
+  console.log(stage_elements, "hey");
   const { data, error } = await supabase
     .from("stage_elements")
     .insert(

@@ -10,6 +10,7 @@ import ChooseInstrumentModal from "./ChooseInstrumentModal";
 import { StagePlotFormData } from "@/types";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
+import AddText from "./AddText";
 
 const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
   const { control } = useFormContext<StagePlotFormData>();
@@ -91,6 +92,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       title: item,
       stage_plot_id: stagePlotId,
       scale: 1.0,
+      label: "",
     });
     closeModal();
   };
@@ -130,6 +132,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
             y={stageElement.y}
             title={stageElement.title}
             dragging={draggingId === stageElement.id}
+            label={stageElement.label}
             scale={stageElement.scale}
             onScaleChange={(newScale) =>
               handleScaleChange(stageElement.id, newScale)
@@ -167,6 +170,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       >
         Add New Element
       </Button>
+      <AddText stagePlotId={stagePlotId} append={append} />
 
       <ChooseInstrumentModal
         isOpen={isModalOpen}
@@ -174,17 +178,17 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           "Vocal",
           "Guitar",
           "Drum-Kit",
-          "Monitor",
+          // "Monitor",
           "Power",
-          "SPD",
+          // "SPD",
           "Electric-Guitar",
           "Bass",
           "Man",
           "Woman",
           "Keys",
           "Bass-Cab",
-          "Riser",
-          "Audio-Console",
+          // "Riser",
+          // "Audio-Console",
           "Flute",
           "Violin",
           "Trumpet",
@@ -194,7 +198,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           "Harp",
           "Grand-Piano",
           "Panpipe",
-          "DI",
+          // "DI",
           "Cello",
           "Clarinet",
           "Congas",
