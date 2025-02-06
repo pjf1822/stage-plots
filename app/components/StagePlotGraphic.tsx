@@ -180,7 +180,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       <Button
         type="button"
         onClick={openModal}
-        className="absolute top-2 left-2"
+        className="absolute top-2 left-2 font-urbanist"
       >
         Add New Element
       </Button>

@@ -1,8 +1,6 @@
 "use client";
 
 import React from "react";
-import { FieldValues, useFieldArray, useFormContext } from "react-hook-form";
-import TableSection from "./TableSection";
 
 const PreviewInputList = ({ inputs }: { inputs: any }) => {
   const rowsPerColumn = 16;
@@ -12,13 +10,6 @@ const PreviewInputList = ({ inputs }: { inputs: any }) => {
   const hasSecondColumn = secondColumn.length > 0;
   const hasThirdColumn = thirdColumn.length > 0;
 
-  console.log(
-    firstColumn,
-    secondColumn,
-    thirdColumn,
-    hasSecondColumn,
-    hasThirdColumn
-  );
   return (
     <div className="flex flex-col items-center justify-center w-full  ">
       <div

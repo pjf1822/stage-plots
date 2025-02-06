@@ -58,7 +58,7 @@ const ChooseInstrumentModal = ({
         }}
       >
         <DialogHeader>
-          <DialogTitle>Select an Item</DialogTitle>
+          <DialogTitle></DialogTitle>
         </DialogHeader>
 
         <div>

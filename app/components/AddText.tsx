@@ -33,9 +33,11 @@ const AddText: React.FC<AddTextProps> = ({ stagePlotId, append }) => {
         value={text}
         onChange={handleInputChange}
         placeholder="Enter label text"
-        className="mb-2"
+        className="mb-2 border-2 border-black rounded-lg focus:border-black focus:ring-black font-urbanist"
       />
-      <Button onClick={handleAddLabel}>Add Label</Button>
+      <Button className="font-urbanist" onClick={handleAddLabel}>
+        Add Label
+      </Button>
     </div>
   );
 };
