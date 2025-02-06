@@ -1,10 +1,7 @@
-<svg width="200" height="100" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
-  <!-- Stage monitor body (top-down view) -->
-  <polygon points="20,20 180,20 150,80 50,80" fill="#444" stroke="#222" stroke-width="2"/>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="1060.394px" height="1200px" viewBox="660 440 700 450"
 
-  <!-- Speaker grille -->
-  <rect x="60" y="40" width="80" height="20" fill="none" stroke="#333" stroke-width="2"/>
-
-  <!-- Speaker cone -->
-  <circle cx="100" cy="50" r="10" fill="#666"/>
+>
+  <path stroke="#000000" stroke-width="0.5" stroke-linejoin="bevel" d="M889.02,444.958l367.843,54.374c0,0-65.473,85.655-93.16,137.653c-22.692,42.616-79.663,187.5-79.663,187.5l-369.561-56.371c0,0,40.556-134.338,74.449-191.633C827.361,511.511,889.02,444.958,889.02,444.958z"/>
+  <path fill="#FFFFFF" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" d="M1084.039,824.486L1106.431,878l193.207-83.876l28.729-76.393l0.544-97.237l-72.049-121.161c0,0-77.339,102.226-104.272,151.477C1124.616,701.958,1084.039,824.486,1084.039,824.486z"/>
+  <path fill="#FFFFFF" stroke="#000000" stroke-width="2" stroke-linejoin="bevel" d="M714.479,768.115 L738.989,827.293 L1097.186,881.483 L1106.431,878 L1084.039,824.486 Z"/>
 </svg>

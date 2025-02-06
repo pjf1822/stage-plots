@@ -62,9 +62,67 @@ function DraggableItem({
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
   };
-  const itemSize = title === "riser" ? 160 : 120;
+  let itemSize: number;
+  switch (title) {
+    case "riser":
+      itemSize = 260; // larger size for riser
+      break;
+    case "vocal":
+      itemSize = 180; // slightly larger size for vocal
+      break;
+    case "guitar":
+      itemSize = 100; // medium size for guitar
+      break;
+    case "drum-kit":
+      itemSize = 300; // medium size for guitar
+      break;
+    case "bass-cab":
+      itemSize = 100; // medium size for guitar
+      break;
+    case "pedal":
+      itemSize = 50; // medium size for guitar
+      break;
+    case "di":
+      itemSize = 50; // medium size for guitar
+      break;
+    case "power":
+      itemSize = 70; // medium size for guitar
+      break;
+    case "monitor":
+      itemSize = 180; // medium size for guitar
+      break;
+    case "keys":
+      itemSize = 100; // medium size for guitar
+      break;
+    case "man":
+      itemSize = 120; // medium size for guitar
+      break;
+    case "woman":
+      itemSize = 120; // medium size for guitar
+      break;
+    case "grand-piano":
+      itemSize = 220; // medium size for guitar
+      break;
+    case "cello":
+      itemSize = 190; // medium size for guitar
+      break;
+    case "podium":
+      itemSize = 190; // medium size for guitar
+      break;
+    case "accordian":
+      itemSize = 190; // medium size for guitar
+      break;
+    case "djembe":
+      itemSize = 120; // medium size for guitar
+      break;
+    case "bagpipes":
+      itemSize = 120; // medium size for guitar
+      break;
+    default:
+      itemSize = 100; // default size
+  }
 
-  const zIndex = title === "riser" ? 8 : 13;
+  const zIndex = title === "riser" ? 2 : 3;
 
   return (
     <div
