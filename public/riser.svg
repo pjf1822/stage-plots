@@ -1,0 +1,13 @@
+
+<svg width="300" height="150" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="50,00 250,00 270,100 30,100" fill="#555"/>
+
+  <!-- Front face (shorter for top-down look) -->
+  <polygon points="30,100 270,100 270,120 30,120" fill="#333"/>
+
+  <!-- Side face -->
+
+  <!-- Legs (shorter to match perspective) -->
+  <rect x="60" y="120" width="10" height="10" fill="#222"/>
+  <rect x="240" y="120" width="10" height="10" fill="#222"/>
+</svg>

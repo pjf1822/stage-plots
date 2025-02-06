@@ -1,0 +1,24 @@
+
+<svg  viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Drum Pad (main body) -->
+  <rect x="35" y="50" width="130" height="130" fill="#333" stroke="#222" stroke-width="2"/>
+  
+  <!-- The 8 Drum Pads -->
+  <rect x="45" y="60" width="30" height="30" fill="#444" stroke="#222" stroke-width="2"/>
+  <rect x="85" y="60" width="30" height="30" fill="#444" stroke="#222" stroke-width="2"/>
+  <rect x="125" y="60" width="30" height="30" fill="#444" stroke="#222" stroke-width="2"/>
+  
+  <rect x="45" y="100" width="30" height="30" fill="#444" stroke="#222" stroke-width="2"/>
+  <rect x="85" y="100" width="30" height="30" fill="#444" stroke="#222" stroke-width="2"/>
+  <rect x="125" y="100" width="30" height="30" fill="#444" stroke="#222" stroke-width="2"/>
+  
+  <rect x="45" y="140" width="30" height="30" fill="#444" stroke="#222" stroke-width="2"/>
+  <rect x="85" y="140" width="30" height="30" fill="#444" stroke="#222" stroke-width="2"/>
+  <rect x="125" y="140" width="30" height="30" fill="#444" stroke="#222" stroke-width="2"/>
+  
+  <!-- Stand -->
+  <rect x="90" y="180" width="20" height="100" fill="#222"/>
+  
+  <!-- Stand Base -->
+  <rect x="60" y="280" width="80" height="10" fill="#222"/>
+</svg>

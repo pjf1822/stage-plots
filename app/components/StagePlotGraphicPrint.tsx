@@ -13,9 +13,9 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
       }}
     >
       {stage_elements?.map((stageElement: any, index: any) => {
-        const itemSize = stageElement.title === "Riser" ? 160 : 80;
+        const itemSize = stageElement.title === "riser" ? 160 : 120;
 
-        const zIndex = stageElement.title === "Riser" ? 8 : 13;
+        const zIndex = stageElement.title === "riser" ? 8 : 13;
 
         return (
           <div
@@ -49,19 +49,11 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
             ) : (
               <Image
                 src={
-                  ["audio-console", "monitor", "riser", "spd", "di"].includes(
-                    stageElement.title.toLowerCase()
-                  )
-                    ? `/${stageElement.title.toLowerCase()}.png` // PNG for audio-console or monitor
-                    : `/${stageElement.title.toLowerCase()}.svg` // SVG for other items
+                  `/${stageElement.title}.svg` // SVG for other items
                 }
                 alt={stageElement.title}
                 style={{
                   objectFit: "contain",
-                  transform:
-                    stageElement.title === "Monitor"
-                      ? "rotate(280deg)"
-                      : "rotate(0deg)",
                 }}
                 fill
               />
