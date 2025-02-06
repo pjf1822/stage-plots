@@ -36,7 +36,7 @@ const ChooseInstrumentModal = ({
     "riser",
     "pedal",
   ];
-  const audioItems = ["di", "monitor", "power"]; // Specific audio items
+  const audioItems = ["di", "monitor", "power"]; // Specific audio itemsd
   const otherItems = items.filter(
     (item) => !topPriorityItems.includes(item) && !audioItems.includes(item)
   );
