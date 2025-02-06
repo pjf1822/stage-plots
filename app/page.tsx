@@ -24,13 +24,36 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>LandingPage</title>
-        <meta name="description" content="landingPage" />
+        <title>
+          Stage Plotter - Create, Manage & Share Professional Stage Plots
+        </title>
+        <meta
+          name="description"
+          content="Stage Plotter helps production teams create, manage, and share professional stage plots effortlessly. Visualize your setup, communicate with your team, and streamline your workflow."
+        />
         <meta name="robots" content="index, follow" />
-        <meta property="og:title" content="landingPage" />
-        <meta property="og:description" content="landingPage" />
+        <meta
+          property="og:title"
+          content="Stage Plotter - Create, Manage & Share Professional Stage Plots"
+        />
+        <meta
+          property="og:description"
+          content="Stage Plotter helps production teams create, manage, and share professional stage plots effortlessly. Visualize your setup, communicate with your team, and streamline your workflow."
+        />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="/newlogo.png" />
+        <meta name="twitter:card" content="/newlogo.png" />
+        <meta
+          name="twitter:title"
+          content="Stage Plotter - Create, Manage & Share Professional Stage Plots"
+        />
+        <meta
+          name="twitter:description"
+          content="Stage Plotter helps production teams create, manage, and share professional stage plots effortlessly. Visualize your setup, communicate with your team, and streamline your workflow."
+        />
+        <meta name="twitter:image" content="/newlogo.png" />
       </Head>
+
       <div className="flex flex-col justify-around items-center min-h-screen bg-black p-6">
         <Image
           src="/newlogo.png"
