@@ -36,7 +36,7 @@ const ChooseInstrumentModal = ({
     "riser",
     "pedal",
   ];
-  const audioItems = ["di", "monitor", "power"]; // Specific auddfdfsio itemsd
+  const audioItems = ["di", "wedge", "power"]; // Specific auddfdfsio itemsd
   const otherItems = items.filter(
     (item) => !topPriorityItems.includes(item) && !audioItems.includes(item)
   );
