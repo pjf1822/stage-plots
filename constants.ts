@@ -7,7 +7,7 @@ export const ITEM_SIZES: Record<string, number> = {
   pedal: 50,
   di: 50,
   power: 70,
-  wedge: 160,
+  wedge: 130,
   keys: 140,
   man: 120,
   woman: 120,
