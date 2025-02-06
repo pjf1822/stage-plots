@@ -84,6 +84,8 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
               left: stageElement.x,
               width: itemSize * stageElement?.scale,
               height: itemSize * stageElement?.scale,
+              transform: `rotate(${stageElement.rotate}deg)`, // Corrected line
+
               zIndex: zIndex,
             }}
           >

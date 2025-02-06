@@ -93,6 +93,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       stage_plot_id: stagePlotId,
       scale: 1.0,
       label: "",
+      rotate: 0,
     });
     closeModal();
   };
@@ -103,6 +104,15 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       update(elementIndex, {
         ...fields[elementIndex],
         scale: newScale,
+      });
+    }
+  };
+  const handleRotateChange = (elementId: string, newRotation: number) => {
+    const elementIndex = fields.findIndex((el) => el.id === elementId);
+    if (elementIndex !== -1) {
+      update(elementIndex, {
+        ...fields[elementIndex],
+        rotate: newRotation,
       });
     }
   };
@@ -134,8 +144,12 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
             dragging={draggingId === stageElement.id}
             label={stageElement.label}
             scale={stageElement.scale}
+            rotate={stageElement.rotate}
             onScaleChange={(newScale) =>
               handleScaleChange(stageElement.id, newScale)
+            }
+            onRotateChange={(newRotation) =>
+              handleRotateChange(stageElement.id, newRotation)
             }
           />
         ))}

@@ -23,6 +23,7 @@ export interface StageElement {
   stage_plot_id: string;
   scale: number;
   label: string;
+  rotate: number;
 }
 
 export interface FullStagePlot extends StagePlot {
@@ -63,6 +64,7 @@ export const stagePlotSchema = z.object({
         stage_plot_id: z.string(),
         scale: z.number(),
         label: z.string(),
+        rotate: z.number(),
       })
     )
     .default([]),
