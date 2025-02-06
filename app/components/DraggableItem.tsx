@@ -205,8 +205,10 @@ function DraggableItem({
               fontSize: "22px",
               color: "black", // You can customize the text color here
               pointerEvents: "none", // Prevent interaction while dragging
-              width: "200px", // Adjust the width of the image
+              width: "auto", // Adjust the width of the image
               height: "auto",
+              textAlign: "center",
+              padding: 10,
             }}
           >
             {label}
@@ -239,15 +241,17 @@ function DraggableItem({
           }}
         />
       )}
-      <div
-        className="absolute top-0 right-0 w-4 h-4 bg-red-500 cursor-pointer rounded-full opacity-50 hover:opacity-100"
-        onMouseDown={handleRotateStart}
-        style={{
-          touchAction: "none",
-          pointerEvents: "auto",
-          zIndex: 10,
-        }}
-      />
+      {!label && (
+        <div
+          className="absolute top-0 right-0 w-4 h-4 bg-red-500 cursor-pointer rounded-full opacity-50 hover:opacity-100"
+          onMouseDown={handleRotateStart}
+          style={{
+            touchAction: "none",
+            pointerEvents: "auto",
+            zIndex: 10,
+          }}
+        />
+      )}
     </div>
   );
 }
