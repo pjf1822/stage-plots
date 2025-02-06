@@ -7,6 +7,7 @@ interface DraggableItemProps {
   y: number;
   title: string;
   dragging: boolean;
+  label: string;
   scale: number;
   onScaleChange?: (newScale: number) => void;
 }
@@ -16,6 +17,7 @@ function DraggableItem({
   y,
   title,
   dragging,
+  label,
   scale = 1,
   onScaleChange,
 }: DraggableItemProps) {
@@ -78,23 +80,40 @@ function DraggableItem({
         zIndex: zIndex,
       }}
     >
-      {/* Draggable area */}
       <div ref={setNodeRef} {...listeners} className="w-full h-full relative">
-        <Image
-          src={
-            ["audio-console", "monitor", "riser", "spd", "di"].includes(
-              title.toLowerCase()
-            )
-              ? `/${title.toLowerCase()}.png` // PNG for audio-console or monitor
-              : `/${title.toLowerCase()}.svg` // SVG for other items
-          }
-          alt={title}
-          style={{
-            objectFit: "contain",
-            transform: title === "Monitor" ? "rotate(280deg)" : "rotate(0deg)",
-          }}
-          fill
-        />
+        {label ? (
+          // If label is not empty, show the label as plain text
+          <span
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: "50%",
+              transform: "translateX(-50%)",
+              fontSize: "14px",
+              color: "black", // You can customize the text color here
+              pointerEvents: "none", // Prevent interaction while dragging
+            }}
+          >
+            {label}
+          </span>
+        ) : (
+          <Image
+            src={
+              ["audio-console", "monitor", "riser", "spd", "di"].includes(
+                title.toLowerCase()
+              )
+                ? `/${title.toLowerCase()}.png` // PNG for audio-console or monitor
+                : `/${title.toLowerCase()}.svg` // SVG for other items
+            }
+            alt={title}
+            style={{
+              objectFit: "contain",
+              transform:
+                title === "Monitor" ? "rotate(280deg)" : "rotate(0deg)",
+            }}
+            fill
+          />
+        )}
       </div>
 
       <div

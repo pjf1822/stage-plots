@@ -10,6 +10,7 @@ import ChooseInstrumentModal from "./ChooseInstrumentModal";
 import { StagePlotFormData } from "@/types";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
+import AddText from "./AddText";
 
 const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
   const { control } = useFormContext<StagePlotFormData>();
@@ -91,6 +92,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       title: item,
       stage_plot_id: stagePlotId,
       scale: 1.0,
+      label: "",
     });
     closeModal();
   };
@@ -130,6 +132,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
             y={stageElement.y}
             title={stageElement.title}
             dragging={draggingId === stageElement.id}
+            label={stageElement.label}
             scale={stageElement.scale}
             onScaleChange={(newScale) =>
               handleScaleChange(stageElement.id, newScale)
@@ -167,6 +170,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       >
         Add New Element
       </Button>
+      <AddText stagePlotId={stagePlotId} append={append} />
 
       <ChooseInstrumentModal
         isOpen={isModalOpen}
