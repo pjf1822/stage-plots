@@ -62,7 +62,7 @@ const StagePlots = () => {
     return (
       <div className="text-center py-4">
         <p className="font-urbanist text-4xl font-bold text-white">
-          Add your first stage plot! ya bish!
+          Add your first stage plot!
         </p>
       </div>
     );
