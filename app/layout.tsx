@@ -6,7 +6,7 @@ import Provider from "@/utils/Providers";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "@/components/ui/toaster";
 import MobileDisclaimer from "./components/MobileDisclaimer";
-// import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -109,7 +109,7 @@ export default function RootLayout({
           <SpeedInsights />
           <Toaster />
         </Provider>
-        {/* <GoogleAnalytics gaId="G-GDCC7LPM64" /> */}
+        <GoogleAnalytics gaId="G-GDCC7LPM64" />
       </body>
     </html>
   );
