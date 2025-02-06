@@ -38,9 +38,9 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           let newY = element.y + delta.y;
 
           if (
-            newX >= -20 &&
+            newX >= -100 &&
             newX + itemSize <= rect.width - 10 &&
-            newY >= -20 &&
+            newY >= -100 &&
             newY + itemSize <= rect.height - 10
           ) {
             update(
@@ -53,8 +53,8 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
             );
           }
 
-          const trashCanRight = rect.width - 50;
-          const trashCanBottom = rect.height - 50;
+          const trashCanRight = rect.width - 100;
+          const trashCanBottom = rect.height - 100;
 
           const isInTrash =
             newX >= trashCanRight - itemSize - 30 &&
@@ -196,6 +196,8 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           "snare",
           "tambourine",
           "harp",
+          "stool",
+          "pedal",
           "grand-piano",
           "panpipe",
           "di",
