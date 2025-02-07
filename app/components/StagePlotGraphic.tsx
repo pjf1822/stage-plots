@@ -12,10 +12,14 @@ import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import AddText from "./AddText";
 
+interface HistoryEntry {
+  timestamp: number;
+  elements: any[]; // Using any here since we don't have the type definition
+}
 const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
   const { control } = useFormContext<StagePlotFormData>();
 
-  const { fields, append, update, remove } = useFieldArray({
+  const { fields, append, update, remove, replace } = useFieldArray({
     control,
     name: "stage_elements",
     keyName: "....",
@@ -25,58 +29,91 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const trashCanRef = useRef<HTMLDivElement>(null);
+  const [history, setHistory] = useState<HistoryEntry[]>([
+    { timestamp: Date.now(), elements: [...fields] },
+  ]);
+  console.log(history, "show me the hitsoty");
+  const [currentHistoryIndex, setCurrentHistoryIndex] = useState(0);
 
+  const addToHistory = (newElements: any[]) => {
+    const newEntry = {
+      timestamp: Date.now(),
+      elements: [...newElements],
+    };
+    const newHistory = history.slice(0, currentHistoryIndex + 1);
+    setHistory([...newHistory, newEntry]);
+    setCurrentHistoryIndex(newHistory.length);
+  };
+  const handleUndo = () => {
+    if (currentHistoryIndex > 0) {
+      const previousState = history[currentHistoryIndex - 1];
+
+      // Restore the previous stage elements in react-hook-form
+      replace(previousState.elements);
+
+      // Update the history index
+      setCurrentHistoryIndex(currentHistoryIndex - 1);
+    }
+  };
   const onDragEnd = ({ delta, active }: any) => {
     const container = containerRef.current;
     if (container) {
       const rect = container.getBoundingClientRect();
 
-      const updatedElements = fields.map((element) => {
-        const itemSize = 35 * element.scale;
-        if (element.id === active.id) {
-          let newX = element.x + delta.x;
-          let newY = element.y + delta.y;
+      const updatedElements = fields
+        .map((element) => {
+          const itemSize = 35 * element.scale;
+          if (element.id === active.id) {
+            let newX = element.x + delta.x;
+            let newY = element.y + delta.y;
 
-          if (
-            newX >= -100 &&
-            newX + itemSize <= rect.width - 10 &&
-            newY >= -100 &&
-            newY + itemSize <= rect.height - 10
-          ) {
-            update(
-              fields.findIndex((el) => el.id === element.id),
-              {
-                ...element,
-                x: newX,
-                y: newY,
-              }
-            );
+            if (
+              newX >= -100 &&
+              newX + itemSize <= rect.width - 10 &&
+              newY >= -100 &&
+              newY + itemSize <= rect.height - 10
+            ) {
+              update(
+                fields.findIndex((el) => el.id === element.id),
+                {
+                  ...element,
+                  x: newX,
+                  y: newY,
+                }
+              );
+            }
+
+            const trashCanRight = rect.width - 100;
+            const trashCanBottom = rect.height - 100;
+
+            const isInTrash =
+              newX >= trashCanRight - itemSize - 30 &&
+              newX <= trashCanRight + itemSize + 30 &&
+              newY >= trashCanBottom - itemSize - 30 &&
+              newY <= trashCanBottom + itemSize + 30;
+
+            if (isInTrash) {
+              const indexToRemove = fields.findIndex(
+                (el) => el.id === element.id
+              );
+              remove(indexToRemove);
+              addToHistory(fields.filter((_, i) => i !== indexToRemove));
+              toast({
+                title: "Deleted item!",
+              });
+              return null;
+            }
+
+            return { ...element, x: newX, y: newY };
           }
+          return element;
+        })
+        .filter(Boolean);
 
-          const trashCanRight = rect.width - 100;
-          const trashCanBottom = rect.height - 100;
-
-          const isInTrash =
-            newX >= trashCanRight - itemSize - 30 &&
-            newX <= trashCanRight + itemSize + 30 &&
-            newY >= trashCanBottom - itemSize - 30 &&
-            newY <= trashCanBottom + itemSize + 30;
-
-          if (isInTrash) {
-            const indexToRemove = fields.findIndex(
-              (el) => el.id === element.id
-            );
-
-            toast({
-              title: "Deleted item!",
-            });
-            remove(indexToRemove);
-          }
-
-          return { ...element, x: newX, y: newY };
-        }
-        return element;
-      });
+      // Add to history after drag
+      if (!updatedElements.includes(null)) {
+        addToHistory(updatedElements);
+      }
     }
     setDraggingId("");
   };
@@ -85,7 +122,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
   const closeModal = () => setIsModalOpen(false);
 
   const handleItemSelect = (item: string) => {
-    append({
+    const newElement = {
       id: uuidv4(),
       x: 50,
       y: 50,
@@ -94,26 +131,35 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       scale: 1.0,
       label: "",
       rotate: 0,
-    });
+    };
+    append(newElement);
+    addToHistory([...fields, newElement]);
     closeModal();
   };
 
   const handleScaleChange = (elementId: string, newScale: number) => {
     const elementIndex = fields.findIndex((el) => el.id === elementId);
     if (elementIndex !== -1) {
-      update(elementIndex, {
+      const updatedElements = [...fields];
+      updatedElements[elementIndex] = {
         ...fields[elementIndex],
         scale: newScale,
-      });
+      };
+      update(elementIndex, updatedElements[elementIndex]);
+      addToHistory(updatedElements);
     }
   };
+
   const handleRotateChange = (elementId: string, newRotation: number) => {
     const elementIndex = fields.findIndex((el) => el.id === elementId);
     if (elementIndex !== -1) {
-      update(elementIndex, {
+      const updatedElements = [...fields];
+      updatedElements[elementIndex] = {
         ...fields[elementIndex],
         rotate: newRotation,
-      });
+      };
+      update(elementIndex, updatedElements[elementIndex]);
+      addToHistory(updatedElements);
     }
   };
 
@@ -177,6 +223,15 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           fill
         />
       </div>
+      <Button
+        type="button"
+        variant="secondary"
+        onClick={handleUndo}
+        disabled={currentHistoryIndex === 0}
+        className="absolute bottom-2 left-2 font-urbanist"
+      >
+        Undo
+      </Button>
       <Button
         type="button"
         onClick={openModal}
