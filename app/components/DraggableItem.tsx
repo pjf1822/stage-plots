@@ -12,6 +12,8 @@ interface DraggableItemProps {
   label: string;
   scale: number;
   rotate: number;
+  isActive: boolean; // New prop to determine if this item is the active one
+  setActiveItemId: (id: string) => void; // Replace onActivate with setter
   onScaleChange?: (newScale: number) => void;
   onRotateChange?: (newRotation: number) => void; // New callback to update rotation
 }
@@ -24,6 +26,8 @@ function DraggableItem({
   label,
   scale = 1,
   rotate = 0,
+  isActive,
+  setActiveItemId, // Use setter directly
   onScaleChange,
   onRotateChange,
 }: DraggableItemProps) {
@@ -136,6 +140,7 @@ function DraggableItem({
           : `rotate(${rotate}deg)`, // Apply rotation here
         zIndex: zIndex,
       }}
+      onMouseDown={() => setActiveItemId(id)}
     >
       <div ref={setNodeRef} {...listeners} className="w-full h-full relative">
         {label ? (
@@ -161,15 +166,13 @@ function DraggableItem({
           <Image
             src={`/${title}.svg`}
             alt={title}
-            style={{
-              objectFit: "contain",
-            }}
             fill
+            style={{ objectFit: "contain" }}
           />
         )}
       </div>
 
-      {!label && (
+      {!label && isActive && (
         <div
           className="absolute bottom-0 right-0 w-4 h-4 bg-blue-500 cursor-se-resize rounded-sm opacity-50 hover:opacity-100"
           onMouseDown={handleMouseDown}
@@ -180,7 +183,7 @@ function DraggableItem({
           }}
         />
       )}
-      {!label && (
+      {!label && isActive && (
         <div
           className="absolute top-0 right-0 w-4 h-4 bg-red-500 cursor-pointer rounded-full opacity-50 hover:opacity-100"
           onMouseDown={handleRotateStart}
