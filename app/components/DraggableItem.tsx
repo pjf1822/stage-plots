@@ -137,7 +137,7 @@ function DraggableItem({
           ? `translate(${transform?.x || 0}px, ${
               transform?.y || 0
             }px) rotate(${rotate}deg)`
-          : `rotate(${rotate}deg)`, // Apply rotation here
+          : `rotate(${rotate}deg)`, // Apply rotatidfdfon here
         zIndex: zIndex,
       }}
       onMouseDown={() => setActiveItemId(id)}
