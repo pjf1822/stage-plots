@@ -21,11 +21,14 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
     keyName: "....",
   });
   const [draggingId, setDraggingId] = useState<string | number>("");
+  const [activeItemId, setActiveItemId] = useState<string>(""); // New state for tracking active item
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const trashCanRef = useRef<HTMLDivElement>(null);
 
+  // console.log(activeItemId, "why not");
   const onDragEnd = ({ delta, active }: any) => {
     const container = containerRef.current;
     if (container) {
@@ -145,6 +148,8 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
             label={stageElement.label}
             scale={stageElement.scale}
             rotate={stageElement.rotate}
+            isActive={activeItemId === stageElement.id} // Pass active state
+            setActiveItemId={setActiveItemId} // Pass the setter directly
             onScaleChange={(newScale) =>
               handleScaleChange(stageElement.id, newScale)
             }
