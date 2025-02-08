@@ -133,11 +133,9 @@ function DraggableItem({
         left: x,
         width: itemSize * scale,
         height: itemSize * scale,
-        transform: dragging
-          ? `translate(${transform?.x || 0}px, ${
-              transform?.y || 0
-            }px) rotate(${rotate}deg)`
-          : `rotate(${rotate}deg)`, // Apply rotatidfdfon here
+        transform: `translate(${transform?.x || 0}px, ${
+          transform?.y || 0
+        }px) rotate(${rotate}deg)`,
         zIndex: zIndex,
       }}
       onMouseDown={() => setActiveItemId(id)}
