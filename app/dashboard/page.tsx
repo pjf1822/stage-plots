@@ -48,7 +48,7 @@ export default async function Dashboard() {
               alt="Buy Me a Coffee"
               width={120}
               height={40}
-              className="h-12 w-12 p-2 rounded-full"
+              className="rounded-full "
             />
           </Button>
         </Link>
