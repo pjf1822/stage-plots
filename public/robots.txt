@@ -1,4 +1,7 @@
+User-agent: Googlebot
+Disallow: /nogooglebot/
+
 User-agent: *
 Allow: /
 
-Sitemap: https://www.thestageplotter.com/sitemap.xml
+Sitemap: https://www.thestageplotter/sitemap.xml
