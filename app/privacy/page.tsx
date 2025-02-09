@@ -8,12 +8,19 @@ export default function PrivacyPolicy() {
   return (
     <>
       <Head>
-        <title>Privacy</title>
-        <meta name="description" content="privacy" />
-        <meta name="robots" content="index, follow" />
-        <meta property="og:title" content="privacy" />
-        <meta property="og:description" content="privacy" />
-        <meta property="og:type" content="website" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              name: "Privacy Policy",
+              description: "This is the privacy policy for Stage Plotter.",
+              url: "https://www.thestageplotter.com/privacy",
+              mainEntityOfPage: "https://www.thestageplotter.com/privacy",
+            }),
+          }}
+        />
       </Head>
       <main
         className={`bg-black text-white min-h-screen font-urbanist`}
@@ -90,6 +97,7 @@ export default function PrivacyPolicy() {
               <Link
                 href="mailto:pforbeswebdev@gmail.com"
                 className="text-gray-300 underline"
+                aria-label="Send an email to Peter Forbes"
               >
                 pforbeswebdev@gmail.com
               </Link>
