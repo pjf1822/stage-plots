@@ -18,6 +18,7 @@ export default async function Dashboard() {
     queryFn: getPlots,
     staleTime: 1000 * 60 * 5,
   });
+
   return (
     <>
       <Head>
