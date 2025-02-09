@@ -61,6 +61,8 @@ export default function Home() {
           width={250}
           height={250}
           className="mb-0 rounded-full w-[280px] h-[280px] sm:w-[300px] sm:h-[300px] lg:w-[500px] lg:h-[500px] transform -translate-y-10"
+          priority
+          loading="eager"
         />
         {/* App Description */}
         <div className="text-center text-white max-w-2xl font-urbanist transform -translate-y-20">
