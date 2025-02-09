@@ -60,7 +60,7 @@ export default function Home() {
           alt="Logo"
           width={250}
           height={250}
-          className="mb-0 rounded-full w-[280px] h-[280px] sm:w-[300px] sm:h-[300px] lg:w-[500px] lg:h-[500px] transform -translate-y-10"
+          className="mb-0 rounded-full w-[280px] h-auto sm:w-[300px] sm:h-auto lg:w-[500px] lg:h-auto transform -translate-y-10"
           priority
           loading="eager"
         />
