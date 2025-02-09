@@ -54,6 +54,7 @@ const Navbar = () => {
           width={170}
           height={170}
           className="cursor-pointer rounded-sm"
+          priority
         />
       </Link>
 
