@@ -1,5 +1,6 @@
+export const revalidate = 86400; // Revalidate once per day (24 hours)
+
 import Head from "next/head";
-import { Inter } from "next/font/google";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -24,6 +25,7 @@ export default function PrivacyPolicy() {
           width={400}
           height={400}
           className="mx-auto"
+          priority
         />
         <div className="max-w-3xl mx-auto p-6  border-t-4">
           <h1 className="text-3xl font-bold mb-4 text-white">Privacy Policy</h1>
