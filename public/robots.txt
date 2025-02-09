@@ -1,4 +1,9 @@
+# *
 User-agent: *
-Disallow: /api/
-Allow: /plots/
+Allow: /
+
+# Host
+Host: https://www.thestageplotter.com
+
+# Sitemaps
 Sitemap: https://www.thestageplotter.com/sitemap.xml
