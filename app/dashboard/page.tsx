@@ -4,8 +4,6 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 
-import { cache } from "react"; // Next.js caching
-
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -13,18 +11,13 @@ import { getPlots } from "@/app/server/actions/getPlots";
 import StagePlots from "@/app/components/StagePlots";
 import CreateNewPlotButton from "@/app/components/CreateNewPlotButton";
 import Head from "next/head";
-const getCachedPlots = cache(async () => {
+export default async function Dashboard() {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["stagePlots"],
     queryFn: getPlots,
-    staleTime: 1000 * 60 * 50,
+    staleTime: 1000 * 60 * 5,
   });
-  return dehydrate(queryClient);
-});
-
-export default async function Dashboard() {
-  const dehydratedState = await getCachedPlots();
   return (
     <>
       <Head>
@@ -36,7 +29,7 @@ export default async function Dashboard() {
         <meta property="og:type" content="website" />
       </Head>
       <div className="min-h-[calc(100vh-139px)] flex flex-col justify-center items-center bg-black justify-items-center gap-16 font-[family-name:var(--font-geist-sans)]">
-        <HydrationBoundary state={dehydratedState}>
+        <HydrationBoundary state={dehydrate(queryClient)}>
           <StagePlots />
         </HydrationBoundary>
         <div>
