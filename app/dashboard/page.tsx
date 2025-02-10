@@ -40,7 +40,7 @@ export default async function Dashboard() {
           href="https://buymeacoffee.com/pforbeswebdev"
           target="_blank"
           rel="noopener noreferrer"
-          className="fixed bottom-4 right-4 z-50"
+          className="fixed bottom-4 right-6 z-50"
         >
           <Button variant="outline" className="p-0 rounded-full shadow-lg">
             <Image
@@ -48,7 +48,7 @@ export default async function Dashboard() {
               alt="Buy Me a Coffee"
               width={120}
               height={40}
-              className="rounded-full "
+              className="rounded-full  scale-125"
             />
           </Button>
         </Link>
