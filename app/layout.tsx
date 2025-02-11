@@ -113,7 +113,7 @@ export default function RootLayout({
         <Provider>
           <Navbar />
           {children}
-          {/* <SpeedInsights /> */}
+          <SpeedInsights />
           <Toaster />
         </Provider>
         <Analytics />

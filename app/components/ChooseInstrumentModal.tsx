@@ -33,9 +33,10 @@ const ChooseInstrumentModal = ({
     "bass",
     "riser",
     "basic-riser",
+
     "power",
   ];
-  const audioItems = ["di", "wedge", "audio-console", "shotgun-mic"];
+  const audioItems = ["di", "wedge", "audio-console", "shotgun-mic", "drumsub"];
   const guitarItems = [
     "guitar",
     "guitar-cabinet",
