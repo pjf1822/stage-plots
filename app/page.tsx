@@ -70,8 +70,6 @@ export default function Home() {
           <h2 className="text-xl text-gray-300 font-urbanist">
             Stage Plotter is a platform for musicians and production people to
             create, manage, and share professional stage plots effortlessly.
-            Visualize your stage setup, communicate with your team, and simplify
-            your workflow.
           </h2>
         </div>
         <Button
