@@ -34,9 +34,12 @@ const ChooseInstrumentModal = ({
     "electric-guitar",
     "bass",
     "riser",
+    "guitar-cabinet",
     "pedal",
+    "basic-riser",
+    "power",
   ];
-  const audioItems = ["di", "wedge", "power"]; // Specific auddfdfsio itemsd
+  const audioItems = ["di", "wedge"]; // Specific auddfdfsio itemsd
   const otherItems = items.filter(
     (item) => !topPriorityItems.includes(item) && !audioItems.includes(item)
   );

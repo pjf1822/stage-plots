@@ -144,7 +144,6 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
             x={stageElement.x}
             y={stageElement.y}
             title={stageElement.title}
-            dragging={draggingId === stageElement.id}
             label={stageElement.label}
             scale={stageElement.scale}
             rotate={stageElement.rotate}
@@ -204,18 +203,21 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           "bass",
           "man",
           "woman",
+          "basic-riser",
           "keys",
           "bass-cab",
           "riser",
           "audio-console",
+          "stool",
           "flute",
           "violin",
+          "guitar-cabinet",
           "trumpet",
           "sax",
           "snare",
           "tambourine",
           "harp",
-          "stool",
+          "guitar-stand",
           "pedal",
           "grand-piano",
           "panpipe",
@@ -227,7 +229,6 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           "djembe",
           "square",
           "banjo",
-          "guitar-cabinet",
           "bagpipes",
           "accordian",
           "harmonica",
