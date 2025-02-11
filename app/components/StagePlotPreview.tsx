@@ -3,13 +3,10 @@ import { CardContent } from "@/components/ui/card";
 import StagePlotGraphicPrint from "./StagePlotGraphicPrint";
 import PreviewInputList from "./PreviewInputList";
 
-const StagePlotPreview = ({
-  formData,
-  plotSettings,
-}: {
+const StagePlotPreview: React.FC<{
   formData: any;
-  plotSettings: any;
-}) => {
+  plotSettings: { isStandsRowShowing: boolean }; // Adjust this to match the structure of plotSettings
+}> = ({ formData, plotSettings }) => {
   return (
     <div className="bg-white mx-auto">
       <CardContent className="p-0">

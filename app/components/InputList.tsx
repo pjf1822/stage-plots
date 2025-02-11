@@ -4,7 +4,9 @@ import React from "react";
 import { FieldValues, useFieldArray, useFormContext } from "react-hook-form";
 import TableSection from "./TableSection";
 
-const InputList = ({ plotSettings }) => {
+const InputList: React.FC<{
+  plotSettings: { isStandsRowShowing: boolean };
+}> = ({ plotSettings }) => {
   const {
     control,
     register,

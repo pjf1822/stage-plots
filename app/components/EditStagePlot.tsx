@@ -33,7 +33,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
   const [plotSettings, setPlotSettings] = useState({
     isTwoPages: false,
     isBlackAndWhite: true,
-    isStandsRowShowing: true,
+    isStandsRowShowing: false,
   });
 
   const formRef = useRef<HTMLDivElement>(null);

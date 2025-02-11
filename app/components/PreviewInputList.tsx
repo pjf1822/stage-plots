@@ -27,7 +27,11 @@ const PreviewInputList = ({
             : "grid-cols-1"
         } gap-4`}
       >
-        <div className={`w-full ${!hasSecondColumn ? "col-span-2" : ""}`}>
+        <div
+          className={`${
+            !hasSecondColumn && !hasThirdColumn ? "w-3/4" : "w-full"
+          } ${!hasSecondColumn ? "col-span-2" : ""}`}
+        >
           <table className="w-full border-collapse">
             <thead>
               <tr>
