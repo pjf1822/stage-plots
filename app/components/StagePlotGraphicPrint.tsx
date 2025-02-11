@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 
 const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
+  console.log(stage_elements);
   return (
     <div
       style={{

@@ -1,7 +1,7 @@
 import DraggableItem from "@/app/components/DraggableItem";
 import { DndContext } from "@dnd-kit/core";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
@@ -20,15 +20,61 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
     name: "stage_elements",
     keyName: "....",
   });
-  const [draggingId, setDraggingId] = useState<string | number>("");
   const [activeItemId, setActiveItemId] = useState<string>(""); // New state for tracking active item
-
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [clipboardItem, setClipboardItem] = useState<any>(null);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const trashCanRef = useRef<HTMLDivElement>(null);
 
-  // console.log(activeItemId, "why not");
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (!activeItemId) return;
+
+      // Copy (Ctrl/Cmd + C)
+      if ((e.ctrlKey || e.metaKey) && e.key === "c") {
+        const itemToCopy = fields.find(
+          (element) => element.id === activeItemId
+        );
+        if (itemToCopy) {
+          setClipboardItem(itemToCopy);
+          toast({
+            title: "Copied item to clipboard",
+          });
+        }
+      }
+
+      // Paste (Ctrl/Cmd + V)
+      if ((e.ctrlKey || e.metaKey) && e.key === "v") {
+        if (clipboardItem) {
+          const container = containerRef.current;
+          if (container) {
+            // Add slight offset to pasted item position
+            const newX = clipboardItem.x + 20;
+            const newY = clipboardItem.y + 20;
+
+            append({
+              ...clipboardItem,
+              id: uuidv4(),
+              x: newX,
+              y: newY,
+              stage_plot_id: stagePlotId,
+              scale: 1.0,
+              label: "",
+              rotate: 0,
+            });
+
+            toast({
+              title: "Pasted item",
+            });
+          }
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  }, [activeItemId, fields, clipboardItem, stagePlotId]);
   const onDragEnd = ({ delta, active }: any) => {
     const container = containerRef.current;
     if (container) {
@@ -81,7 +127,6 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
         return element;
       });
     }
-    setDraggingId("");
   };
 
   const openModal = () => setIsModalOpen(true);
@@ -124,19 +169,14 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
     <div
       ref={containerRef}
       style={{
-        height: "80vh",
-        width: "70vw",
+        height: "100vh",
+        width: "90vw",
         position: "relative",
         border: "2px solid black",
         justifySelf: "center",
       }}
     >
-      <DndContext
-        onDragStart={({ active }) => {
-          setDraggingId(active?.id);
-        }}
-        onDragEnd={onDragEnd}
-      >
+      <DndContext onDragEnd={onDragEnd}>
         {fields.map((stageElement, index) => (
           <DraggableItem
             key={stageElement.id}
@@ -226,6 +266,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           "clarinet",
           "congas",
           "french-horn",
+          "shotgun-mic",
           "djembe",
           "square",
           "banjo",
