@@ -30,7 +30,7 @@ const StagePlotPreview: React.FC<{
             <StagePlotGraphicPrint stage_elements={formData.stage_elements} />
           </div>
 
-          <div className="w-[90vw] mx-auto">
+          <div className="w-[89vw] mx-auto">
             <PreviewInputList
               inputs={formData.inputs}
               plotSettings={plotSettings}
