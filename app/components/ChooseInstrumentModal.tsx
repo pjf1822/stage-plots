@@ -25,23 +25,30 @@ const ChooseInstrumentModal = ({
   if (!isOpen) return null;
   const topPriorityItems = [
     "vocal",
-    "guitar",
     "drum-kit",
     "spd",
     "bass-cab",
     "man",
     "woman",
-    "electric-guitar",
     "bass",
     "riser",
-    "guitar-cabinet",
-    "pedal",
     "basic-riser",
     "power",
   ];
-  const audioItems = ["di", "wedge"]; // Specific auddfdfsio itemsd
+  const audioItems = ["di", "wedge", "audio-console"];
+  const guitarItems = [
+    "guitar",
+    "guitar-cabinet",
+    "guitar-stand",
+    "electric-guitar",
+    "pedal",
+    "amp-head",
+  ];
   const otherItems = items.filter(
-    (item) => !topPriorityItems.includes(item) && !audioItems.includes(item)
+    (item) =>
+      !topPriorityItems.includes(item) &&
+      !audioItems.includes(item) &&
+      !guitarItems.includes(item)
   );
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -88,6 +95,24 @@ const ChooseInstrumentModal = ({
           <h3 className="text-lg font-semibold mb-2">Audio</h3>
           <div className="grid grid-cols-4 gap-4 mb-6">
             {audioItems.map((item, index) => {
+              const formattedItem = item.replace(/-/g, " ");
+              return (
+                <Button
+                  key={index}
+                  onClick={() => onSelect(item)}
+                  className="w-full"
+                  style={{ textTransform: "uppercase" }}
+                >
+                  {formattedItem}
+                </Button>
+              );
+            })}
+          </div>
+        </div>
+        <div>
+          <h3 className="text-lg font-semibold mb-2">Guitar</h3>
+          <div className="grid grid-cols-4 gap-4 mb-6">
+            {guitarItems.map((item, index) => {
               const formattedItem = item.replace(/-/g, " ");
               return (
                 <Button

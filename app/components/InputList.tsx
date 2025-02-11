@@ -4,7 +4,7 @@ import React from "react";
 import { FieldValues, useFieldArray, useFormContext } from "react-hook-form";
 import TableSection from "./TableSection";
 
-const InputList = () => {
+const InputList = ({ plotSettings }) => {
   const {
     control,
     register,
@@ -32,6 +32,7 @@ const InputList = () => {
             register={register}
             remove={remove}
             startIndex={0}
+            plotSettings={plotSettings}
           />
         </div>
 
@@ -42,6 +43,7 @@ const InputList = () => {
               register={register}
               remove={remove}
               startIndex={rowsPerColumn}
+              plotSettings={plotSettings}
             />
           </div>
         )}
