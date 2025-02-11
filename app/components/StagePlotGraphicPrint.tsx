@@ -14,7 +14,7 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
       }}
     >
       {stage_elements?.map((stageElement: any, index: any) => {
-        const itemSize = ITEM_SIZES[stage_elements.title] ?? 100;
+        const itemSize = ITEM_SIZES[stageElement.title] ?? 100;
 
         const zIndex = stageElement.title === "riser" ? 2 : 3;
 
