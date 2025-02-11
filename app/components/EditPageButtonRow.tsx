@@ -42,7 +42,7 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
           <span className="ml-2">&#9650;</span>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="bg-white shadow-md rounded-md border border-gray-300">
-          <DropdownMenuItem className="flex items-center gap-2 text-black hover:bg-gray-200">
+          {/* <DropdownMenuItem className="flex items-center gap-2 text-black hover:bg-gray-200">
             <Checkbox
               id="two-pages"
               checked={plotSettings.isTwoPages}
@@ -53,8 +53,8 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
             <label className="text-sm font-medium leading-none cursor-pointer">
               Two pages
             </label>
-          </DropdownMenuItem>
-          <DropdownMenuItem className="flex items-center gap-2 text-black hover:bg-gray-200">
+          </DropdownMenuItem> */}
+          {/* <DropdownMenuItem className="flex items-center gap-2 text-black hover:bg-gray-200">
             <Checkbox
               id="black-and-white"
               checked={plotSettings.isBlackAndWhite}
@@ -68,7 +68,7 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
             <label className="text-sm font-medium leading-none cursor-pointer">
               Black and white
             </label>
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
           <DropdownMenuItem className="flex items-center gap-2 text-black hover:bg-gray-200">
             <Checkbox
               id="black-and-white"
