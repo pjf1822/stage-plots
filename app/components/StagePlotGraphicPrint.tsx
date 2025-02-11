@@ -7,7 +7,7 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
   return (
     <div
       style={{
-        height: "100vh",
+        height: "90vh",
         width: "90vw",
         position: "relative",
         border: "2px solid black",
