@@ -7,6 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "@/components/ui/toaster";
 import MobileDisclaimer from "./components/MobileDisclaimer";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Analytics } from "@vercel/analytics/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -115,6 +116,7 @@ export default function RootLayout({
           {/* <SpeedInsights /> */}
           <Toaster />
         </Provider>
+        <Analytics />
         <MobileDisclaimer />
         <GoogleAnalytics gaId="G-GDCC7LPM64" />
       </body>
