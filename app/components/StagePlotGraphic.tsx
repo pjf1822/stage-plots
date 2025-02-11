@@ -169,8 +169,8 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
     <div
       ref={containerRef}
       style={{
-        height: "90vh",
-        width: "90vw",
+        height: "86vh",
+        width: "89vw",
         position: "relative",
         border: "2px solid black",
         justifySelf: "center",

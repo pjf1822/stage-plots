@@ -22,7 +22,6 @@ const ScreenshotPage = () => {
     }
   }, [searchParams]);
 
-  // Take the screenshot after plotData is available
   useEffect(() => {
     if (!plotData) return;
 
@@ -40,13 +39,12 @@ const ScreenshotPage = () => {
       const takeScreenshot = async () => {
         try {
           const canvas = await html2canvas(element, {
-            scale: window.devicePixelRatio, // Improve image quality
-            width: element.scrollWidth, // Capture full width
-            height: element.scrollHeight, // Capture full height
+            scale: window.devicePixelRatio,
+            width: element.scrollWidth,
+            height: element.scrollHeight,
           });
           const screenshot = canvas.toDataURL();
 
-          // Send the screenshot back to the parent window
           window.opener?.postMessage(
             {
               type: "SCREENSHOT_CAPTURED",
@@ -66,12 +64,8 @@ const ScreenshotPage = () => {
   if (!plotData) return <div>No plot data provided</div>;
 
   return (
-    <div className="p-0 bg-white min-h-screen">
-      <div
-        id="previewRef"
-        ref={previewRef}
-        className="w-[100vw] max-w-[1400px]"
-      >
+    <div className="p-0 bg-white">
+      <div id="previewRef" ref={previewRef} className="w-[100vw]">
         <StagePlotPreview plotSettings={plotSettings} formData={plotData} />
       </div>
     </div>

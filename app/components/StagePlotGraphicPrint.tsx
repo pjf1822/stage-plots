@@ -3,12 +3,11 @@ import Image from "next/image";
 import React from "react";
 
 const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
-  console.log(stage_elements);
   return (
     <div
       style={{
-        height: "90vh",
-        width: "90vw",
+        height: "100vh",
+        width: "89vw",
         position: "relative",
         border: "2px solid black",
         justifySelf: "center",
@@ -24,9 +23,9 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
             key={index}
             style={{
               position: "absolute",
-              top: stageElement.y,
-              left: stageElement.x,
-              width: itemSize * stageElement?.scale,
+              top: stageElement.y * 1.168, // Scale the Y coordinate
+              left: stageElement.x, // Scale the X coordinate
+              width: itemSize * stageElement?.scale, // Scale the width of the item
               height: itemSize * stageElement?.scale,
               transform: `rotate(${stageElement.rotate}deg)`, // Corrected line
 
