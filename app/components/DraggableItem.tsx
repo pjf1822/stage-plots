@@ -25,7 +25,7 @@ function DraggableItem({
   scale = 1,
   rotate = 0,
   isActive,
-  setActiveItemId, // Use setter directly
+  setActiveItemId,
   onScaleChange,
   onRotateChange,
 }: DraggableItemProps) {
@@ -124,6 +124,12 @@ function DraggableItem({
 
   const zIndex = title === "riser" || title === "basic-riser" ? 2 : 3;
 
+  const getTransformStyle = () => {
+    const translateX = transform ? transform.x : 0;
+    const translateY = transform ? transform.y : 0;
+    return `translate3d(${translateX}px, ${translateY}px, 0) rotate(${rotate}deg)`;
+  };
+
   return (
     <div
       style={{
@@ -132,9 +138,8 @@ function DraggableItem({
         left: x,
         width: itemSize * scale,
         height: itemSize * scale,
-        transform: transform
-          ? `translate3d(${transform.x}px, ${transform.y}px, 0) rotate(${rotate}deg)`
-          : `rotate(${rotate}deg)`,
+        transform: getTransformStyle(),
+
         zIndex: zIndex,
       }}
       onMouseDown={() => setActiveItemId(id)}
