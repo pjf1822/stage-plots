@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" height="700px" width="800px">
+  <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g>
+      <g transform="translate(13.000000, 33.500000)">
+        <rect fill="#000000" x="9" y="22" width="2" height="3"/>
+        <rect fill="#000000" x="13" y="22" width="2" height="3"/>
+        <rect stroke="#000000" stroke-width="0.5" x="19.25" y="23.25" width="3.5" height="1"/>
+        <g>
+          <g transform="translate(0.000000, 1.000000)">
+            <rect stroke="#000000" x="0.5" y="0.5" width="73" height="30" rx="3"/>
+            <circle fill="#000000" cx="66" cy="23" r="1"/>
+            <path d="M4,18 L70,18" stroke="#000000" stroke-width="0.5"/>
+          </g>
+          <path d="M27,22 L28.5,22" stroke="#000000"/>
+          <path d="M43,0.75 L47,0.75" stroke="#000000" stroke-width="1.5"/>
+          <path d="M27,0.75 L31,0.75" stroke="#000000" stroke-width="1.5"/>
+          <path d="M7,31.75 L10,31.75" stroke="#000000" stroke-width="1.5"/>
+          <path d="M64,31.75 L67,31.75" stroke="#000000" stroke-width="1.5"/>
+          <path d="M27,26 L28.5,26" stroke="#000000"/>
+          <path d="M31,26 L32.5,26" stroke="#000000"/>
+          <path d="M43,26 L44.5,26" stroke="#000000"/>
+          <path d="M62,26 L63.5,26" stroke="#000000"/>
+          <path d="M62,22 L63.5,22" stroke="#000000"/>
+          <rect stroke="#000000" stroke-width="0.5" x="4.25" y="6.25" width="65.5" height="22.5"/>
+        </g>
+        <circle stroke="#000000" stroke-width="0.5" cx="29.75" cy="23.75" r="1"/>
+        <circle stroke="#000000" stroke-width="0.5" cx="32.75" cy="23.75" r="1"/>
+        <circle stroke="#000000" stroke-width="0.5" cx="35.75" cy="23.75" r="1"/>
+        <circle stroke="#000000" stroke-width="0.5" cx="38.75" cy="23.75" r="1"/>
+        <circle stroke="#000000" stroke-width="0.5" cx="41.75" cy="23.75" r="1"/>
+        <circle stroke="#000000" stroke-width="0.5" cx="44.75" cy="23.75" r="1"/>
+        <circle stroke="#000000" stroke-width="0.5" cx="47.75" cy="21.75" r="1"/>
+        <circle stroke="#000000" stroke-width="0.5" cx="47.75" cy="25.75" r="1"/>
+        <circle stroke="#000000" stroke-width="0.5" cx="50.75" cy="21.75" r="1"/>
+        <circle stroke="#000000" stroke-width="0.5" cx="50.75" cy="25.75" r="1"/>
+        <circle stroke="#000000" stroke-width="0.5" cx="53.75" cy="21.75" r="1"/>
+        <circle stroke="#000000" stroke-width="0.5" cx="53.75" cy="25.75" r="1"/>
+        <circle stroke="#000000" stroke-width="0.5" cx="59.75" cy="21.75" r="1"/>
+        <circle stroke="#000000" stroke-width="0.5" cx="59.75" cy="25.75" r="1"/>
+        <circle stroke="#000000" stroke-width="0.5" cx="56.75" cy="21.75" r="1"/>
+        <circle stroke="#000000" stroke-width="0.5" cx="56.75" cy="25.75" r="1"/>
+        <polyline stroke="#000000" stroke-width="0.5" points="0 4.28125 3 4.28125 3 1.09375"/>
+        <polyline stroke="#000000" stroke-width="0.5" transform="translate(1.593750, 30.500000) rotate(270.000000) translate(-1.593750, -30.500000) " points="0.09375 32.09375 3.09375 32.09375 3.09375 28.90625"/>
+        <polyline stroke="#000000" stroke-width="0.5" transform="translate(72.500000, 30.250000) rotate(180.000000) translate(-72.500000, -30.250000) " points="71 31.5 74 31.5 74 29"/>
+        <polyline stroke="#000000" stroke-width="0.5" transform="translate(72.000000, 2.500000) rotate(90.000000) translate(-72.000000, -2.500000) " points="70.5 3.5 73.5 3.5 73.5 1.5"/>
+      </g>
+      <path d="M43,47.75 L46.3333333,43.75 L45.6666667,46.95 L49,43.75 L48.3333333,46.95 L51,45 L51,46.95 L53,45 L53.6666667,46.95 L57,43.75 L55.6666667,47.75" stroke="#000000" stroke-width="0.5"/>
+    </g>
+  </g>
+</svg>

@@ -234,6 +234,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           "harmonica",
           "oboe",
           "podium",
+          "amp-head",
         ]}
         onSelect={handleItemSelect}
         onClose={closeModal}

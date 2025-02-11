@@ -9,11 +9,16 @@ const ScreenshotPage = () => {
   const searchParams = useSearchParams();
   const previewRef = useRef<HTMLDivElement>(null);
   const [plotData, setPlotData] = useState<any>(null);
+  const [plotSettings, setPlotSettings] = useState<any>(null); // Add a state for plotSettings
 
   useEffect(() => {
     const plotDataParam = searchParams.get("plotData");
     if (plotDataParam) {
       setPlotData(JSON.parse(decodeURIComponent(plotDataParam)));
+    }
+    const plotSettingsParam = searchParams.get("plotSettings");
+    if (plotSettingsParam) {
+      setPlotSettings(JSON.parse(decodeURIComponent(plotSettingsParam)));
     }
   }, [searchParams]);
 
@@ -67,7 +72,7 @@ const ScreenshotPage = () => {
         ref={previewRef}
         className="w-[100vw] max-w-[1400px]"
       >
-        <StagePlotPreview formData={plotData} />
+        <StagePlotPreview plotSettings={plotSettings} formData={plotData} />
       </div>
     </div>
   );

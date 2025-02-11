@@ -2,7 +2,13 @@
 
 import React from "react";
 
-const PreviewInputList = ({ inputs }: { inputs: any }) => {
+const PreviewInputList = ({
+  inputs,
+  plotSettings,
+}: {
+  inputs: any;
+  plotSettings: any;
+}) => {
   const rowsPerColumn = 16;
   let firstColumn = inputs.slice(0, rowsPerColumn);
   let secondColumn = inputs.slice(rowsPerColumn, rowsPerColumn * 2);
@@ -21,12 +27,16 @@ const PreviewInputList = ({ inputs }: { inputs: any }) => {
             : "grid-cols-1"
         } gap-4`}
       >
-        <div className={`w-full ${!hasSecondColumn ? "col-span-2" : ""}`}>
+        <div
+          className={`${
+            !hasSecondColumn && !hasThirdColumn ? "w-3/4" : "w-full"
+          } ${!hasSecondColumn ? "col-span-2" : ""}`}
+        >
           <table className="w-full border-collapse">
             <thead>
               <tr>
-                <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
-                  Channel
+                <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg w-11">
+                  Ch
                 </th>
                 <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                   Name
@@ -34,15 +44,17 @@ const PreviewInputList = ({ inputs }: { inputs: any }) => {
                 <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                   Mic
                 </th>
-                <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
-                  Stand
-                </th>
+                {plotSettings.isStandsRowShowing && (
+                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
+                    Stand
+                  </th>
+                )}
               </tr>
             </thead>
             <tbody>
               {firstColumn.map((input: any, index: number) => (
                 <tr key={input.id}>
-                  <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
+                  <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg w-11">
                     {index + 1}
                   </td>
                   <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
@@ -51,9 +63,11 @@ const PreviewInputList = ({ inputs }: { inputs: any }) => {
                   <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
                     {input.mic}
                   </td>
-                  <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
-                    {input.stand}
-                  </td>
+                  {plotSettings.isStandsRowShowing && (
+                    <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
+                      {input.stand}
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
@@ -65,8 +79,8 @@ const PreviewInputList = ({ inputs }: { inputs: any }) => {
             <table className="w-full border-collapse">
               <thead>
                 <tr>
-                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
-                    Channel
+                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg w-11">
+                    Ch
                   </th>
                   <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                     Name
@@ -74,15 +88,17 @@ const PreviewInputList = ({ inputs }: { inputs: any }) => {
                   <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                     Mic
                   </th>
-                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
-                    Stand
-                  </th>
+                  {plotSettings.isStandsRowShowing && (
+                    <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
+                      Stand
+                    </th>
+                  )}
                 </tr>
               </thead>
               <tbody>
                 {secondColumn.map((input: any, index: number) => (
                   <tr key={input.id}>
-                    <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
+                    <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg w-11">
                       {index + rowsPerColumn + 1}
                     </td>
                     <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
@@ -91,9 +107,11 @@ const PreviewInputList = ({ inputs }: { inputs: any }) => {
                     <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
                       {input.mic}
                     </td>
-                    <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
-                      {input.stand}
-                    </td>
+                    {plotSettings.isStandsRowShowing && (
+                      <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
+                        {input.stand}
+                      </td>
+                    )}
                   </tr>
                 ))}
               </tbody>
@@ -105,8 +123,8 @@ const PreviewInputList = ({ inputs }: { inputs: any }) => {
             <table className="w-full border-collapse">
               <thead>
                 <tr>
-                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
-                    Channel
+                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg w-11">
+                    Ch
                   </th>
                   <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                     Name
@@ -114,15 +132,17 @@ const PreviewInputList = ({ inputs }: { inputs: any }) => {
                   <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                     Mic
                   </th>
-                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
-                    Stand
-                  </th>
+                  {plotSettings.isStandsRowShowing && (
+                    <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
+                      Stand
+                    </th>
+                  )}
                 </tr>
               </thead>
               <tbody>
                 {thirdColumn.map((input: any, index: number) => (
                   <tr key={input.id}>
-                    <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
+                    <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg w-11">
                       {index + rowsPerColumn * 2 + 1}
                     </td>
                     <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
@@ -131,9 +151,11 @@ const PreviewInputList = ({ inputs }: { inputs: any }) => {
                     <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
                       {input.mic}
                     </td>
-                    <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
-                      {input.stand}
-                    </td>
+                    {plotSettings.isStandsRowShowing && (
+                      <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
+                        {input.stand}
+                      </td>
+                    )}
                   </tr>
                 ))}
               </tbody>

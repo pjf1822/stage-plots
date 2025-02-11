@@ -9,7 +9,6 @@ import { submitStagePlotForm } from "@/services/stagePlotService";
 import { StagePlotFormData, stagePlotSchema } from "@/types";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
-import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { useScreenshot } from "use-react-screenshot";
@@ -34,7 +33,9 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
   const [plotSettings, setPlotSettings] = useState({
     isTwoPages: false,
     isBlackAndWhite: true,
+    isStandsRowShowing: false,
   });
+
   const formRef = useRef<HTMLDivElement>(null);
   const methods = useForm<StagePlotFormData>({
     resolver: zodResolver(stagePlotSchema),
@@ -75,7 +76,9 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
     const formData = methods.getValues();
 
     const screenshotWindow = window.open(
-      `/screenshot?plotData=${encodeURIComponent(JSON.stringify(formData))}`,
+      `/screenshot?plotData=${encodeURIComponent(
+        JSON.stringify(formData)
+      )}&plotSettings=${encodeURIComponent(JSON.stringify(plotSettings))}`,
       "Screenshot"
     );
 
@@ -166,7 +169,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
               </div>
 
               <StagePlotGraphic stagePlotId={currentPlot.id} />
-              <InputList />
+              <InputList plotSettings={plotSettings} />
             </div>
             <EditPageButtonRow
               getImage={getImage}
