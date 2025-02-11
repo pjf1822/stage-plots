@@ -27,7 +27,7 @@ const urbanist = Urbanist({
 
 export const metadata: Metadata = {
   title: "Stage plotter",
-  description: "Plotting made easy",
+  description: "Quick. Easy. Professional Stage Designs",
   keywords: [
     "stage plot",
     "band setup",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   applicationName: "Stage Plotter",
   openGraph: {
     title: "Stage Plotter",
-    description: "Plotting made easy",
+    description: "Quick. Easy. Professional Stage Designs",
     url: "https://www.thestageplotter.com",
     siteName: "Stage Plotter",
     images: [
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     site: "@pforbeswebdev12576",
     creator: "@peterforbes",
     title: "Stage Plotter",
-    description: "Plotting made easy",
+    description: "Quick. Easy. Professional Stage Designs",
     images: ["/newlogo.png"], // Stored in /public
   },
   icons: {
@@ -87,7 +87,7 @@ export const metadata: Metadata = {
       "@type": "WebSite",
       name: "Stage Plotter",
       url: "https://www.thestageplotter.com",
-      description: "Plotting made easy",
+      description: "Quick. Easy. Professional Stage Designs",
       publisher: {
         "@type": "Organization",
         name: "Stage Plotter",
