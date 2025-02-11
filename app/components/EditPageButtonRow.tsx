@@ -34,7 +34,7 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
 }) => {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-black py-4 mt-4 shadow-lg flex justify-around gap-4 z-30 border-t-2 ">
-      <DropdownMenu>
+      {/* <DropdownMenu>
         <DropdownMenuTrigger className="bg-black text-white text-lg px-6 py-0 rounded-lg shadow-xl border border-white">
           Plot Settings
         </DropdownMenuTrigger>
@@ -67,7 +67,7 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
             </label>
           </DropdownMenuItem>
         </DropdownMenuContent>
-      </DropdownMenu>
+      </DropdownMenu> */}
       <Button
         onClick={getImage}
         variant={"outline"}
