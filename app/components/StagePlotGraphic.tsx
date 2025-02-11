@@ -225,6 +225,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           "congas",
           "french-horn",
           "djembe",
+          "square",
           "banjo",
           "guitar-cabinet",
           "bagpipes",
