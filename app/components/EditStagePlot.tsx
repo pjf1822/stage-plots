@@ -19,17 +19,7 @@ import { Dialog } from "@/components/ui/dialog";
 import { useQuery } from "@tanstack/react-query";
 import { getPlotById } from "../server/actions/getPlotById";
 import { v4 as uuidv4 } from "uuid";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-  DropdownMenuCheckboxItem,
-  DropdownMenuGroup,
-} from "@/components/ui/dropdown-menu";
-import { Settings } from "lucide-react";
+
 import EditPageButtonRow from "./EditPageButtonRow";
 
 const EditStagePlot = ({ plotid }: { plotid: string }) => {

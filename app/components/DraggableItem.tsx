@@ -8,7 +8,6 @@ interface DraggableItemProps {
   x: number;
   y: number;
   title: string;
-  dragging: boolean;
   label: string;
   scale: number;
   rotate: number;
@@ -22,7 +21,6 @@ function DraggableItem({
   x,
   y,
   title,
-  dragging,
   label,
   scale = 1,
   rotate = 0,
@@ -68,8 +66,9 @@ function DraggableItem({
       // Normalize the rotation to keep it between 0 and 360
       let newRotation = (startRotationRef.current + deltaAngle) % 360;
       if (newRotation < 0) newRotation += 360;
+      const snappedRotation = Math.round(newRotation / 3) * 3;
 
-      onRotateChange?.(newRotation); // Call the parent's onRotateChange function to update the rotation
+      onRotateChange?.(snappedRotation);
     };
 
     const handleRotateEnd = () => {
@@ -123,7 +122,7 @@ function DraggableItem({
 
   const itemSize = ITEM_SIZES[title] ?? 100;
 
-  const zIndex = title === "riser" ? 2 : 3;
+  const zIndex = title === "riser" || title === "basic-riser" ? 2 : 3;
 
   return (
     <div
@@ -133,9 +132,9 @@ function DraggableItem({
         left: x,
         width: itemSize * scale,
         height: itemSize * scale,
-        transform: `translate(${transform?.x || 0}px, ${
-          transform?.y || 0
-        }px) rotate(${rotate}deg)`,
+        transform: transform
+          ? `translate3d(${transform.x}px, ${transform.y}px, 0) rotate(${rotate}deg)`
+          : `rotate(${rotate}deg)`,
         zIndex: zIndex,
       }}
       onMouseDown={() => setActiveItemId(id)}
