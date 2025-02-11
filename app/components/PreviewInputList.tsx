@@ -25,16 +25,16 @@ const PreviewInputList = ({ inputs }: { inputs: any }) => {
           <table className="w-full border-collapse">
             <thead>
               <tr>
-                <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left">
+                <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                   Channel
                 </th>
-                <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left">
+                <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                   Name
                 </th>
-                <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left">
+                <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                   Mic
                 </th>
-                <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left">
+                <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                   Stand
                 </th>
               </tr>
@@ -42,16 +42,16 @@ const PreviewInputList = ({ inputs }: { inputs: any }) => {
             <tbody>
               {firstColumn.map((input: any, index: number) => (
                 <tr key={input.id}>
-                  <td className="border border-gray-300 p-0 pl-2 pb-4">
+                  <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
                     {index + 1}
                   </td>
-                  <td className="border border-gray-300 p-0 pl-2 pb-4">
+                  <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
                     {input.name}
                   </td>
-                  <td className="border border-gray-300 p-0 pl-2 pb-4">
+                  <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
                     {input.mic}
                   </td>
-                  <td className="border border-gray-300 p-0 pl-2 pb-4">
+                  <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
                     {input.stand}
                   </td>
                 </tr>
@@ -65,16 +65,16 @@ const PreviewInputList = ({ inputs }: { inputs: any }) => {
             <table className="w-full border-collapse">
               <thead>
                 <tr>
-                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left">
+                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                     Channel
                   </th>
-                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left">
+                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                     Name
                   </th>
-                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left">
+                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                     Mic
                   </th>
-                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left">
+                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                     Stand
                   </th>
                 </tr>
@@ -82,16 +82,16 @@ const PreviewInputList = ({ inputs }: { inputs: any }) => {
               <tbody>
                 {secondColumn.map((input: any, index: number) => (
                   <tr key={input.id}>
-                    <td className="border border-gray-300 p-0 pl-2 pb-4">
+                    <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
                       {index + rowsPerColumn + 1}
                     </td>
-                    <td className="border border-gray-300 p-0 pl-2 pb-4">
+                    <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
                       {input.name}
                     </td>
-                    <td className="border border-gray-300 p-0 pl-2 pb-4">
+                    <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
                       {input.mic}
                     </td>
-                    <td className="border border-gray-300 p-0 pl-2 pb-4">
+                    <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
                       {input.stand}
                     </td>
                   </tr>
@@ -105,16 +105,16 @@ const PreviewInputList = ({ inputs }: { inputs: any }) => {
             <table className="w-full border-collapse">
               <thead>
                 <tr>
-                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left">
+                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                     Channel
                   </th>
-                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left">
+                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                     Name
                   </th>
-                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left">
+                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                     Mic
                   </th>
-                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left">
+                  <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                     Stand
                   </th>
                 </tr>
@@ -122,16 +122,16 @@ const PreviewInputList = ({ inputs }: { inputs: any }) => {
               <tbody>
                 {thirdColumn.map((input: any, index: number) => (
                   <tr key={input.id}>
-                    <td className="border border-gray-300 p-0 pl-2 pb-4">
+                    <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
                       {index + rowsPerColumn * 2 + 1}
                     </td>
-                    <td className="border border-gray-300 p-0 pl-2 pb-4">
+                    <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
                       {input.name}
                     </td>
-                    <td className="border border-gray-300 p-0 pl-2 pb-4">
+                    <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
                       {input.mic}
                     </td>
-                    <td className="border border-gray-300 p-0 pl-2 pb-4">
+                    <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
                       {input.stand}
                     </td>
                   </tr>

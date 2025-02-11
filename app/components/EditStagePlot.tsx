@@ -19,6 +19,18 @@ import { Dialog } from "@/components/ui/dialog";
 import { useQuery } from "@tanstack/react-query";
 import { getPlotById } from "../server/actions/getPlotById";
 import { v4 as uuidv4 } from "uuid";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  DropdownMenuCheckboxItem,
+  DropdownMenuGroup,
+} from "@/components/ui/dropdown-menu";
+import { Settings } from "lucide-react";
+import EditPageButtonRow from "./EditPageButtonRow";
 
 const EditStagePlot = ({ plotid }: { plotid: string }) => {
   const { data: plot, isLoading } = useQuery({
@@ -29,6 +41,10 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
   if (isLoading) return <div>Loading...</div>;
   const [currentPlot, setCurrentPlot] = useState(plot);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [plotSettings, setPlotSettings] = useState({
+    isTwoPages: false,
+    isBlackAndWhite: true,
+  });
   const formRef = useRef<HTMLDivElement>(null);
   const methods = useForm<StagePlotFormData>({
     resolver: zodResolver(stagePlotSchema),
@@ -162,31 +178,13 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
               <StagePlotGraphic stagePlotId={currentPlot.id} />
               <InputList />
             </div>
-            <div className="fixed bottom-0 left-0 right-0 bg-black py-4 mt-4 shadow-lg flex justify-around gap-4 z-30 border-t-2 ">
-              <Button
-                onClick={getImage}
-                variant={"outline"}
-                type="button"
-                className="font-urbanist bg-black text-lg px-6 py-6 rounded-lg text-white shadow-xl transform transition-all hover:scale-105"
-              >
-                Take Screenshot
-              </Button>
-              <Button
-                onClick={handleAddInput}
-                variant={"outline"}
-                type="button"
-                className="font-urbanist bg-black text-lg px-6 py-6 rounded-lg text-white shadow-xl transform transition-all hover:scale-105"
-              >
-                Add input
-              </Button>
-              <Button
-                variant={"outline"}
-                type="submit"
-                className="font-urbanist bg-black text-lg px-6 py-6 rounded-lg text-white shadow-xl transform transition-all hover:scale-105"
-              >
-                {isSubmitting ? "Submitting..." : "Save Stage Plot"}
-              </Button>
-            </div>
+            <EditPageButtonRow
+              getImage={getImage}
+              handleAddInput={handleAddInput}
+              isSubmitting={isSubmitting}
+              plotSettings={plotSettings}
+              setPlotSettings={setPlotSettings}
+            />
           </form>
         </div>
       </FormProvider>
