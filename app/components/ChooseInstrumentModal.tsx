@@ -39,7 +39,7 @@ const ChooseInstrumentModal = ({
     "guitar",
     "guitar-cabinet",
     "guitar-stand",
-    "electric-guitar",
+    // "electric-guitar",
     "pedal",
     "amp-head",
   ];
