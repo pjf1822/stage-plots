@@ -20,7 +20,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
     name: "stage_elements",
     keyName: "....",
   });
-  const [activeItemId, setActiveItemId] = useState<string>(""); // New state for tracking active item
+  const [activeItemId, setActiveItemId] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [clipboardItem, setClipboardItem] = useState<any>(null);
 
@@ -86,11 +86,11 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
         if (element.id === active.id) {
           let newX = element.x + delta.x;
           let newY = element.y + delta.y;
-
+          console.log(newY);
           if (
-            newX >= -100 &&
+            newX >= -120 &&
             newX + itemSize <= rect.width - 10 &&
-            newY >= -100 &&
+            newY >= -120 &&
             newY + itemSize <= rect.height - 10
           ) {
             update(
@@ -170,7 +170,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
     <div
       ref={containerRef}
       style={{
-        height: "86vh",
+        height: 800,
         width: "89vw",
         position: "relative",
         border: "2px solid black",

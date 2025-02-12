@@ -13,7 +13,7 @@ const StagePlotPreview: React.FC<{
         <div className="space-y-6">
           <div className="text-center">
             <h1
-              className={`text-5xl font-bold mt-0 font-urbanist ${
+              className={`text-6xl font-bold mt-0 font-urbanist ${
                 formData.description ? "mb-4" : "mb-12"
               }`}
             >
