@@ -11,10 +11,10 @@ interface DraggableItemProps {
   label: string;
   scale: number;
   rotate: number;
-  isActive: boolean; // New prop to determine if this item is the active one
-  setActiveItemId: (id: string) => void; // Replace onActivate with setter
+  isActive: boolean;
+  setActiveItemId: (id: string) => void;
   onScaleChange?: (newScale: number) => void;
-  onRotateChange?: (newRotation: number) => void; // New callback to update rotation
+  onRotateChange?: (newRotation: number) => void;
 }
 function DraggableItem({
   id,
@@ -25,7 +25,7 @@ function DraggableItem({
   scale = 1,
   rotate = 0,
   isActive,
-  setActiveItemId, // Use setter directly
+  setActiveItemId,
   onScaleChange,
   onRotateChange,
 }: DraggableItemProps) {

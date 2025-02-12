@@ -6,7 +6,7 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
   return (
     <div
       style={{
-        height: "100vh",
+        height: 900,
         width: "89vw",
         position: "relative",
         border: "2px solid black",
@@ -14,17 +14,21 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
       }}
     >
       {stage_elements?.map((stageElement: any, index: any) => {
+        console.log(stageElement.y);
         const itemSize = ITEM_SIZES[stageElement.title] ?? 100;
 
+        const scaleFactor = 9 / 8;
         const zIndex = stageElement.title === "riser" ? 2 : 3;
-
         return (
           <div
             key={index}
             style={{
               position: "absolute",
-              top: stageElement.y * 1.168, // Scale the Y coordinate
-              left: stageElement.x, // Scale the X coordinate
+              top:
+                stageElement.y < 0
+                  ? stageElement.y
+                  : stageElement.y * scaleFactor + 14, // Apply scaling only if y is not negative
+              left: stageElement.x,
               width: itemSize * stageElement?.scale, // Scale the width of the item
               height: itemSize * stageElement?.scale,
               transform: `rotate(${stageElement.rotate}deg)`, // Corrected line
