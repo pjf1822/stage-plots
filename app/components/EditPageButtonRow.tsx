@@ -98,7 +98,7 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
         type="button"
         className="font-urbanist bg-black text-lg px-6 py-6 rounded-lg text-white shadow-xl transform transition-all hover:scale-105"
       >
-        Take Screenshot
+        Convert to Downloadable Image
       </Button>
       <div className="flex gap-2 items-center">
         <DropdownMenu>
