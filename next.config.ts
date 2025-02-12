@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  /* config options hhere */
   images: {
     domains: ["lh3.googleusercontent.com"],
   },
