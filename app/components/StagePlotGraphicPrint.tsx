@@ -16,8 +16,8 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
       {stage_elements?.map((stageElement: any, index: any) => {
         const itemSize = ITEM_SIZES[stageElement.title] ?? 100;
 
-        const scaleFactor = 9 / 8;
-        const zIndex = stageElement.title === "riser" ? 2 : 3;
+        const scaleFactor = 9 / 7;
+        const zIndex = stageElement.title === "riser" ? 1 : 3;
         return (
           <div
             key={index}
@@ -26,7 +26,7 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
               top:
                 stageElement.y < 0
                   ? stageElement.y
-                  : stageElement.y * scaleFactor + 14, // Apply scaling only if y is not negative
+                  : stageElement.y * scaleFactor + 28, // Apply scaling only if y is not negative
               left: stageElement.x,
               width: itemSize * stageElement?.scale, // Scale the width of the item
               height: itemSize * stageElement?.scale,

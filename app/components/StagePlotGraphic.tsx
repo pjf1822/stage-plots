@@ -169,7 +169,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
     <div
       ref={containerRef}
       style={{
-        height: 800,
+        height: 700,
         width: "89vw",
         position: "relative",
         border: "2px solid black",
@@ -248,7 +248,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           "bass-cab",
           // "drumsub",
           "riser",
-          "audio-console",
+          // "audio-console",
           "stool",
           "flute",
           "violin",
