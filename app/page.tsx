@@ -83,7 +83,7 @@ export default function Home() {
             asChild
             className="z-10 px-12 py-6 text-xl rounded-full bg-black text-white border border-white hover:bg-white hover:text-black transition-all duration-300 ease-in-out transform hover:scale-105 font-urbanist"
           >
-            <Link href="/quickplot">Make a Quick Plot</Link>
+            <Link href="/quickPlot">Make a Quick Plot</Link>
           </Button>
         </div>
 

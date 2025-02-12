@@ -14,7 +14,7 @@ const Navbar = () => {
   if (
     pathname === "/" ||
     pathname === "/privacy" ||
-    pathname === "/quickplot"
+    pathname === "/quickPlot"
   ) {
     return null;
   }
