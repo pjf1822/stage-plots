@@ -4,11 +4,9 @@ import { createClient } from "@/utils/supabase/client";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export default function Home() {
   const supabase = createClient();
-  const router = useRouter();
 
   const handleGoogleSignIn = async () => {
     try {
@@ -82,10 +80,10 @@ export default function Home() {
             Sign in with Google
           </Button>
           <Button
-            onClick={() => router.push("/quickplot")}
+            asChild
             className="z-10 px-12 py-6 text-xl rounded-full bg-black text-white border border-white hover:bg-white hover:text-black transition-all duration-300 ease-in-out transform hover:scale-105 font-urbanist"
           >
-            Make a Quick Plot
+            <Link href="/quickplot">Make a Quick Plot</Link>
           </Button>
         </div>
 
