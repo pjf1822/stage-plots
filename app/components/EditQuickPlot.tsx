@@ -1,41 +1,34 @@
 "use client";
-
-import React, { useEffect } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, FormProvider } from "react-hook-form";
-import InputList from "./InputList";
-import StagePlotGraphic from "./StagePlotGraphic";
-import { submitStagePlotForm } from "@/services/stagePlotService";
-import { StagePlotFormData, stagePlotSchema } from "@/types";
-import { useState } from "react";
-import { toast } from "@/hooks/use-toast";
-import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { toast } from "@/hooks/use-toast";
+import { StagePlotFormData, stagePlotSchema } from "@/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import React, { useRef, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import { useScreenshot } from "use-react-screenshot";
-import { useRef } from "react";
-import DownloadModal from "./DownloadModal";
-import { Dialog } from "@/components/ui/dialog";
-import { useQuery } from "@tanstack/react-query";
-import { getPlotById } from "../server/actions/getPlotById";
 import { v4 as uuidv4 } from "uuid";
-
+import StagePlotGraphic from "./StagePlotGraphic";
+import InputList from "./InputList";
 import EditPageButtonRow from "./EditPageButtonRow";
+import { Dialog } from "@radix-ui/react-dialog";
+import DownloadModal from "./DownloadModal";
 
-const EditStagePlot = ({ plotid }: { plotid: string }) => {
-  const { data: plot, isLoading } = useQuery({
-    queryKey: ["plot", plotid],
-    queryFn: () => getPlotById(plotid),
+const EditQuickPlot = () => {
+  const [currentPlot, setCurrentPlot] = useState({
+    name: "Quick Plot",
+    description: "",
+    inputs: [{ id: "", name: "input 1", channel: 1, mic: "", stand: "" }],
+    stage_elements: [],
+    created_by: "",
+    id: "",
   });
-
-  if (isLoading) return <div>Loading...</div>;
-  const [currentPlot, setCurrentPlot] = useState(plot);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [plotSettings, setPlotSettings] = useState({
     isTwoPages: false,
     isBlackAndWhite: true,
     isStandsRowShowing: false,
   });
-
   const formRef = useRef<HTMLDivElement>(null);
   const methods = useForm<StagePlotFormData>({
     resolver: zodResolver(stagePlotSchema),
@@ -54,23 +47,6 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = methods;
-
-  const submitForm = async (formData: StagePlotFormData) => {
-    try {
-      const result = await submitStagePlotForm(currentPlot, formData);
-      toast({
-        title: "Stage Plot Updated",
-      });
-      if ("success" in result && result.success) {
-        return;
-      }
-      setCurrentPlot(result);
-    } catch (error: any) {
-      alert(error.message);
-    }
-  };
-
-  // GET IMAGE STUFF
   const [image, takeScreenshot] = useScreenshot();
   const getImage = () => {
     const formData = methods.getValues();
@@ -107,7 +83,6 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
       link.click();
     }
   };
-
   const handleAddInput = () => {
     const nextChannel = methods.getValues("inputs").length + 1;
 
@@ -128,26 +103,21 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
         mic: "",
         stand: "",
         notes: "",
-        stage_plot_id: plotid,
+        stage_plot_id: "",
       },
     ]);
   };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!methods.formState.isSubmitting) {
-        handleSubmit(submitForm)();
-      }
-    }, 30000);
-
-    return () => clearInterval(interval);
-  }, [methods, handleSubmit, submitForm]);
 
   return (
     <div className="mt-8">
       <FormProvider {...methods}>
         <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
-          <form onSubmit={handleSubmit(submitForm, (errors) => {})}>
+          <form
+            onSubmit={handleSubmit(
+              () => {},
+              (errors) => {}
+            )}
+          >
             <div ref={formRef}>
               <div className="mb-6">
                 <label htmlFor="name">Stage Plot Name:</label>
@@ -177,12 +147,13 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
               isSubmitting={isSubmitting}
               plotSettings={plotSettings}
               setPlotSettings={setPlotSettings}
-              isQuickPlot={false}
+              isQuickPlot={true}
             />
           </form>
         </div>
       </FormProvider>
 
+      <h2>hey</h2>
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         {image && <DownloadModal image={image} downloadImage={downloadImage} />}
       </Dialog>
@@ -190,4 +161,4 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
   );
 };
 
-export default EditStagePlot;
+export default EditQuickPlot;

@@ -4,9 +4,11 @@ import { createClient } from "@/utils/supabase/client";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const supabase = createClient();
+  const router = useRouter();
 
   const handleGoogleSignIn = async () => {
     try {
@@ -72,18 +74,21 @@ export default function Home() {
             create, manage, and share professional stage plots effortlessly.
           </h2>
         </div>
-        <Button
-          onClick={handleGoogleSignIn}
-          className="z-10 px-12 py-6 text-xl rounded-full bg-black text-white border border-white hover:bg-white hover:text-black transition-all duration-300 ease-in-out transform hover:scale-105 font-urbanist"
-        >
-          Sign in with Google
-        </Button>
-        {/* <Button
-          onClick={handleGoogleSignIn}
-          className="z-10 px-12 py-6 text-xl rounded-full bg-black text-white border border-white hover:bg-white hover:text-black transition-all duration-300 ease-in-out transform hover:scale-105 font-urbanist"
-        >
-          Make a quick plot
-        </Button> */}
+        <div className="flex space-x-4 mt-6">
+          <Button
+            onClick={handleGoogleSignIn}
+            className="z-10 px-12 py-6 text-xl rounded-full bg-black text-white border border-white hover:bg-white hover:text-black transition-all duration-300 ease-in-out transform hover:scale-105 font-urbanist"
+          >
+            Sign in with Google
+          </Button>
+          <Button
+            onClick={() => router.push("/quickplot")}
+            className="z-10 px-12 py-6 text-xl rounded-full bg-black text-white border border-white hover:bg-white hover:text-black transition-all duration-300 ease-in-out transform hover:scale-105 font-urbanist"
+          >
+            Make a Quick Plot
+          </Button>
+        </div>
+
         <div className="absolute bottom-4 right-4 text-sm text-gray-300">
           <Link
             href="/privacy"

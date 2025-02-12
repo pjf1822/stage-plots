@@ -14,7 +14,6 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
       }}
     >
       {stage_elements?.map((stageElement: any, index: any) => {
-        console.log(stageElement.y);
         const itemSize = ITEM_SIZES[stageElement.title] ?? 100;
 
         const scaleFactor = 9 / 8;
