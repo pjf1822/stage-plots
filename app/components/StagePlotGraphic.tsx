@@ -86,7 +86,6 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
         if (element.id === active.id) {
           let newX = element.x + delta.x;
           let newY = element.y + delta.y;
-          console.log(newY);
           if (
             newX >= -120 &&
             newX + itemSize <= rect.width - 10 &&
@@ -247,7 +246,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           "basic-riser",
           "keys",
           "bass-cab",
-          "drumsub",
+          // "drumsub",
           "riser",
           "audio-console",
           "stool",

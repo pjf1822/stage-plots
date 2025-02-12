@@ -11,7 +11,11 @@ const Navbar = () => {
   const pathname = usePathname();
   const [userProfilePic, setUserProfilePic] = useState<string | null>(null);
 
-  if (pathname === "/" || pathname === "/privacy") {
+  if (
+    pathname === "/" ||
+    pathname === "/privacy" ||
+    pathname === "/quickplot"
+  ) {
     return null;
   }
   useEffect(() => {

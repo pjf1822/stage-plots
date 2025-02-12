@@ -8,13 +8,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 type EditPageButtonRowProps = {
   getImage: () => void;
@@ -32,6 +25,7 @@ type EditPageButtonRowProps = {
       isStandsRowShowing: boolean;
     }>
   >;
+  isQuickPlot: boolean;
 };
 const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
   getImage,
@@ -39,14 +33,12 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
   isSubmitting,
   plotSettings,
   setPlotSettings,
+  isQuickPlot = false,
 }) => {
-  const [numInputs, setNumInputs] = React.useState(1); // Default to adding 1 input
-
   const handleAddMultipleInputs = (num: number) => {
     for (let i = 0; i < num; i++) {
       handleAddInput();
     }
-    setNumInputs(0);
   };
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-black py-4 mt-4 shadow-lg flex justify-around gap-4 z-30 border-t-2 ">
@@ -127,13 +119,15 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
         </DropdownMenu>
       </div>
 
-      <Button
-        variant={"outline"}
-        type="submit"
-        className="font-urbanist bg-black text-lg px-6 py-6 rounded-lg text-white shadow-xl transform transition-all hover:scale-105"
-      >
-        {isSubmitting ? "Submitting..." : "Save Stage Plot"}
-      </Button>
+      {!isQuickPlot && (
+        <Button
+          variant={"outline"}
+          type="submit"
+          className="font-urbanist bg-black text-lg px-6 py-6 rounded-lg text-white shadow-xl transform transition-all hover:scale-105"
+        >
+          {isSubmitting ? "Submitting..." : "Save Stage Plot"}
+        </Button>
+      )}
     </div>
   );
 };
