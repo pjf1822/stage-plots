@@ -18,7 +18,7 @@ const EditQuickPlot = () => {
   const [currentPlot, setCurrentPlot] = useState({
     name: "Quick Plot",
     description: "",
-    inputs: [{ id: "", name: "input 1", channel: 1, mic: "", stand: "" }],
+    inputs: [{ id: "", name: "", channel: 1, mic: "", stand: "" }],
     stage_elements: [],
     created_by: "",
     id: "",
