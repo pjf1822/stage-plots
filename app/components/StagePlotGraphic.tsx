@@ -75,6 +75,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
   }, [activeItemId, fields, clipboardItem, stagePlotId]);
+
   const onDragEnd = ({ delta, active }: any) => {
     const container = containerRef.current;
     if (container) {
