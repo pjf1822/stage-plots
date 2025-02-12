@@ -1,14 +1,20 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type EditPageButtonRowProps = {
   getImage: () => void;
@@ -34,6 +40,14 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
   plotSettings,
   setPlotSettings,
 }) => {
+  const [numInputs, setNumInputs] = React.useState(1); // Default to adding 1 input
+
+  const handleAddMultipleInputs = (num: number) => {
+    for (let i = 0; i < num; i++) {
+      handleAddInput();
+    }
+    setNumInputs(0);
+  };
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-black py-4 mt-4 shadow-lg flex justify-around gap-4 z-30 border-t-2 ">
       <DropdownMenu>
@@ -94,14 +108,25 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
       >
         Take Screenshot
       </Button>
-      <Button
-        onClick={handleAddInput}
-        variant={"outline"}
-        type="button"
-        className="font-urbanist bg-black text-lg px-6 py-6 rounded-lg text-white shadow-xl transform transition-all hover:scale-105"
-      >
-        Add input
-      </Button>
+      <div className="flex gap-2 items-center">
+        <DropdownMenu>
+          <DropdownMenuTrigger className="bg-black text-white text-lg px-6 py-2 rounded-lg shadow-xl border border-white">
+            Add Inputs
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="bg-white border border-gray-300 max-h-60 overflow-y-auto">
+            {[...Array(48).keys()].map((i) => (
+              <DropdownMenuItem
+                key={i}
+                className="text-black hover:bg-gray-200"
+                onClick={() => handleAddMultipleInputs(i + 1)}
+              >
+                Add {i + 1} Input{i + 1 > 1 ? "s" : ""}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+
       <Button
         variant={"outline"}
         type="submit"
