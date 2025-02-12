@@ -20,4 +20,5 @@ export const ITEM_SIZES: Record<string, number> = {
   "electric-guitar": 120,
   "basic-riser": 180,
   drumsub: 130,
+  "amp-head": 190,
 };

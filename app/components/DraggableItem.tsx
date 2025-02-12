@@ -123,7 +123,6 @@ function DraggableItem({
   const itemSize = ITEM_SIZES[title] ?? 100;
 
   const zIndex = title === "riser" || title === "basic-riser" ? 2 : 3;
-
   return (
     <div
       style={{
