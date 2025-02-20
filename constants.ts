@@ -8,7 +8,7 @@ export const ITEM_SIZES: Record<string, number> = {
   di: 50,
   power: 70,
   wedge: 130,
-  keys: 140,
+  keys: 160,
   man: 120,
   woman: 120,
   "grand-piano": 220,
