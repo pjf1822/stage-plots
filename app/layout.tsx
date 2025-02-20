@@ -29,6 +29,9 @@ export const metadata: Metadata = {
   title: "Stage plotter",
   description: "Quick. Easy. Professional Stage Plots",
   keywords: [
+    "pro",
+    "stage-plot",
+    "builder",
     "stage plot",
     "band setup",
     "music tools",
@@ -42,6 +45,8 @@ export const metadata: Metadata = {
     "bands",
     "musicians",
     "plot",
+    "stageplotpro",
+    "ridermaker",
   ],
   authors: [{ name: "Peter Forbes", url: "https://github.com/pjf1822" }],
   creator: "Peter Forbes",
