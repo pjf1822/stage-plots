@@ -23,7 +23,9 @@ const ChooseInstrumentModal = ({
 }: ModalProps) => {
   if (!isOpen) return null;
   const topPriorityItems = [
-    "vocal",
+    "vocal-with-stand",
+    "wired-vocal",
+    "wireless-vocal",
     "drum-kit",
     "spd",
     "bass-cab",

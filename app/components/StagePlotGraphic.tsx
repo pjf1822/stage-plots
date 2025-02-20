@@ -233,12 +233,14 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       <ChooseInstrumentModal
         isOpen={isModalOpen}
         items={[
-          "vocal",
+          "vocal-with-stand",
+          "wired-vocal",
           "acoustic-guitar",
           "drum-kit",
           "wedge",
           "power",
           "spd",
+          "wireless-vocal",
           "Electric-Guitar",
           "bass",
           "man",
