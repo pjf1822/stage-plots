@@ -36,7 +36,7 @@ const ChooseInstrumentModal = ({
   ];
   const audioItems = ["di", "wedge", "shotgun-mic"];
   const guitarItems = [
-    "electric-guitar",
+    "Electric-Guitar",
     "acoustic-guitar",
     "guitar-cabinet",
     "guitar-stand",

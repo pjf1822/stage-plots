@@ -239,7 +239,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           "wedge",
           "power",
           "spd",
-          "electric-guitar",
+          "Electric-Guitar",
           "bass",
           "man",
           "woman",
