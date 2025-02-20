@@ -234,12 +234,12 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
         isOpen={isModalOpen}
         items={[
           "vocal",
-          "guitar",
+          "acoustic-guitar",
           "drum-kit",
           "wedge",
           "power",
           "spd",
-          // "electric-guitar",
+          "electric-guitar",
           "bass",
           "man",
           "woman",
