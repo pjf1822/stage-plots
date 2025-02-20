@@ -95,6 +95,22 @@ export default function Home() {
             Privacy Policy
           </Link>
         </div>
+        <Link
+          href="https://buymeacoffee.com/pforbeswebdev"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-4 left-6 z-50"
+        >
+          <Button variant="outline" className="p-0 rounded-full shadow-lg">
+            <Image
+              src="/bmc-button.png"
+              alt="Buy Me a Coffee"
+              width={120}
+              height={40}
+              className="rounded-full  scale-125"
+            />
+          </Button>
+        </Link>
       </div>
     </>
   );
