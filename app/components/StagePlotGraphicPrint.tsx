@@ -44,9 +44,8 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
                   left: "50%",
                   transform: "translateX(-50%)",
                   fontSize: "22px",
-                  color: "black", // You can customize the text color here
-                  pointerEvents: "none", // Prevent interaction while dragging
-                  width: "200px", // Adjust the width of the image
+                  color: "black",
+                  pointerEvents: "none",
                   height: "auto",
                 }}
               >
