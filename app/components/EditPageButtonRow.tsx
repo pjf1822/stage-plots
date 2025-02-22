@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useFormContext } from "react-hook-form";
+import Link from "next/link";
 
 type EditPageButtonRowProps = {
   getImage: () => void;
@@ -32,6 +33,19 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
   };
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-black py-4 mt-4 shadow-lg flex justify-around gap-4 z-30 border-t-2 ">
+      {isQuickPlot && (
+        <Button
+          asChild
+          className="font-urbanist bg-black text-lg px-6 py-6 rounded-lg text-white shadow-xl transform transition-all hover:scale-105"
+        >
+          <Link
+            href="/"
+            className="border border-white px-6 py-6 rounded-lg text-white"
+          >
+            Home
+          </Link>
+        </Button>
+      )}
       <DropdownMenu>
         <DropdownMenuTrigger className="bg-black text-white text-lg px-6 py-0 rounded-lg shadow-xl border border-white">
           Plot Settings
