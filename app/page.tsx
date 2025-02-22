@@ -29,16 +29,16 @@ export default function Home() {
         </title>
         <meta
           name="description"
-          content="Stage Plotter helps production teams create, manage, and share professional stage plots effortlessly. Visualize your setup, communicate with your team, and streamline your workflow."
+          content="Stage Plotter is the perfect alternative to Stage Plot Pro. Create professional stage plots with ease. Ideal for musicians and production teams looking for simple and effective stage plot software."
         />
         <meta name="robots" content="index, follow" />
         <meta
           property="og:title"
-          content="Stage Plotter - Create, Manage & Share Professional Stage Plots"
+          content="Stage Plotter - The Best Stage Plot Tool & Alternative to Stage Plot Pro"
         />
         <meta
           property="og:description"
-          content="Stage Plotter helps production teams create, manage, and share professional stage plots effortlessly. Visualize your setup, communicate with your team, and streamline your workflow."
+          content="Stage Plotter is the top choice for musicians and production teams. Create and share professional stage plots online - a perfect alternative to Stage Plot Pro."
         />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="/newlogo.png" />
@@ -57,7 +57,7 @@ export default function Home() {
       <div className="flex flex-col justify-around items-center min-h-screen bg-black p-6">
         <Image
           src="/newlogo.png"
-          alt="Logo"
+          alt="Stage Plotter Logo - Stage Plot Software for Musicians"
           width={250}
           height={250}
           className="mb-0 rounded-full w-[280px] h-auto sm:w-[300px] sm:h-auto lg:w-[500px] lg:h-auto transform -translate-y-10"
