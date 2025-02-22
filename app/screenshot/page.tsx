@@ -9,7 +9,7 @@ const ScreenshotPage = () => {
   const searchParams = useSearchParams();
   const previewRef = useRef<HTMLDivElement>(null);
   const [plotData, setPlotData] = useState<any>(null);
-  const [plotSettings, setPlotSettings] = useState<any>(null); // Add a state for plotSettings
+  const [plotSettings, setPlotSettings] = useState<any>(null);
 
   useEffect(() => {
     const plotDataParam = searchParams.get("plotData");
@@ -29,7 +29,7 @@ const ScreenshotPage = () => {
     if (element) {
       window.opener?.postMessage(
         {
-          type: "READY_FOR_SCREENSHOT", // Notify the parent window it's ready for screenshot
+          type: "READY_FOR_SCREENSHOT",
           height: element.offsetHeight,
           width: element.offsetWidth,
         },

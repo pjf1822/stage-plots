@@ -15,7 +15,7 @@ type TableSectionProps = {
   register: any;
   remove: (index: number) => void;
   startIndex: number;
-  plotSettings: any;
+  is_stands_showing: boolean;
 };
 
 const TableSection = ({
@@ -23,7 +23,7 @@ const TableSection = ({
   register,
   remove,
   startIndex,
-  plotSettings,
+  is_stands_showing,
 }: TableSectionProps) => {
   return (
     <div>
@@ -39,7 +39,7 @@ const TableSection = ({
             <TableHead className=" border border-gray-400  text-black">
               Mic
             </TableHead>
-            {plotSettings.isStandsRowShowing && (
+            {is_stands_showing && (
               <TableHead className="border border-gray-400 text-black">
                 Stand
               </TableHead>
@@ -67,7 +67,7 @@ const TableSection = ({
                   placeholder="Mic/DI"
                   className="py-0 px-2 rounded-md w-full border-none shadow-none focus-visible:ring-0 placeholder:text-gray-400"
                 />
-                {!plotSettings.isStandsRowShowing && (
+                {!is_stands_showing && (
                   <div
                     className="p-1"
                     style={{ position: "absolute", top: "-8px", right: "-2px" }}
@@ -83,7 +83,7 @@ const TableSection = ({
                   </div>
                 )}
               </TableCell>
-              {plotSettings.isStandsRowShowing && (
+              {is_stands_showing && (
                 <TableCell className="p-0 border border-gray-400 pl-2 relative">
                   <Input
                     {...register(`inputs.${startIndex + index}.stand`)}

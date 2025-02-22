@@ -5,6 +5,7 @@ export interface StagePlot {
   name: string;
   description: string;
   created_by: string;
+  is_stands_showing: boolean;
 }
 export interface Input {
   id: string;
@@ -41,6 +42,7 @@ export const stagePlotSchema = z.object({
   description: z.string(),
   id: z.string(),
   created_by: z.string(),
+  is_stands_showing: z.boolean(),
   inputs: z
     .array(
       z.object({

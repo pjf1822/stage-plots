@@ -139,14 +139,12 @@ const EditQuickPlot = () => {
               </div>
 
               <StagePlotGraphic stagePlotId={currentPlot.id} />
-              <InputList plotSettings={plotSettings} />
+              <InputList />
             </div>
             <EditPageButtonRow
               getImage={getImage}
               handleAddInput={handleAddInput}
               isSubmitting={isSubmitting}
-              plotSettings={plotSettings}
-              setPlotSettings={setPlotSettings}
               isQuickPlot={true}
             />
           </form>
