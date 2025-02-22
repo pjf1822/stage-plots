@@ -4,10 +4,12 @@ import React from "react";
 
 const PreviewInputList = ({
   inputs,
-  plotSettings,
-}: {
+  formData,
+}: // plotSettings,
+{
   inputs: any;
-  plotSettings: any;
+  formData: any;
+  // plotSettings: any;
 }) => {
   const rowsPerColumn = 16;
   let firstColumn = inputs.slice(0, rowsPerColumn);
@@ -44,7 +46,7 @@ const PreviewInputList = ({
                 <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                   Mic
                 </th>
-                {plotSettings.isStandsRowShowing && (
+                {formData.is_stands_showing && (
                   <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                     Stand
                   </th>
@@ -63,7 +65,7 @@ const PreviewInputList = ({
                   <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
                     {input.mic}
                   </td>
-                  {plotSettings.isStandsRowShowing && (
+                  {formData.is_stands_showing && (
                     <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
                       {input.stand}
                     </td>
@@ -88,7 +90,7 @@ const PreviewInputList = ({
                   <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                     Mic
                   </th>
-                  {plotSettings.isStandsRowShowing && (
+                  {formData.is_stands_showing && (
                     <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                       Stand
                     </th>
@@ -107,7 +109,7 @@ const PreviewInputList = ({
                     <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
                       {input.mic}
                     </td>
-                    {plotSettings.isStandsRowShowing && (
+                    {formData.is_stands_showing && (
                       <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
                         {input.stand}
                       </td>
@@ -132,7 +134,7 @@ const PreviewInputList = ({
                   <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                     Mic
                   </th>
-                  {plotSettings.isStandsRowShowing && (
+                  {formData.is_stands_showing && (
                     <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                       Stand
                     </th>
@@ -151,7 +153,7 @@ const PreviewInputList = ({
                     <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
                       {input.mic}
                     </td>
-                    {plotSettings.isStandsRowShowing && (
+                    {formData.is_stands_showing && (
                       <td className="border border-gray-300 p-0 pl-2 pb-4 text-lg">
                         {input.stand}
                       </td>

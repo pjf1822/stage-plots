@@ -4,14 +4,15 @@ import React from "react";
 import { FieldValues, useFieldArray, useFormContext } from "react-hook-form";
 import TableSection from "./TableSection";
 
-const InputList: React.FC<{
-  plotSettings: { isStandsRowShowing: boolean };
-}> = ({ plotSettings }) => {
+const InputList: React.FC<{}> = () => {
   const {
     control,
     register,
+    watch,
     formState: { errors },
   } = useFormContext<FieldValues>();
+
+  const is_stands_showing = watch("is_stands_showing");
 
   const { fields, remove } = useFieldArray({
     control,
@@ -34,7 +35,7 @@ const InputList: React.FC<{
             register={register}
             remove={remove}
             startIndex={0}
-            plotSettings={plotSettings}
+            is_stands_showing={is_stands_showing}
           />
         </div>
 
@@ -45,7 +46,7 @@ const InputList: React.FC<{
               register={register}
               remove={remove}
               startIndex={rowsPerColumn}
-              plotSettings={plotSettings}
+              is_stands_showing={is_stands_showing}
             />
           </div>
         )}

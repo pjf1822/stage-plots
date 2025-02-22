@@ -14,14 +14,14 @@ export const submitStagePlotForm = async (
 ): Promise<SubmitStagePlotResponse> => {
   const changedFields = getChangedFields(originalPlotData, formData);
   if (Object.keys(changedFields).length === 0) {
-    return { success: true, message: "No changes were made" }; // Return the flag with correct type
+    return { success: true, message: "No changes were made" };
   }
 
   const updatePromises: Promise<any>[] = [];
   const updatedPlot: FullStagePlot = { ...originalPlotData };
 
   // CHECKING THE INITIAL GENERAL STAGE PLOT DATA
-  const fieldsToUpdate = ["name", "description"];
+  const fieldsToUpdate = ["name", "description", "is_stands_showing"];
   const relevantChanges = Object.keys(changedFields).filter((field) =>
     fieldsToUpdate.includes(field)
   );

@@ -8,33 +8,23 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useFormContext } from "react-hook-form";
 
 type EditPageButtonRowProps = {
   getImage: () => void;
   handleAddInput: () => void;
   isSubmitting: boolean;
-  plotSettings: {
-    isTwoPages: boolean;
-    isBlackAndWhite: boolean;
-    isStandsRowShowing: boolean;
-  };
-  setPlotSettings: React.Dispatch<
-    React.SetStateAction<{
-      isTwoPages: boolean;
-      isBlackAndWhite: boolean;
-      isStandsRowShowing: boolean;
-    }>
-  >;
   isQuickPlot: boolean;
 };
 const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
   getImage,
   handleAddInput,
   isSubmitting,
-  plotSettings,
-  setPlotSettings,
   isQuickPlot = false,
 }) => {
+  const { watch, setValue } = useFormContext();
+  const isStandsShowing = watch("is_stands_showing");
+
   const handleAddMultipleInputs = (num: number) => {
     for (let i = 0; i < num; i++) {
       handleAddInput();
@@ -77,15 +67,13 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
           </DropdownMenuItem> */}
           <DropdownMenuItem className="flex items-center gap-2 text-black hover:bg-gray-200">
             <Checkbox
-              id="black-and-white"
-              checked={plotSettings.isStandsRowShowing}
-              onCheckedChange={(checked) =>
-                setPlotSettings((prev) => ({
-                  ...prev,
-                  isStandsRowShowing: !!checked,
-                }))
-              }
+              id="stands-showing"
+              checked={isStandsShowing}
+              onCheckedChange={(checked) => {
+                setValue("is_stands_showing", checked);
+              }}
             />
+
             <label className="text-sm font-medium leading-none cursor-pointer">
               Stands Column?
             </label>

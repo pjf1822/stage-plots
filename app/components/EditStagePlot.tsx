@@ -33,7 +33,6 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
   const [plotSettings, setPlotSettings] = useState({
     isTwoPages: false,
     isBlackAndWhite: true,
-    isStandsRowShowing: false,
   });
 
   const formRef = useRef<HTMLDivElement>(null);
@@ -46,6 +45,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
       stage_elements: currentPlot.stage_elements,
       created_by: currentPlot.created_by,
       id: currentPlot.id,
+      is_stands_showing: currentPlot.is_stands_showing,
     },
   });
 
@@ -169,14 +169,12 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
               </div>
 
               <StagePlotGraphic stagePlotId={currentPlot.id} />
-              <InputList plotSettings={plotSettings} />
+              <InputList />
             </div>
             <EditPageButtonRow
               getImage={getImage}
               handleAddInput={handleAddInput}
               isSubmitting={isSubmitting}
-              plotSettings={plotSettings}
-              setPlotSettings={setPlotSettings}
               isQuickPlot={false}
             />
           </form>
