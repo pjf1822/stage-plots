@@ -38,8 +38,8 @@ function DraggableItem({
 
   // Function to handle the rotation logic
   const handleRotateStart = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+    // e.preventDefault();
+    // e.stopPropagation();
 
     const element = e.currentTarget.parentElement;
     if (!element) return;
