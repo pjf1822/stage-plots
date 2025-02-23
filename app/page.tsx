@@ -62,7 +62,7 @@ export default function Home() {
           alt="Stage Plotter Logo - Stage Plot Software for Musicians"
           width={250}
           height={250}
-          className="mb-0 rounded-full w-[280px] h-auto sm:w-[300px] sm:h-auto lg:w-[500px] lg:h-auto transform -translate-y-10"
+          className="mb-0 rounded-full w-[380px] h-auto sm:w-[300px] sm:h-auto lg:w-[700px] lg:h-auto transform -translate-y-10"
           priority
           loading="eager"
         />
@@ -74,7 +74,7 @@ export default function Home() {
             create, manage, and share professional stage plots effortlessly.
           </h2>
         </div>
-        <div className="flex space-x-4 mt-6">
+        <div className="flex space-x-4 mt-0">
           <Button
             onClick={handleGoogleSignIn}
             className="z-10 px-12 py-6 text-xl rounded-full bg-black text-white border border-white hover:bg-white hover:text-black transition-all duration-300 ease-in-out transform hover:scale-105 font-urbanist"

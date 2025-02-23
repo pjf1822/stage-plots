@@ -80,12 +80,12 @@ const StagePlots = () => {
 
   const closeDeleteModal = () => {
     setIsModalOpen(false);
-    setSelectedPlot(null); // Reset selected plot when modal is closed
+    setSelectedPlot(null);
   };
   return (
-    <div className="space-y-4 ">
+    <div className="space-y-4">
       <div
-        className="overflow-hidden  max-w-[900px] border-4  border-white p-8 rounded-[10px]"
+        className="overflow-hidden  max-w-[1000px] border-4  border-white p-16 rounded-[10px]"
         ref={emblaRef}
       >
         <div style={{ display: "flex" }}>
@@ -152,7 +152,7 @@ const StagePlots = () => {
             Confirm Deletion
           </DialogTitle>
 
-          <DialogDescription className="my-2 text-lg">
+          <DialogDescription className="my-2 text-lg text-white">
             Are you sure you want to delete the stage plot "
             {selectedPlot?.name || "Untitled Plot"}"?
           </DialogDescription>

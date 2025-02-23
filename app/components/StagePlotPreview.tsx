@@ -14,11 +14,12 @@ const StagePlotPreview: React.FC<{
           <div className="text-center">
             <h1
               className={`text-6xl font-bold mt-0 font-urbanist ${
-                formData.description ? "mb-4" : "mb-16"
+                formData.description ? "mb-4" : "mb-8"
               } translate-y-[10px]`}
             >
               {formData.name}
             </h1>
+
             {/* {formData.description && (
               <p className="text-gray-600 my-8 text-2xl">
                 {formData.description}
