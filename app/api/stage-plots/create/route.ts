@@ -18,7 +18,7 @@ export async function POST() {
     .from("stage_plots")
     .insert([
       {
-        name: "Add a title",
+        name: "",
         description: "",
       },
     ])
@@ -35,7 +35,7 @@ export async function POST() {
     .insert([
       {
         stage_plot_id: stagePlotData[0].id,
-        name: "kikkkk",
+        name: "Kick",
         mic: "",
         channel: 1,
       },

@@ -86,6 +86,7 @@ const EditQuickPlot = () => {
       link.click();
     }
   };
+
   const handleAddInput = () => {
     const nextChannel = methods.getValues("inputs").length + 1;
 
@@ -154,7 +155,6 @@ const EditQuickPlot = () => {
         </div>
       </FormProvider>
 
-      <h2>hey</h2>
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         {image && <DownloadModal image={image} downloadImage={downloadImage} />}
       </Dialog>
