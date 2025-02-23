@@ -67,6 +67,15 @@ const ScreenshotPage = () => {
     <div className="p-0 bg-white">
       <div id="previewRef" ref={previewRef} className="w-[100vw]">
         <StagePlotPreview plotSettings={plotSettings} formData={plotData} />
+        <div
+          style={{
+            textAlign: "center",
+            fontFamily: "urbanist",
+            transform: "translateY(-14px)",
+          }}
+        >
+          Last edited {new Date().toLocaleDateString()}
+        </div>
       </div>
     </div>
   );
