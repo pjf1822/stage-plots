@@ -40,6 +40,8 @@ export default function Home() {
           property="og:description"
           content="Stage Plotter is the top choice for musicians and production teams. Create and share professional stage plots online - a perfect alternative to Stage Plot Pro."
         />
+        <meta property="og:locale:alternate" content="es_ES" />
+
         <meta property="og:type" content="website" />
         <meta property="og:image" content="/newlogo.png" />
         <meta name="twitter:card" content="/newlogo.png" />
