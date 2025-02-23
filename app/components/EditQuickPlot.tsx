@@ -13,8 +13,11 @@ import InputList from "./InputList";
 import EditPageButtonRow from "./EditPageButtonRow";
 import { Dialog } from "@radix-ui/react-dialog";
 import DownloadModal from "./DownloadModal";
+import useTipsAndTricks from "@/hooks/useTipsAndTricks";
 
 const EditQuickPlot = () => {
+  useTipsAndTricks();
+
   const [currentPlot, setCurrentPlot] = useState({
     name: "Quick Plot",
     description: "",
