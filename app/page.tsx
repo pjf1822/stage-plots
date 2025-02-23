@@ -56,13 +56,13 @@ export default function Home() {
         <meta name="twitter:image" content="/newlogo.png" />
       </Head>
 
-      <div className="flex flex-col justify-around items-center min-h-screen bg-black p-6">
+      <div className="flex flex-col justify-around items-center min-h-screen bg-black p-12">
         <Image
-          src="/newlogo.png"
+          src="/newlogo2.png"
           alt="Stage Plotter Logo - Stage Plot Software for Musicians"
           width={250}
           height={250}
-          className="mb-0 rounded-full w-[380px] h-auto sm:w-[300px] sm:h-auto lg:w-[700px] lg:h-auto transform -translate-y-10"
+          className="mb-0  w-[380px] h-auto sm:w-[300px] sm:h-auto lg:w-[700px] lg:h-auto transform -translate-y-10"
           priority
           loading="eager"
         />
