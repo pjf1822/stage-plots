@@ -14,6 +14,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const ChooseInstrumentModal = ({
   isOpen,
@@ -81,10 +82,17 @@ const ChooseInstrumentModal = ({
                 <Button
                   key={index}
                   onClick={() => onSelect(item)}
-                  className="w-full"
+                  className="w-full py-8 flex flex-col items-center justify-center gap-2 h-32"
                   style={{ textTransform: "uppercase" }}
                 >
                   {formattedItem}
+                  <Image
+                    src={`/${item}.svg`}
+                    alt={item}
+                    height={64}
+                    width={64}
+                    className="bg-transparent rounded-lg filter invert"
+                  />
                 </Button>
               );
             })}
@@ -101,10 +109,17 @@ const ChooseInstrumentModal = ({
                 <Button
                   key={index}
                   onClick={() => onSelect(item)}
-                  className="w-full"
+                  className="w-full py-8 flex flex-col items-center justify-center gap-2 h-32"
                   style={{ textTransform: "uppercase" }}
                 >
                   {formattedItem}
+                  <Image
+                    src={`/${item}.svg`}
+                    alt={item}
+                    height={64}
+                    width={64}
+                    className="bg-transparent rounded-lg filter invert"
+                  />
                 </Button>
               );
             })}
@@ -119,10 +134,17 @@ const ChooseInstrumentModal = ({
                 <Button
                   key={index}
                   onClick={() => onSelect(item)}
-                  className="w-full"
+                  className="w-full py-8 flex flex-col items-center justify-center gap-2 h-32"
                   style={{ textTransform: "uppercase" }}
                 >
                   {formattedItem}
+                  <Image
+                    src={`/${item}.svg`}
+                    alt={item}
+                    height={64}
+                    width={64}
+                    className="bg-transparent rounded-lg filter invert"
+                  />
                 </Button>
               );
             })}
@@ -139,12 +161,19 @@ const ChooseInstrumentModal = ({
                 <Button
                   key={index}
                   onClick={() => onSelect(item)}
-                  className="w-full text-gray-600 bg-gray-200 hover:bg-gray-300"
+                  className="w-full py-8 flex flex-col items-center justify-center gap-2 h-32"
                   style={{
                     textTransform: "uppercase",
                   }}
                 >
                   {formattedItem}
+                  <Image
+                    src={`/${item}.svg`}
+                    alt={item}
+                    height={64}
+                    width={64}
+                    className="bg-transparent rounded-lg filter invert"
+                  />
                 </Button>
               );
             })}
