@@ -36,7 +36,6 @@ const TableSection = ({
   is_stands_showing,
   handleRemoveInput,
 }: TableSectionProps) => {
-  console.log(fields, "hey fields");
   return (
     <div>
       <Table className="overflow-visible">

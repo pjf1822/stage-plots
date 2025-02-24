@@ -1,12 +1,11 @@
 import { ITEM_SIZES } from "@/constants";
 import Image from "next/image";
-import React from "react";
 
 const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
   return (
     <div
       style={{
-        height: 900,
+        height: 750,
         width: "89vw",
         position: "relative",
         border: "2px solid black",
@@ -16,21 +15,17 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
       {stage_elements?.map((stageElement: any, index: any) => {
         const itemSize = ITEM_SIZES[stageElement.title] ?? 100;
 
-        const scaleFactor = 9 / 7;
         const zIndex = stageElement.title === "riser" ? 1 : 3;
         return (
           <div
             key={index}
             style={{
               position: "absolute",
-              top:
-                stageElement.y < 0
-                  ? stageElement.y
-                  : stageElement.y * scaleFactor + 28, // Apply scaling only if y is not negative
+              top: stageElement.y,
               left: stageElement.x,
-              width: itemSize * stageElement?.scale, // Scale the width of the item
+              width: itemSize * stageElement?.scale,
               height: itemSize * stageElement?.scale,
-              transform: `rotate(${stageElement.rotate}deg)`, // Corrected line
+              transform: `rotate(${stageElement.rotate}deg)`,
 
               zIndex: zIndex,
             }}
@@ -53,9 +48,7 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
               </span>
             ) : (
               <Image
-                src={
-                  `/${stageElement.title}.svg` // SVG for other items
-                }
+                src={`/${stageElement.title}.svg`}
                 alt={stageElement.title}
                 style={{
                   objectFit: "contain",
