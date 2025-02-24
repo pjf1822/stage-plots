@@ -56,11 +56,14 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    setValue,
+    getValues,
   } = methods;
 
   const submitForm = async (formData: StagePlotFormData) => {
     try {
       const result = await submitStagePlotForm(currentPlot, formData);
+
       toast({
         title: "Stage Plot Updated",
       });
@@ -112,8 +115,8 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
   };
 
   const handleAddInput = () => {
-    const nextChannel = methods.getValues("inputs").length + 1;
-
+    const inputs = getValues("inputs");
+    const nextChannel = inputs.length + 1;
     if (nextChannel > 48) {
       toast({
         title: "Cannot add more than 48 channels",
@@ -122,18 +125,30 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
       return;
     }
 
-    methods.setValue("inputs", [
-      ...methods.getValues("inputs"),
-      {
-        id: uuidv4(),
-        name: "",
-        channel: nextChannel,
-        mic: "",
-        stand: "",
-        notes: "",
-        stage_plot_id: plotid,
-      },
-    ]);
+    const newInput = {
+      id: uuidv4(),
+      name: "",
+      channel: nextChannel,
+      mic: "",
+      stand: "",
+      notes: "",
+      stage_plot_id: plotid,
+    };
+
+    setValue("inputs", [...inputs, newInput]);
+  };
+
+  const handleRemoveInput = (channel: number) => {
+    const inputs = getValues("inputs");
+
+    const updatedFields = inputs.filter((input) => input.channel !== channel);
+
+    const reIndexedFields = updatedFields.map((field, i) => ({
+      ...field,
+      channel: i + 1,
+    }));
+
+    setValue("inputs", reIndexedFields);
   };
 
   useEffect(() => {
@@ -172,7 +187,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
               </div> */}
 
               <StagePlotGraphic stagePlotId={currentPlot.id} />
-              <InputList />
+              <InputList handleRemoveInput={handleRemoveInput} />
             </div>
             <EditPageButtonRow
               getImage={getImage}

@@ -49,8 +49,11 @@ const EditQuickPlot = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    setValue,
+    getValues,
   } = methods;
   const [image, takeScreenshot] = useScreenshot();
+
   const getImage = () => {
     const formData = methods.getValues();
 
@@ -88,7 +91,8 @@ const EditQuickPlot = () => {
   };
 
   const handleAddInput = () => {
-    const nextChannel = methods.getValues("inputs").length + 1;
+    const inputs = getValues("inputs");
+    const nextChannel = inputs.length + 1;
 
     if (nextChannel > 48) {
       toast({
@@ -98,18 +102,29 @@ const EditQuickPlot = () => {
       return;
     }
 
-    methods.setValue("inputs", [
-      ...methods.getValues("inputs"),
-      {
-        id: uuidv4(),
-        name: "",
-        channel: nextChannel,
-        mic: "",
-        stand: "",
-        notes: "",
-        stage_plot_id: "",
-      },
-    ]);
+    const newInput = {
+      id: uuidv4(),
+      name: "",
+      channel: nextChannel,
+      mic: "",
+      stand: "",
+      notes: "",
+      stage_plot_id: "",
+    };
+
+    setValue("inputs", [...inputs, newInput]);
+  };
+  const handleRemoveInput = (channel: number) => {
+    const inputs = getValues("inputs");
+
+    const updatedFields = inputs.filter((input) => input.channel !== channel);
+
+    const reIndexedFields = updatedFields.map((field, i) => ({
+      ...field,
+      channel: i + 1,
+    }));
+
+    setValue("inputs", reIndexedFields);
   };
 
   return (
@@ -141,9 +156,8 @@ const EditQuickPlot = () => {
                   className="w-full px-4 py-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                 />
               </div> */}
-
               <StagePlotGraphic stagePlotId={currentPlot.id} />
-              <InputList />
+              <InputList handleRemoveInput={handleRemoveInput} />
             </div>
             <EditPageButtonRow
               getImage={getImage}

@@ -22,7 +22,14 @@ export async function getPlotById(plotid: string) {
       return { error: error?.message || "Stage plot not found." };
     }
 
-    return data;
+    const sortedInputs = data.inputs.sort(
+      (a: any, b: any) => a.channel - b.channel
+    );
+
+    return {
+      ...data,
+      inputs: sortedInputs,
+    };
   } catch (error) {
     return { error: (error as Error).message };
   }
