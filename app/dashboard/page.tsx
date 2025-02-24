@@ -11,6 +11,8 @@ import { getPlots } from "@/app/server/actions/getPlots";
 import StagePlots from "@/app/components/StagePlots";
 import CreateNewPlotButton from "@/app/components/CreateNewPlotButton";
 import Head from "next/head";
+import { Dialog } from "@/components/ui/dialog";
+import SuggestionDialog from "../components/SuggestionDialog";
 export default async function Dashboard() {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
@@ -36,6 +38,7 @@ export default async function Dashboard() {
         <div>
           <CreateNewPlotButton />
         </div>
+        <SuggestionDialog />
       </div>
     </>
   );
