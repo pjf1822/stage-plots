@@ -84,7 +84,9 @@ const StagePlots = () => {
   return (
     <div className="space-y-4">
       <div
-        className="overflow-hidden  max-w-[1000px] border-4  border-white p-16 rounded-[10px]"
+        className={`overflow-hidden  max-w-[1000px] border-4  ${
+          data?.data?.length === 1 ? "border-none" : "border-white"
+        }  border-white p-16 rounded-[10px]`}
         ref={emblaRef}
       >
         <div style={{ display: "flex" }}>
