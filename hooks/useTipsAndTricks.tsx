@@ -9,6 +9,7 @@ const tipsAndTricks = [
   "Try down stage right vocal not Steve vocal!",
   "We auto save for you every 30 seconds!",
   `"Drums" is not an input!`,
+  "Ctr Z for undo",
 ];
 const useTipsAndTricks = () => {
   useEffect(() => {

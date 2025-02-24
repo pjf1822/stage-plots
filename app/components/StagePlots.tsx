@@ -23,7 +23,6 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { DialogClose } from "@radix-ui/react-dialog";
 
 const StagePlots = () => {
   const queryClient = useQueryClient();
