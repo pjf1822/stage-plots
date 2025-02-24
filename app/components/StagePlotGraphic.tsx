@@ -1,7 +1,6 @@
 import DraggableItem from "@/app/components/DraggableItem";
 import { DndContext } from "@dnd-kit/core";
 import Image from "next/image";
-import React, { useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
@@ -9,10 +8,11 @@ import { v4 as uuidv4 } from "uuid";
 import ChooseInstrumentModal from "./ChooseInstrumentModal";
 import { StagePlotFormData } from "@/types";
 import { Button } from "@/components/ui/button";
-import { toast } from "@/hooks/use-toast";
 import AddText from "./AddText";
+import useStagePlotKeyPress from "@/hooks/useStagePlotKeyPress";
+import { onDragEnd } from "@/utils/stagePlotUtils";
 
-interface HistoryState {
+export interface HistoryState {
   elements: any[];
   action: "move" | "add" | "remove" | "scale" | "rotate";
 }
@@ -43,133 +43,30 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const trashCanRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (!activeItemId) return;
-
-      // Copy (Ctrl/Cmd + C)
-      if ((e.ctrlKey || e.metaKey) && e.key === "c") {
-        const itemToCopy = fields.find(
-          (element) => element.id === activeItemId
-        );
-        if (itemToCopy) {
-          setClipboardItem(itemToCopy);
-          toast({
-            title: "Copied item to clipboard",
-          });
-        }
-      }
-
-      // Paste (Ctrl/Cmd + V)
-      if ((e.ctrlKey || e.metaKey) && e.key === "v") {
-        if (clipboardItem) {
-          const container = containerRef.current;
-          if (container) {
-            // Add slight offset to pasted item position
-            const newX = clipboardItem.x + 20;
-            const newY = clipboardItem.y + 20;
-
-            append({
-              ...clipboardItem,
-              id: uuidv4(),
-              x: newX,
-              y: newY,
-              stage_plot_id: stagePlotId,
-              scale: 1.0,
-              label: "",
-              rotate: 0,
-            });
-
-            toast({
-              title: "Pasted item",
-            });
-          }
-        }
-      }
-      if ((e.ctrlKey || e.metaKey) && e.key === "z") {
-        e.preventDefault();
-        if (historyIndex >= 0) {
-          const previousState = history[historyIndex];
-          // Restore previous state
-          previousState.elements.forEach((element, idx) => {
-            if (fields[idx]) {
-              update(idx, element);
-            }
-          });
-          // Remove any extra elements that might exist in current state
-          if (fields.length > previousState.elements.length) {
-            for (
-              let i = fields.length - 1;
-              i >= previousState.elements.length;
-              i--
-            ) {
-              remove(i);
-            }
-          }
-          setHistoryIndex(historyIndex - 1);
-        }
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyPress);
-    return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [activeItemId, fields, clipboardItem, stagePlotId]);
-
-  const onDragEnd = ({ delta, active }: any) => {
-    const container = containerRef.current;
-    if (container) {
-      const rect = container.getBoundingClientRect();
-
-      const updatedElements = fields.map((element) => {
-        const itemSize =
-          element.title === "drum-kit" || element.title === "riser"
-            ? 120 * element.scale
-            : 35 * element.scale;
-        if (element.id === active.id) {
-          let newX = element.x + delta.x;
-          let newY = element.y + delta.y;
-          if (
-            newX >= -120 &&
-            newX + itemSize <= rect.width - 10 &&
-            newY >= -120 &&
-            newY + itemSize <= rect.height - 10
-          ) {
-            update(
-              fields.findIndex((el) => el.id === element.id),
-              {
-                ...element,
-                x: newX,
-                y: newY,
-              }
-            );
-          }
-
-          const trashCanRight = rect.width - 20;
-          const trashCanBottom = rect.height - 20;
-
-          const isInTrash =
-            newX >= trashCanRight - itemSize - 130 && //left boundary
-            newX <= trashCanRight + itemSize + 30 && //right boundary
-            newY >= trashCanBottom - itemSize - 110 && // top boundary
-            newY <= trashCanBottom + itemSize + 30; // boundary
-
-          if (isInTrash) {
-            const indexToRemove = fields.findIndex(
-              (el) => el.id === element.id
-            );
-            remove(indexToRemove);
-            saveToHistory("remove");
-            toast({
-              title: "Deleted item!",
-            });
-          } else if (!isInTrash && (delta.x !== 0 || delta.y !== 0)) {
-            saveToHistory("move");
-          }
-          return { ...element, x: newX, y: newY };
-        }
-        return element;
-      });
-    }
+  useStagePlotKeyPress({
+    activeItemId,
+    fields,
+    append,
+    update,
+    remove,
+    clipboardItem,
+    setClipboardItem,
+    saveToHistory,
+    history,
+    historyIndex,
+    setHistoryIndex,
+    containerRef,
+  });
+  const onDragEndHandler = (event: any) => {
+    onDragEnd({
+      delta: event.delta,
+      active: event.active,
+      fields: fields,
+      update: update,
+      remove: remove,
+      saveToHistory: saveToHistory,
+      containerRef: containerRef,
+    });
   };
 
   const openModal = () => setIsModalOpen(true);
@@ -190,27 +87,21 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
     closeModal();
   };
 
-  const handleScaleChange = (elementId: string, newScale: number) => {
+  const handleChange = (
+    elementId: string,
+    property: "scale" | "rotate",
+    newValue: number
+  ) => {
     const elementIndex = fields.findIndex((el) => el.id === elementId);
-    if (elementIndex !== -1) {
-      update(elementIndex, {
-        ...fields[elementIndex],
-        scale: newScale,
-      });
-      saveToHistory("scale");
-    }
-  };
-  const handleRotateChange = (elementId: string, newRotation: number) => {
-    const elementIndex = fields.findIndex((el) => el.id === elementId);
-    if (elementIndex !== -1) {
-      update(elementIndex, {
-        ...fields[elementIndex],
-        rotate: newRotation,
-      });
-    }
-    saveToHistory("rotate");
-  };
 
+    if (elementIndex !== -1) {
+      update(elementIndex, {
+        ...fields[elementIndex],
+        [property]: newValue,
+      });
+      saveToHistory(property);
+    }
+  };
   return (
     <div
       ref={containerRef}
@@ -222,7 +113,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
         justifySelf: "center",
       }}
     >
-      <DndContext onDragEnd={onDragEnd}>
+      <DndContext onDragEnd={onDragEndHandler}>
         {fields.map((stageElement, index) => (
           <DraggableItem
             key={stageElement.id}
@@ -233,13 +124,13 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
             label={stageElement.label}
             scale={stageElement.scale}
             rotate={stageElement.rotate}
-            isActive={activeItemId === stageElement.id} // Pass active state
-            setActiveItemId={setActiveItemId} // Pass the setter directly
+            isActive={activeItemId === stageElement.id}
+            setActiveItemId={setActiveItemId}
             onScaleChange={(newScale) =>
-              handleScaleChange(stageElement.id, newScale)
+              handleChange(stageElement.id, "scale", newScale)
             }
             onRotateChange={(newRotation) =>
-              handleRotateChange(stageElement.id, newRotation)
+              handleChange(stageElement.id, "rotate", newRotation)
             }
           />
         ))}
