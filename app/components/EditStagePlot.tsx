@@ -156,7 +156,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
       if (!methods.formState.isSubmitting) {
         handleSubmit(submitForm)();
       }
-    }, 30000);
+    }, 60000);
 
     return () => clearInterval(interval);
   }, [methods, handleSubmit, submitForm]);
