@@ -196,7 +196,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           "sax",
           "snare",
           "tambourine",
-          "harp",
+          // "harp",
           "guitar-stand",
           "pedal",
           "grand-piano",

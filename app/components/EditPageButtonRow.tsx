@@ -46,54 +46,7 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
           </Link>
         </Button>
       )}
-      <DropdownMenu>
-        <DropdownMenuTrigger className="bg-black text-white text-lg px-6 py-0 rounded-lg shadow-xl border border-white">
-          Plot Settings
-          <span className="ml-2">&#9650;</span>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="bg-white shadow-md rounded-md border border-gray-300">
-          {/* <DropdownMenuItem className="flex items-center gap-2 text-black hover:bg-gray-200">
-            <Checkbox
-              id="two-pages"
-              checked={plotSettings.isTwoPages}
-              onCheckedChange={(checked) =>
-                setPlotSettings((prev) => ({ ...prev, isTwoPages: !!checked }))
-              }
-            />
-            <label className="text-sm font-medium leading-none cursor-pointer">
-              Two pages
-            </label>
-          </DropdownMenuItem> */}
-          {/* <DropdownMenuItem className="flex items-center gap-2 text-black hover:bg-gray-200">
-            <Checkbox
-              id="black-and-white"
-              checked={plotSettings.isBlackAndWhite}
-              onCheckedChange={(checked) =>
-                setPlotSettings((prev) => ({
-                  ...prev,
-                  isBlackAndWhite: !!checked,
-                }))
-              }
-            />
-            <label className="text-sm font-medium leading-none cursor-pointer">
-              Black and white
-            </label>
-          </DropdownMenuItem> */}
-          <DropdownMenuItem className="flex items-center gap-2 text-black hover:bg-gray-200">
-            <Checkbox
-              id="stands-showing"
-              checked={isStandsShowing}
-              onCheckedChange={(checked) => {
-                setValue("is_stands_showing", checked);
-              }}
-            />
 
-            <label className="text-sm font-medium leading-none cursor-pointer">
-              Stands Column?
-            </label>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
       <Button
         onClick={getImage}
         variant={"outline"}
@@ -120,7 +73,6 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-
       {!isQuickPlot && (
         <Button
           variant={"outline"}
@@ -130,6 +82,27 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
           {isSubmitting ? "Submitting..." : "Save Stage Plot"}
         </Button>
       )}
+      <DropdownMenu>
+        <DropdownMenuTrigger className="bg-black text-white text-lg px-6 py-0 rounded-lg shadow-xl border border-white">
+          Plot Settings
+          <span className="ml-2">&#9650;</span>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="bg-white shadow-md rounded-md border border-gray-300">
+          <DropdownMenuItem className="flex items-center gap-2 text-black hover:bg-gray-200">
+            <Checkbox
+              id="stands-showing"
+              checked={isStandsShowing}
+              onCheckedChange={(checked) => {
+                setValue("is_stands_showing", checked);
+              }}
+            />
+
+            <label className="text-sm font-medium leading-none cursor-pointer">
+              Stands Column?
+            </label>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 };
