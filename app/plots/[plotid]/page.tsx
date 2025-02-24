@@ -26,12 +26,7 @@ const StagePlotPage = async ({
     <>
       <Head>
         <title>Stage Plot - {plotid}</title>
-        <meta name="robots" content="index, follow" />
-        <meta
-          property="og:url"
-          content={`https://www.thestageplotter.com/plots/${plotid}`}
-        />
-        <meta property="og:title" content={`Stage Plot - ${plotid}`} />
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="min-h-screen bg-black flex items-center justify-center pb-24">
         <HydrationBoundary state={dehydrate(queryClient)}>
