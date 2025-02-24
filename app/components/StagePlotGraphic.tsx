@@ -12,6 +12,10 @@ import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import AddText from "./AddText";
 
+interface HistoryState {
+  elements: any[];
+  action: "move" | "add" | "remove" | "scale" | "rotate";
+}
 const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
   const { control } = useFormContext<StagePlotFormData>();
 
@@ -23,6 +27,18 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
   const [activeItemId, setActiveItemId] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [clipboardItem, setClipboardItem] = useState<any>(null);
+  const [history, setHistory] = useState<HistoryState[]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+
+  const saveToHistory = (action: HistoryState["action"]) => {
+    const newHistory = history.slice(0, historyIndex + 1);
+    newHistory.push({
+      elements: JSON.parse(JSON.stringify(fields)),
+      action,
+    });
+    setHistory(newHistory);
+    setHistoryIndex(newHistory.length - 1);
+  };
 
   const containerRef = useRef<HTMLDivElement>(null);
   const trashCanRef = useRef<HTMLDivElement>(null);
@@ -70,6 +86,29 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           }
         }
       }
+      if ((e.ctrlKey || e.metaKey) && e.key === "z") {
+        e.preventDefault();
+        if (historyIndex >= 0) {
+          const previousState = history[historyIndex];
+          // Restore previous state
+          previousState.elements.forEach((element, idx) => {
+            if (fields[idx]) {
+              update(idx, element);
+            }
+          });
+          // Remove any extra elements that might exist in current state
+          if (fields.length > previousState.elements.length) {
+            for (
+              let i = fields.length - 1;
+              i >= previousState.elements.length;
+              i--
+            ) {
+              remove(i);
+            }
+          }
+          setHistoryIndex(historyIndex - 1);
+        }
+      }
     };
 
     window.addEventListener("keydown", handleKeyPress);
@@ -107,11 +146,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
 
           const trashCanRight = rect.width - 20;
           const trashCanBottom = rect.height - 20;
-          console.log(
-            itemSize,
-            newX >= trashCanRight - itemSize - 130,
-            newX <= trashCanRight + itemSize + 30
-          );
+
           const isInTrash =
             newX >= trashCanRight - itemSize - 130 && //left boundary
             newX <= trashCanRight + itemSize + 30 && //right boundary
@@ -122,13 +157,14 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
             const indexToRemove = fields.findIndex(
               (el) => el.id === element.id
             );
-
+            remove(indexToRemove);
+            saveToHistory("remove");
             toast({
               title: "Deleted item!",
             });
-            remove(indexToRemove);
+          } else if (!isInTrash && (delta.x !== 0 || delta.y !== 0)) {
+            saveToHistory("move");
           }
-
           return { ...element, x: newX, y: newY };
         }
         return element;
@@ -150,6 +186,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       label: "",
       rotate: 0,
     });
+    saveToHistory("add");
     closeModal();
   };
 
@@ -160,6 +197,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
         ...fields[elementIndex],
         scale: newScale,
       });
+      saveToHistory("scale");
     }
   };
   const handleRotateChange = (elementId: string, newRotation: number) => {
@@ -170,6 +208,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
         rotate: newRotation,
       });
     }
+    saveToHistory("rotate");
   };
 
   return (
