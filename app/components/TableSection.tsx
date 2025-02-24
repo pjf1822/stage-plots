@@ -21,9 +21,11 @@ type TableSectionProps = {
 const standOptions = [
   "Tall Boom",
   "Short",
-  "Tall Round Base",
-  "Short Boom",
+  "Straight Round Base",
   "Wireless",
+  "Short Boom",
+  "none",
+  "",
 ];
 
 const TableSection = ({
@@ -33,7 +35,6 @@ const TableSection = ({
   startIndex,
   is_stands_showing,
 }: TableSectionProps) => {
-  console.log(fields);
   const sortedFields = [...fields].sort((a, b) => a.channel - b.channel); // Ascending order (smallest to largest)
   return (
     <div>
