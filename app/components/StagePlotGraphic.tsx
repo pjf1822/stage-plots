@@ -82,7 +82,10 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       const rect = container.getBoundingClientRect();
 
       const updatedElements = fields.map((element) => {
-        const itemSize = 35 * element.scale;
+        const itemSize =
+          element.title === "drum-kit" || element.title === "riser"
+            ? 120 * element.scale
+            : 35 * element.scale;
         if (element.id === active.id) {
           let newX = element.x + delta.x;
           let newY = element.y + delta.y;
@@ -102,14 +105,18 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
             );
           }
 
-          const trashCanRight = rect.width - 100;
-          const trashCanBottom = rect.height - 100;
-
+          const trashCanRight = rect.width - 20;
+          const trashCanBottom = rect.height - 20;
+          console.log(
+            itemSize,
+            newX >= trashCanRight - itemSize - 130,
+            newX <= trashCanRight + itemSize + 30
+          );
           const isInTrash =
-            newX >= trashCanRight - itemSize - 30 &&
-            newX <= trashCanRight + itemSize + 30 &&
-            newY >= trashCanBottom - itemSize - 30 &&
-            newY <= trashCanBottom + itemSize + 30;
+            newX >= trashCanRight - itemSize - 130 && //left boundary
+            newX <= trashCanRight + itemSize + 30 && //right boundary
+            newY >= trashCanBottom - itemSize - 110 && // top boundary
+            newY <= trashCanBottom + itemSize + 30; // boundary
 
           if (isInTrash) {
             const indexToRemove = fields.findIndex(
@@ -206,7 +213,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           right: "20px",
           width: "50px",
           height: "50px",
-          backgroundColor: "#f0f0f0",
+          backgroundColor: "#E0E0E0",
           borderRadius: "50%",
           display: "flex",
           justifyContent: "center",
