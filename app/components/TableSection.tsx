@@ -70,7 +70,11 @@ const TableSection = ({
                 {!is_stands_showing && (
                   <div
                     className="p-1"
-                    style={{ position: "absolute", top: "-8px", right: "-2px" }}
+                    style={{
+                      position: "absolute",
+                      top: "-3px",
+                      right: "-2px",
+                    }}
                   >
                     <Button
                       variant="ghost"
@@ -92,7 +96,7 @@ const TableSection = ({
                   />
                   <div
                     className="p-1"
-                    style={{ position: "absolute", top: "-8px", right: "-2px" }}
+                    style={{ position: "absolute", top: "-3px", right: "-2px" }}
                   >
                     <Button
                       variant="ghost"
