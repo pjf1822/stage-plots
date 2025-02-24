@@ -18,6 +18,14 @@ type TableSectionProps = {
   is_stands_showing: boolean;
 };
 
+const standOptions = [
+  "Tall Boom",
+  "Short",
+  "Tall Round Base",
+  "Short Boom",
+  "Wireless",
+];
+
 const TableSection = ({
   fields,
   register,
@@ -25,6 +33,8 @@ const TableSection = ({
   startIndex,
   is_stands_showing,
 }: TableSectionProps) => {
+  console.log(fields);
+  const sortedFields = [...fields].sort((a, b) => a.channel - b.channel); // Ascending order (smallest to largest)
   return (
     <div>
       <Table className="overflow-visible">
@@ -47,7 +57,7 @@ const TableSection = ({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {fields.map((item, index) => (
+          {sortedFields.map((item, index) => (
             <TableRow className="border-0" key={item.id}>
               <TableCell className="p-0 text-center border border-gray-400 max-w-[10px] w-[10px]">
                 {startIndex + index + 1}
@@ -89,11 +99,17 @@ const TableSection = ({
               </TableCell>
               {is_stands_showing && (
                 <TableCell className="p-0 border border-gray-400 pl-2 relative">
-                  <Input
+                  <select
                     {...register(`inputs.${startIndex + index}.stand`)}
-                    placeholder="Stand"
-                    className="p-0 rounded-md w-full border-none shadow-none focus-visible:ring-0 placeholder:text-gray-400"
-                  />
+                    className="p-2 rounded-md w-full border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none appearance-none bg-transparent"
+                  >
+                    {standOptions.map((stand, idx) => (
+                      <option key={idx} value={stand}>
+                        {stand}
+                      </option>
+                    ))}
+                  </select>
+
                   <div
                     className="p-1"
                     style={{ position: "absolute", top: "-3px", right: "-2px" }}
