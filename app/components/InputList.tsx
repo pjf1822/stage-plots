@@ -4,7 +4,7 @@ import React from "react";
 import { FieldValues, useFieldArray, useFormContext } from "react-hook-form";
 import TableSection from "./TableSection";
 
-const InputList: React.FC<{}> = () => {
+const InputList = ({ handleRemoveInput }: { handleRemoveInput: any }) => {
   const {
     control,
     register,
@@ -18,6 +18,7 @@ const InputList: React.FC<{}> = () => {
     control,
     name: "inputs",
   });
+
   const rowsPerColumn = 24;
   const firstColumn = fields.slice(0, rowsPerColumn); // First 15 rows
   const secondColumn = fields.slice(rowsPerColumn); // Remaining rows
@@ -36,6 +37,7 @@ const InputList: React.FC<{}> = () => {
             remove={remove}
             startIndex={0}
             is_stands_showing={is_stands_showing}
+            handleRemoveInput={handleRemoveInput}
           />
         </div>
 
@@ -47,6 +49,7 @@ const InputList: React.FC<{}> = () => {
               remove={remove}
               startIndex={rowsPerColumn}
               is_stands_showing={is_stands_showing}
+              handleRemoveInput={handleRemoveInput}
             />
           </div>
         )}
