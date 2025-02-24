@@ -120,7 +120,9 @@ const StagePlots = () => {
               </Link>
               <Button
                 onClick={() => openDeleteModal(plot)}
-                className="absolute bottom-2 right-16  -translate-x-2 text-white rounded-full p-2 hover:bg-red-600 transition-all !bg-transparent"
+                className={`absolute bottom-2 ${
+                  data?.data?.length === 1 ? "right-2" : "right-16"
+                } -translate-x-2 text-white rounded-full p-2 hover:bg-red-600 transition-all !bg-transparent`}
               >
                 <X size={18} />
               </Button>
