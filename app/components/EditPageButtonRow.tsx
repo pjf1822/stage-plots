@@ -10,18 +10,23 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import Link from "next/link";
+import { getImage } from "@/utils/getImage";
 
 type EditPageButtonRowProps = {
-  getImage: () => void;
   handleAddInput: () => void;
   isSubmitting: boolean;
   isQuickPlot: boolean;
+  methods: any;
+  takeScreenshot: any;
+  setIsModalOpen: (open: boolean) => void;
 };
 const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
-  getImage,
   handleAddInput,
   isSubmitting,
   isQuickPlot = false,
+  methods,
+  takeScreenshot,
+  setIsModalOpen,
 }) => {
   const { watch, setValue } = useFormContext();
   const isStandsShowing = watch("is_stands_showing");
@@ -48,7 +53,7 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
       )}
 
       <Button
-        onClick={getImage}
+        onClick={() => getImage(methods, takeScreenshot, setIsModalOpen)}
         variant={"outline"}
         type="button"
         className="font-urbanist bg-black text-lg px-6 py-6 rounded-lg text-white shadow-xl transform transition-all hover:scale-105"
