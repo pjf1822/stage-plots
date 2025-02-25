@@ -54,6 +54,32 @@ export default function Home() {
           content="Stage Plotter helps production teams create, manage, and share professional stage plots effortlessly. Visualize your setup, communicate with your team, and streamline your workflow."
         />
         <meta name="twitter:image" content="/newlogo.png" />
+        <link
+          rel="alternate"
+          hrefLang="en"
+          href="https://www.thestageplotter.com/"
+        />
+        <link
+          rel="alternate"
+          hrefLang="en-IN"
+          href="https://www.thestageplotter.com/"
+        />
+
+        <link
+          rel="alternate"
+          hrefLang="es-ES"
+          href="https://www.thestageplotter.com/"
+        />
+        <link
+          rel="alternate"
+          hrefLang="ar-SA"
+          href="https://www.thestageplotter.com/"
+        />
+        <link
+          rel="alternate"
+          hrefLang="x-default"
+          href="https://www.thestageplotter.com/"
+        />
       </Head>
 
       <div className="flex flex-col justify-around items-center min-h-screen bg-black p-12">

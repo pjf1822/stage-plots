@@ -10,6 +10,7 @@ const tipsAndTricks = [
   "We auto save for you every 60 seconds!",
   `"Drums" is not an input!`,
   "Ctr Z for undo",
+  "No duck tape on the stage please!",
 ];
 const useTipsAndTricks = () => {
   useEffect(() => {
