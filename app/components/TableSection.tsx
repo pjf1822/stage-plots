@@ -38,7 +38,7 @@ const TableSection = ({
 }: TableSectionProps) => {
   return (
     <div>
-      <Table className="overflow-visible">
+      <Table className="overflow-hidden">
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px] border border-gray-400   text-black">

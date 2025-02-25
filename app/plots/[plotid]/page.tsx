@@ -28,7 +28,7 @@ const StagePlotPage = async ({
         <title>Stage Plot - {plotid}</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
-      <div className="min-h-screen bg-black flex items-center justify-center pb-24">
+      <div className="min-h-screen bg-black flex items-center justify-center pb-24 overflow-hidden w-full">
         <HydrationBoundary state={dehydrate(queryClient)}>
           <EditStagePlot plotid={plotid} />
         </HydrationBoundary>

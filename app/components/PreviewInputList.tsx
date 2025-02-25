@@ -19,7 +19,10 @@ const PreviewInputList = ({
   const hasThirdColumn = thirdColumn.length > 0;
 
   return (
-    <div className="flex flex-col items-center justify-center w-full  ">
+    <div
+      className="flex flex-col items-center justify-center w-full"
+      style={{ overflow: "hidden" }}
+    >
       <div
         className={`overflow-x-auto w-full mb-6 grid ${
           hasThirdColumn
@@ -28,13 +31,18 @@ const PreviewInputList = ({
             ? "grid-cols-1 sm:grid-cols-2"
             : "grid-cols-1"
         } gap-4`}
+        style={{ overflow: "hidden" }}
       >
         <div
           className={`${
             !hasSecondColumn && !hasThirdColumn ? "w-3/4" : "w-full"
           } ${!hasSecondColumn ? "col-span-2" : ""}`}
+          style={{ overflow: "hidden" }}
         >
-          <table className="w-full border-collapse">
+          <table
+            className="w-full border-collapse"
+            style={{ overflow: "hidden" }}
+          >
             <thead>
               <tr>
                 <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg w-11">
