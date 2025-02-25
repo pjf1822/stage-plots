@@ -4,18 +4,18 @@ import { Input } from "@/components/ui/input";
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 interface AddTextProps {
-  append: any;
   stagePlotId: string;
+  setStageElements: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
-const AddText: React.FC<AddTextProps> = ({ stagePlotId, append }) => {
+const AddText: React.FC<AddTextProps> = ({ stagePlotId, setStageElements }) => {
   const [text, setText] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
   const handleAddLabel = () => {
-    append({
+    const newLabel = {
       id: uuidv4(),
       x: 50,
       y: 50,
@@ -24,8 +24,10 @@ const AddText: React.FC<AddTextProps> = ({ stagePlotId, append }) => {
       scale: 1.0,
       label: text,
       rotate: 0,
-    });
-    setText("");
+    };
+
+    setStageElements((prevElements) => [...prevElements, newLabel]); // add the new label to the stage elements
+    setText(""); // clear the input field
   };
   return (
     <div className="absolute top-2 right-2 flex flex-col justify-right">

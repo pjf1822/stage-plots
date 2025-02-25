@@ -1,70 +1,67 @@
 import { toast } from "@/hooks/use-toast";
 
+const isInTrashArea = (x: number, y: number, scale: number, rect: DOMRect) => {
+  const trashCanRight = rect.width - 20;
+  const trashCanBottom = rect.height - 20;
+  const itemSize = 75 * scale; // Example for item size based on scale
+
+  return (
+    x >= trashCanRight - itemSize - 130 * scale && // Left boundary
+    x <= trashCanRight + itemSize + 30 && // Right boundary
+    y >= trashCanBottom - itemSize - 110 * scale && // Top boundary
+    y <= trashCanBottom + itemSize + 30 // Bottom boundary
+  );
+};
+
 export const onDragEnd = ({
   delta,
-  active,
-  fields,
-  update,
-  remove,
+  activeId,
+  stageElements,
+  setStageElements,
   saveToHistory,
   containerRef,
 }: any) => {
   const container = containerRef.current;
-  if (container) {
-    const rect = container.getBoundingClientRect();
+  if (!container) return;
 
-    const updatedElements = fields.map((element: any) => {
-      const itemSize =
-        element.title === "drum-kit" || element.title === "riser"
-          ? 75 * element.scale
-          : 35 * element.scale;
-      if (element.id === active.id) {
-        let newX = element.x + delta.x;
-        let newY = element.y + delta.y;
-        if (
-          newX >= -120 &&
-          newX + itemSize <= rect.width - 10 &&
-          newY >= -120 &&
-          newY + itemSize <= rect.height - 10
-        ) {
-          update(
-            fields.findIndex((el: any) => el.id === element.id),
-            {
-              ...element,
-              x: newX,
-              y: newY,
-            }
-          );
-        }
+  const rect = container.getBoundingClientRect();
+  const updatedElement = stageElements.find(
+    (element) => element.id === activeId
+  );
+  if (!updatedElement) return;
 
-        const trashCanRight = rect.width - 20;
-        const trashCanBottom = rect.height - 20;
+  const itemSize =
+    updatedElement.title === "drum-kit" || updatedElement.title === "riser"
+      ? 75 * updatedElement.scale
+      : 35 * updatedElement.scale;
+  let newX = updatedElement.x + delta.x;
+  let newY = updatedElement.y + delta.y;
 
-        const isInTrash =
-          newX >= trashCanRight - itemSize - 130 * element.scale && //left boundary
-          newX <= trashCanRight + itemSize + 30 && //right boundary
-          newY >= trashCanBottom - itemSize - 110 * element.scale && // top boundary
-          newY <= trashCanBottom + itemSize + 30; // boundary
-
-        if (isInTrash) {
-          const indexToRemove = fields.findIndex(
-            (el: any) => el.id === element.id
-          );
-          remove(indexToRemove);
-          saveToHistory("remove");
-          toast({
-            title: "Deleted item!",
-          });
-        } else if (!isInTrash && (delta.x !== 0 || delta.y !== 0)) {
-          saveToHistory("move");
-        }
-        return { ...element, x: newX, y: newY };
-      }
-      return element;
-    });
+  // Check if element is dragged into the trash
+  if (isInTrashArea(newX, newY, updatedElement.scale, rect)) {
+    const indexToRemove = stageElements.findIndex(
+      (el: any) => el.id === updatedElement.id
+    );
+    if (indexToRemove !== -1) {
+      stageElements.splice(indexToRemove, 1);
+      setStageElements([...stageElements]);
+      saveToHistory("remove");
+      toast({
+        title: "Deleted item!",
+      });
+    }
+  } else if (delta.x !== 0 || delta.y !== 0) {
+    // If not in trash, update the element's position
+    saveToHistory("move");
+    setStageElements((prevElements) =>
+      prevElements.map((element) =>
+        element.id === activeId
+          ? { ...updatedElement, x: newX, y: newY }
+          : element
+      )
+    );
   }
 };
-
 export // Function to handle the rotation logic
 const handleRotateStart = (
   e: React.MouseEvent,
@@ -73,6 +70,7 @@ const handleRotateStart = (
   startRotationRef: any,
   onRotateChange?: (newRotation: number) => void
 ) => {
+  console.log("started to rotate");
   const element = e.currentTarget.parentElement;
   if (!element) return;
 
@@ -117,6 +115,7 @@ export const handleMouseDown = (
   scale: number,
   onScaleChange?: (newScale: number) => void
 ) => {
+  console.log("handle mouse down");
   e.preventDefault();
   e.stopPropagation();
 

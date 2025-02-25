@@ -5,12 +5,10 @@ import { HistoryState } from "@/app/components/StagePlotGraphic";
 
 interface KeyPressProps {
   activeItemId: string;
-  fields: any[];
+  stageElements: any;
+  setStageElements: any;
   clipboardItem: any;
   setClipboardItem: Function;
-  append: Function;
-  update: Function;
-  remove: Function;
   saveToHistory: Function;
   history: HistoryState[];
   historyIndex: any;
@@ -20,10 +18,8 @@ interface KeyPressProps {
 
 const useStagePlotKeyPress = ({
   activeItemId,
-  fields,
-  append,
-  update,
-  remove,
+  stageElements,
+  setStageElements,
   clipboardItem,
   setClipboardItem,
   saveToHistory,
@@ -38,7 +34,7 @@ const useStagePlotKeyPress = ({
 
       // Copy (Ctrl/Cmd + C)
       if ((e.ctrlKey || e.metaKey) && e.key === "c") {
-        const itemToCopy = fields.find(
+        const itemToCopy = stageElements.find(
           (element) => element.id === activeItemId
         );
         if (itemToCopy) {
@@ -54,7 +50,7 @@ const useStagePlotKeyPress = ({
             const newX = clipboardItem.x + 40;
             const newY = clipboardItem.y + 20;
 
-            append({
+            const newElement = {
               id: uuidv4(),
               label: clipboardItem.label,
               x: newX,
@@ -63,40 +59,26 @@ const useStagePlotKeyPress = ({
               title: clipboardItem.title,
               scale: clipboardItem.scale,
               rotate: clipboardItem.rotate,
-            });
+            };
+
+            setStageElements((prevElements) => [...prevElements, newElement]);
+            // saveToHistory("add"); // Save the "add" action to history
           }
         }
       }
-
       // Undo (Ctrl/Cmd + Z)
       if ((e.ctrlKey || e.metaKey) && e.key === "z") {
         e.preventDefault();
         if (historyIndex >= 0) {
           const previousState = history[historyIndex];
-          // Restore previous state
-          previousState.elements.forEach((element, idx) => {
-            if (fields[idx]) {
-              update(idx, element);
-            }
-          });
-          // Remove any extra elements that might exist in current state
-          if (fields.length > previousState.elements.length) {
-            for (
-              let i = fields.length - 1;
-              i >= previousState.elements.length;
-              i--
-            ) {
-              remove(i);
-            }
-          }
+          setStageElements(previousState.elements); // Reset to previous state
           setHistoryIndex(historyIndex - 1);
         }
       }
     };
-
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [activeItemId, fields, clipboardItem]);
+  }, [activeItemId, clipboardItem, stageElements, history, historyIndex]);
 };
 
 export default useStagePlotKeyPress;

@@ -2,7 +2,7 @@
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
-import { StagePlotFormData, stagePlotSchema } from "@/types";
+import { StageElement, StagePlotFormData, stagePlotSchema } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useRef, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -22,10 +22,10 @@ const EditQuickPlot = () => {
     name: "Quick Plot",
     description: "",
     inputs: [{ id: "", name: "", channel: 1, mic: "", stand: "" }],
-    stage_elements: [],
     created_by: "",
     id: "",
   });
+  const [stageElements, setStageElements] = useState<StageElement[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [plotSettings, setPlotSettings] = useState({
     isTwoPages: false,
@@ -39,7 +39,6 @@ const EditQuickPlot = () => {
       name: currentPlot.name,
       description: currentPlot.description,
       inputs: currentPlot.inputs,
-      stage_elements: currentPlot.stage_elements,
       created_by: currentPlot.created_by,
       id: currentPlot.id,
     },
@@ -121,10 +120,15 @@ const EditQuickPlot = () => {
                 />
               </div>
 
-              <StagePlotGraphic stagePlotId={currentPlot.id} />
+              <StagePlotGraphic
+                stagePlotId={currentPlot.id}
+                stageElements={stageElements}
+                setStageElements={setStageElements}
+              />
               <InputList handleRemoveInput={handleRemoveInput} />
             </div>
             <EditPageButtonRow
+              stageElements={stageElements}
               handleAddInput={handleAddInput}
               isSubmitting={isSubmitting}
               isQuickPlot={false}

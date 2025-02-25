@@ -56,20 +56,6 @@ export const stagePlotSchema = z.object({
       })
     )
     .default([]),
-  stage_elements: z
-    .array(
-      z.object({
-        id: z.string(),
-        title: z.string(),
-        x: z.number(),
-        y: z.number(),
-        stage_plot_id: z.string(),
-        scale: z.number(),
-        label: z.string(),
-        rotate: z.number(),
-      })
-    )
-    .default([]),
 });
 
 export type StagePlotFormData = z.infer<typeof stagePlotSchema>;

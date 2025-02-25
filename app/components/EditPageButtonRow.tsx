@@ -13,6 +13,7 @@ import Link from "next/link";
 import { getImage } from "@/utils/getImage";
 
 type EditPageButtonRowProps = {
+  stageElements: any;
   handleAddInput: () => void;
   isSubmitting: boolean;
   isQuickPlot: boolean;
@@ -21,6 +22,7 @@ type EditPageButtonRowProps = {
   setIsModalOpen: (open: boolean) => void;
 };
 const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
+  stageElements,
   handleAddInput,
   isSubmitting,
   isQuickPlot = false,
@@ -53,7 +55,9 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
       )}
 
       <Button
-        onClick={() => getImage(methods, takeScreenshot, setIsModalOpen)}
+        onClick={() =>
+          getImage(methods, takeScreenshot, setIsModalOpen, stageElements)
+        }
         variant={"outline"}
         type="button"
         className="font-urbanist bg-black text-lg px-6 py-6 rounded-lg text-white shadow-xl transform transition-all hover:scale-105"

@@ -1,12 +1,18 @@
 export const getImage = (
   methods: any,
   takeScreenshot: any,
-  setIsModalOpen: (open: boolean) => void
+  setIsModalOpen: (open: boolean) => void,
+  stageElements: any
 ) => {
   const formData = methods.getValues();
 
+  const dataToSend = {
+    ...formData,
+    stage_elements: stageElements,
+  };
+  console.log(dataToSend);
   const screenshotWindow = window.open(
-    `/screenshot?plotData=${encodeURIComponent(JSON.stringify(formData))}`,
+    `/screenshot?plotData=${encodeURIComponent(JSON.stringify(dataToSend))}`,
     "Screenshot"
   );
 

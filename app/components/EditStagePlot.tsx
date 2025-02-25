@@ -6,7 +6,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import InputList from "./InputList";
 import StagePlotGraphic from "./StagePlotGraphic";
 import { submitStagePlotForm } from "@/services/stagePlotService";
-import { StagePlotFormData, stagePlotSchema } from "@/types";
+import { StageElement, StagePlotFormData, stagePlotSchema } from "@/types";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { Textarea } from "@/components/ui/textarea";
@@ -32,6 +32,9 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
 
   if (isLoading) return <div>Loading...</div>;
   const [currentPlot, setCurrentPlot] = useState(plot);
+  const [stageElements, setStageElements] = useState<StageElement[]>(
+    plot.stage_elements
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const formRef = useRef<HTMLDivElement>(null);
@@ -41,7 +44,6 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
       name: currentPlot.name,
       description: currentPlot.description,
       inputs: currentPlot.inputs,
-      stage_elements: currentPlot.stage_elements,
       created_by: currentPlot.created_by,
       id: currentPlot.id,
       is_stands_showing: currentPlot.is_stands_showing,
@@ -57,8 +59,12 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
   } = methods;
 
   const submitForm = async (formData: StagePlotFormData) => {
+    const updatedFormData = {
+      ...formData,
+      stage_elements: stageElements,
+    };
     try {
-      const result = await submitStagePlotForm(currentPlot, formData);
+      const result = await submitStagePlotForm(currentPlot, updatedFormData);
 
       toast({
         title: "Stage Plot Updated",
@@ -146,20 +152,16 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
                   className="w-full px-4  border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                 />
               </div>
-              {/* <div className="mb-6">
-                <label htmlFor="description">Description:</label>
-                <Textarea
-                  id="description"
-                  {...register("description")}
-                  placeholder="Enter description"
-                  className="w-full px-4 py-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                />
-              </div> */}
 
-              <StagePlotGraphic stagePlotId={currentPlot.id} />
+              <StagePlotGraphic
+                stagePlotId={currentPlot.id}
+                stageElements={stageElements}
+                setStageElements={setStageElements}
+              />
               <InputList handleRemoveInput={handleRemoveInput} />
             </div>
             <EditPageButtonRow
+              stageElements={stageElements}
               handleAddInput={handleAddInput}
               isSubmitting={isSubmitting}
               isQuickPlot={false}

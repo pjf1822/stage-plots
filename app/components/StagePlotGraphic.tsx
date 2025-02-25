@@ -16,14 +16,15 @@ export interface HistoryState {
   elements: any[];
   action: "move" | "add" | "remove" | "scale" | "rotate";
 }
-const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
-  const { control } = useFormContext<StagePlotFormData>();
-
-  const { fields, append, update, remove } = useFieldArray({
-    control,
-    name: "stage_elements",
-    keyName: "....",
-  });
+const StagePlotGraphic = ({
+  stagePlotId,
+  stageElements,
+  setStageElements,
+}: {
+  stagePlotId: string;
+  stageElements: any;
+  setStageElements: any;
+}) => {
   const [activeItemId, setActiveItemId] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [clipboardItem, setClipboardItem] = useState<any>(null);
@@ -33,7 +34,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
   const saveToHistory = (action: HistoryState["action"]) => {
     const newHistory = history.slice(0, historyIndex + 1);
     newHistory.push({
-      elements: JSON.parse(JSON.stringify(fields)),
+      elements: JSON.parse(JSON.stringify(stageElements)),
       action,
     });
     setHistory(newHistory);
@@ -45,10 +46,8 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
 
   useStagePlotKeyPress({
     activeItemId,
-    fields,
-    append,
-    update,
-    remove,
+    stageElements,
+    setStageElements,
     clipboardItem,
     setClipboardItem,
     saveToHistory,
@@ -60,12 +59,11 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
   const onDragEndHandler = (event: any) => {
     onDragEnd({
       delta: event.delta,
-      active: event.active,
-      fields: fields,
-      update: update,
-      remove: remove,
-      saveToHistory: saveToHistory,
-      containerRef: containerRef,
+      activeId: activeItemId,
+      stageElements: stageElements,
+      setStageElements: setStageElements,
+      saveToHistory,
+      containerRef,
     });
   };
 
@@ -73,7 +71,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
   const closeModal = () => setIsModalOpen(false);
 
   const handleItemSelect = (item: string) => {
-    append({
+    const newElement = {
       id: uuidv4(),
       x: 50,
       y: 50,
@@ -82,26 +80,25 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       scale: 1.0,
       label: "",
       rotate: 0,
-    });
-    saveToHistory("add");
+    };
+
+    setStageElements((prevElements: any) => [...prevElements, newElement]);
     closeModal();
   };
-
   const handleChange = (
     elementId: string,
     property: "scale" | "rotate",
     newValue: number
   ) => {
-    const elementIndex = fields.findIndex((el) => el.id === elementId);
-
-    if (elementIndex !== -1) {
-      update(elementIndex, {
-        ...fields[elementIndex],
-        [property]: newValue,
-      });
-      saveToHistory(property);
-    }
+    const updatedElements = stageElements.map((element: any) =>
+      element.id === elementId
+        ? { ...element, [property]: newValue } // update the property for the matching element
+        : element
+    );
+    setStageElements(updatedElements); // update the stage elements with the new values
+    saveToHistory(property); // sa
   };
+
   return (
     <div
       ref={containerRef}
@@ -114,7 +111,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       }}
     >
       <DndContext onDragEnd={onDragEndHandler}>
-        {fields.map((stageElement, index) => (
+        {stageElements?.map((stageElement: any) => (
           <DraggableItem
             key={stageElement.id}
             id={stageElement.id}
@@ -126,10 +123,10 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
             rotate={stageElement.rotate}
             isActive={activeItemId === stageElement.id}
             setActiveItemId={setActiveItemId}
-            onScaleChange={(newScale) =>
+            onScaleChange={(newScale: any) =>
               handleChange(stageElement.id, "scale", newScale)
             }
-            onRotateChange={(newRotation) =>
+            onRotateChange={(newRotation: any) =>
               handleChange(stageElement.id, "rotate", newRotation)
             }
           />
@@ -165,7 +162,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       >
         Add New Element
       </Button>
-      <AddText stagePlotId={stagePlotId} append={append} />
+      <AddText stagePlotId={stagePlotId} setStageElements={setStageElements} />
 
       <ChooseInstrumentModal
         isOpen={isModalOpen}
