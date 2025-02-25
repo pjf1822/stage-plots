@@ -23,7 +23,7 @@ import EditPageButtonRow from "./EditPageButtonRow";
 import useTipsAndTricks from "@/hooks/useTipsAndTricks";
 
 const EditStagePlot = ({ plotid }: { plotid: string }) => {
-  useTipsAndTricks();
+  // useTipsAndTricks();
 
   const { data: plot, isLoading } = useQuery({
     queryKey: ["plot", plotid],
@@ -121,15 +121,15 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
     setValue("inputs", reIndexedFields);
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!methods.formState.isSubmitting) {
-        handleSubmit(submitForm)();
-      }
-    }, 60000);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     if (!methods.formState.isSubmitting) {
+  //       handleSubmit(submitForm)();
+  //     }
+  //   }, 60000);
 
-    return () => clearInterval(interval);
-  }, [methods, handleSubmit, submitForm]);
+  //   return () => clearInterval(interval);
+  // }, [methods, handleSubmit, submitForm]);
 
   return (
     <div className="mt-8">

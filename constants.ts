@@ -23,4 +23,5 @@ export const ITEM_SIZES: Record<string, number> = {
   drumsub: 130,
   "amp-head": 190,
   bass: 160,
+  "audio-console": 160,
 };

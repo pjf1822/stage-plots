@@ -14,6 +14,7 @@ export const onDragEnd = ({
     const rect = container.getBoundingClientRect();
 
     const updatedElements = fields.map((element: any) => {
+      console.log(element, "the elelent");
       const itemSize =
         element.title === "drum-kit" || element.title === "riser"
           ? 75 * element.scale
@@ -21,6 +22,8 @@ export const onDragEnd = ({
       if (element.id === active.id) {
         let newX = element.x + delta.x;
         let newY = element.y + delta.y;
+        newX = Math.round(newX / 4) * 4;
+        newY = Math.round(newY / 4) * 4;
         if (
           newX >= -120 &&
           newX + itemSize <= rect.width - 10 &&

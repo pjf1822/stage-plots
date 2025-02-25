@@ -113,6 +113,32 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
         justifySelf: "center",
       }}
     >
+      <div
+        style={{
+          position: "absolute",
+          left: "50%",
+          top: 0,
+          width: "2px",
+          height: 40,
+          backgroundColor: "black", // You can change the color
+          transform: "translateX(-50%)", // Centers the line perfectly
+          zIndex: 0, // Ensures it stays behind draggable items
+          pointerEvents: "none",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          left: "50%",
+          bottom: 0,
+          width: "2px",
+          height: 40,
+          backgroundColor: "black", // You can change the color
+          transform: "translateX(-50%)", // Centers the line perfectly
+          zIndex: 0, // Ensures it stays behind draggable items
+          pointerEvents: "none",
+        }}
+      />
       <DndContext onDragEnd={onDragEndHandler}>
         {fields.map((stageElement, index) => (
           <DraggableItem
