@@ -13,18 +13,11 @@ const StagePlotPreview: React.FC<{
         <div className="space-y-6">
           <div className="text-center">
             <h1
-              className={`text-6xl font-bold mt-0 font-urbanist ${
-                formData.description ? "mb-4" : "mb-8"
-              } -translate-y-[20px]`}
+              className={`text-6xl font-bold mt-0 font-urbanist  -translate-y-[20px]`}
+              style={{ marginBottom: 20 }}
             >
               {formData.name}
             </h1>
-
-            {/* {formData.description && (
-              <p className="text-gray-600 my-8 text-2xl">
-                {formData.description}
-              </p>
-            )} */}
           </div>
 
           <div className="my-8">

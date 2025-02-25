@@ -72,6 +72,7 @@ const ScreenshotPage = () => {
             textAlign: "center",
             fontFamily: "urbanist",
             transform: "translateY(-22px)",
+            marginTop: 15,
           }}
         >
           Last edited {new Date().toLocaleDateString()}
