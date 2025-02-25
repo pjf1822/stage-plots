@@ -54,33 +54,6 @@ const EditQuickPlot = () => {
   } = methods;
   const [image, takeScreenshot] = useScreenshot();
 
-  const getImage = () => {
-    const formData = methods.getValues();
-
-    const screenshotWindow = window.open(
-      `/screenshot?plotData=${encodeURIComponent(
-        JSON.stringify(formData)
-      )}&plotSettings=${encodeURIComponent(JSON.stringify(plotSettings))}`,
-      "Screenshot"
-    );
-
-    window.addEventListener("message", async (event) => {
-      if (event.data.type === "READY_FOR_SCREENSHOT") {
-        setTimeout(async () => {
-          const element = screenshotWindow?.document.querySelector(
-            "#previewRef"
-          ) as HTMLElement | null;
-
-          const screenshot = await takeScreenshot(element);
-
-          screenshotWindow?.close();
-
-          setIsModalOpen(true);
-        }, 400);
-      }
-    });
-  };
-
   const downloadImage = () => {
     if (image) {
       const link = document.createElement("a");
@@ -147,23 +120,17 @@ const EditQuickPlot = () => {
                   className="w-full px-4  border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                 />
               </div>
-              {/* <div className="mb-6">
-                <label htmlFor="description">Description:</label>
-                <Textarea
-                  id="description"
-                  {...register("description")}
-                  placeholder="Enter description"
-                  className="w-full px-4 py-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                />
-              </div> */}
+
               <StagePlotGraphic stagePlotId={currentPlot.id} />
               <InputList handleRemoveInput={handleRemoveInput} />
             </div>
             <EditPageButtonRow
-              getImage={getImage}
               handleAddInput={handleAddInput}
               isSubmitting={isSubmitting}
-              isQuickPlot={true}
+              isQuickPlot={false}
+              methods={methods}
+              takeScreenshot={takeScreenshot}
+              setIsModalOpen={setIsModalOpen}
             />
           </form>
         </div>

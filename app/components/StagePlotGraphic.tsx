@@ -187,7 +187,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           "bass-cab",
           // "drumsub",
           "riser",
-          // "audio-console",
+          "audio-console",
           "stool",
           "flute",
           "violin",

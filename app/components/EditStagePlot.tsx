@@ -33,10 +33,6 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
   if (isLoading) return <div>Loading...</div>;
   const [currentPlot, setCurrentPlot] = useState(plot);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [plotSettings, setPlotSettings] = useState({
-    isTwoPages: false,
-    isBlackAndWhite: true,
-  });
 
   const formRef = useRef<HTMLDivElement>(null);
   const methods = useForm<StagePlotFormData>({
@@ -78,32 +74,6 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
 
   // GET IMAGE STUFF
   const [image, takeScreenshot] = useScreenshot();
-  const getImage = () => {
-    const formData = methods.getValues();
-
-    const screenshotWindow = window.open(
-      `/screenshot?plotData=${encodeURIComponent(
-        JSON.stringify(formData)
-      )}&plotSettings=${encodeURIComponent(JSON.stringify(plotSettings))}`,
-      "Screenshot"
-    );
-
-    window.addEventListener("message", async (event) => {
-      if (event.data.type === "READY_FOR_SCREENSHOT") {
-        setTimeout(async () => {
-          const element = screenshotWindow?.document.querySelector(
-            "#previewRef"
-          ) as HTMLElement | null;
-
-          const screenshot = await takeScreenshot(element);
-
-          screenshotWindow?.close();
-
-          setIsModalOpen(true);
-        }, 400);
-      }
-    });
-  };
 
   const downloadImage = () => {
     if (image) {
@@ -190,10 +160,12 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
               <InputList handleRemoveInput={handleRemoveInput} />
             </div>
             <EditPageButtonRow
-              getImage={getImage}
               handleAddInput={handleAddInput}
               isSubmitting={isSubmitting}
               isQuickPlot={false}
+              methods={methods}
+              takeScreenshot={takeScreenshot}
+              setIsModalOpen={setIsModalOpen}
             />
           </form>
         </div>

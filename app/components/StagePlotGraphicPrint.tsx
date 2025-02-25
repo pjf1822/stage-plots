@@ -9,7 +9,7 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
         width: "89vw",
         position: "relative",
         border: "2px solid black",
-        justifySelf: "center",
+        margin: "0 auto",
       }}
     >
       {stage_elements?.map((stageElement: any, index: any) => {
