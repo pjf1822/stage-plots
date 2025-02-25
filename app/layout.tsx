@@ -34,6 +34,7 @@ export const metadata: Metadata = {
     "stage plot online",
     "stage plot gratis",
     "stage plot free",
+    "crear stage plot online gratis",
     "stage plot maker",
     "stage plot builder",
     "stage plot creator",
