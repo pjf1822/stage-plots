@@ -16,7 +16,7 @@ import DownloadModal from "./DownloadModal";
 import useTipsAndTricks from "@/hooks/useTipsAndTricks";
 
 const EditQuickPlot = () => {
-  useTipsAndTricks();
+  // useTipsAndTricks();
 
   const [currentPlot, setCurrentPlot] = useState({
     name: "Quick Plot",
