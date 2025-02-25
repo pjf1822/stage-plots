@@ -51,7 +51,10 @@ const PreviewInputList = ({
                 <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
                   Name
                 </th>
-                <th className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg">
+                <th
+                  className="border border-gray-300 bg-gray-100 p-0 pl-2 pb-4 text-left text-lg"
+                  style={{ minWidth: "60px" }}
+                >
                   Mic
                 </th>
                 {formData.is_stands_showing && (
