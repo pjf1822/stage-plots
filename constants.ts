@@ -1,6 +1,6 @@
 export const ITEM_SIZES: Record<string, number> = {
   riser: 290,
-  "vocal-with-stand": 180,
+  "vocal-with-stand": 190,
   "acoustic-guitar": 120,
   "drum-kit": 280,
   "bass-cab": 100,
@@ -8,7 +8,7 @@ export const ITEM_SIZES: Record<string, number> = {
   di: 50,
   power: 70,
   wedge: 130,
-  keys: 160,
+  keys: 180,
   man: 120,
   woman: 120,
   "grand-piano": 220,
@@ -22,4 +22,5 @@ export const ITEM_SIZES: Record<string, number> = {
   "wireless-vocal": 140,
   drumsub: 130,
   "amp-head": 190,
+  bass: 160,
 };
