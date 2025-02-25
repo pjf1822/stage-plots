@@ -37,7 +37,6 @@ export const onDragEnd = ({
   let newX = updatedElement.x + delta.x;
   let newY = updatedElement.y + delta.y;
 
-  // Check if element is dragged into the trash
   if (isInTrashArea(newX, newY, updatedElement.scale, rect)) {
     const indexToRemove = stageElements.findIndex(
       (el: any) => el.id === updatedElement.id
@@ -51,7 +50,6 @@ export const onDragEnd = ({
       });
     }
   } else if (delta.x !== 0 || delta.y !== 0) {
-    // If not in trash, update the element's position
     saveToHistory("move");
     setStageElements((prevElements) =>
       prevElements.map((element) =>
@@ -62,8 +60,8 @@ export const onDragEnd = ({
     );
   }
 };
-export // Function to handle the rotation logic
-const handleRotateStart = (
+
+export const handleRotateStart = (
   e: React.MouseEvent,
   rotate: number,
   startAngleRef: any,
