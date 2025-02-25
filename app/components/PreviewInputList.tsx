@@ -34,9 +34,13 @@ const PreviewInputList = ({
         style={{ overflow: "hidden" }}
       >
         <div
-          className={`${
-            !hasSecondColumn && !hasThirdColumn ? "w-3/4" : "w-full"
-          } ${!hasSecondColumn ? "col-span-2" : ""}`}
+          className={`overflow-x-auto w-full mb-6 grid ${
+            hasThirdColumn
+              ? "grid-cols-1 sm:grid-cols-3"
+              : hasSecondColumn
+              ? "grid-cols-1 sm:grid-cols-2"
+              : "grid-cols-1"
+          } gap-4`}
           style={{ overflow: "hidden" }}
         >
           <table

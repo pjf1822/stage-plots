@@ -14,8 +14,8 @@ interface DraggableItemProps {
   rotate: number;
   isActive: boolean;
   setActiveItemId: (id: string) => void;
-  onScaleChange?: (newScale: number) => void;
-  onRotateChange?: (newRotation: number) => void;
+  onScaleChange: any;
+  onRotateChange: any;
 }
 function DraggableItem({
   id,
@@ -50,6 +50,8 @@ function DraggableItem({
         transform: transform
           ? `translate3d(${transform.x}px, ${transform.y}px, 0) rotate(${rotate}deg)`
           : `rotate(${rotate}deg)`,
+        transformOrigin: "center",
+
         zIndex: zIndex,
       }}
       onMouseDown={() => setActiveItemId(id)}
@@ -83,7 +85,6 @@ function DraggableItem({
           />
         )}
       </div>
-
       {!label && isActive && (
         <div
           className="absolute bottom-0 right-0 w-4 h-4 bg-blue-500 cursor-se-resize rounded-sm opacity-50 hover:opacity-100"

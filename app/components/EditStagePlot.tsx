@@ -146,15 +146,6 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
                   className="w-full px-4  border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                 />
               </div>
-              {/* <div className="mb-6">
-                <label htmlFor="description">Description:</label>
-                <Textarea
-                  id="description"
-                  {...register("description")}
-                  placeholder="Enter description"
-                  className="w-full px-4 py-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                />
-              </div> */}
 
               <StagePlotGraphic stagePlotId={currentPlot.id} />
               <InputList handleRemoveInput={handleRemoveInput} />
