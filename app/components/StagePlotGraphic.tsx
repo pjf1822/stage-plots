@@ -152,10 +152,10 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
             rotate={stageElement.rotate}
             isActive={activeItemId === stageElement.id}
             setActiveItemId={setActiveItemId}
-            onScaleChange={(newScale) =>
+            onScaleChange={(newScale: any) =>
               handleChange(stageElement.id, "scale", newScale)
             }
-            onRotateChange={(newRotation) =>
+            onRotateChange={(newRotation: any) =>
               handleChange(stageElement.id, "rotate", newRotation)
             }
           />
