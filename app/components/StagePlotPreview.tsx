@@ -5,8 +5,8 @@ import PreviewInputList from "./PreviewInputList";
 
 const StagePlotPreview: React.FC<{
   formData: any;
-  plotSettings: { isStandsRowShowing: boolean }; // Adjust this to match the structure of plotSettings
-}> = ({ formData, plotSettings }) => {
+  containerWidth: number;
+}> = ({ formData, containerWidth }) => {
   return (
     <div className="bg-white mx-auto">
       <CardContent className="p-0">
@@ -21,7 +21,10 @@ const StagePlotPreview: React.FC<{
           </div>
 
           <div className="my-8">
-            <StagePlotGraphicPrint stage_elements={formData.stage_elements} />
+            <StagePlotGraphicPrint
+              stage_elements={formData.stage_elements}
+              containerWidth={containerWidth}
+            />
           </div>
 
           <div className="w-[98vw] mx-auto">

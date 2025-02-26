@@ -29,6 +29,19 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
     queryKey: ["plot", plotid],
     queryFn: () => getPlotById(plotid),
   });
+  const [containerWidth, setContainerWidth] = useState<number>(0);
+  useEffect(() => {
+    const handleResize = () => {
+      setContainerWidth(window.innerWidth * 0.89);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   if (isLoading) return <div>Loading...</div>;
   const [currentPlot, setCurrentPlot] = useState(plot);
@@ -121,16 +134,6 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
     setValue("inputs", reIndexedFields);
   };
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     if (!methods.formState.isSubmitting) {
-  //       handleSubmit(submitForm)();
-  //     }
-  //   }, 60000);
-
-  //   return () => clearInterval(interval);
-  // }, [methods, handleSubmit, submitForm]);
-
   return (
     <div className="mt-8">
       <FormProvider {...methods}>
@@ -147,7 +150,10 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
                 />
               </div>
 
-              <StagePlotGraphic stagePlotId={currentPlot.id} />
+              <StagePlotGraphic
+                stagePlotId={currentPlot.id}
+                containerWidth={containerWidth}
+              />
               <InputList handleRemoveInput={handleRemoveInput} />
             </div>
             <EditPageButtonRow
@@ -157,6 +163,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
               methods={methods}
               takeScreenshot={takeScreenshot}
               setIsModalOpen={setIsModalOpen}
+              containerWidth={containerWidth}
             />
           </form>
         </div>

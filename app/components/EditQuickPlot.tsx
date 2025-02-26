@@ -5,7 +5,7 @@ import { toast } from "@/hooks/use-toast";
 import { StagePlotFormData, stagePlotSchema } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useRef, useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { useScreenshot } from "use-react-screenshot";
 import { v4 as uuidv4 } from "uuid";
 import StagePlotGraphic from "./StagePlotGraphic";
@@ -26,6 +26,7 @@ const EditQuickPlot = () => {
     created_by: "",
     id: "",
   });
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [plotSettings, setPlotSettings] = useState({
     isTwoPages: false,
@@ -51,6 +52,7 @@ const EditQuickPlot = () => {
     formState: { errors, isSubmitting },
     setValue,
     getValues,
+    watch,
   } = methods;
   const [image, takeScreenshot] = useScreenshot();
 

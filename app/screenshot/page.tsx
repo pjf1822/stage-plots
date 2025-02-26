@@ -9,16 +9,16 @@ const ScreenshotPage = () => {
   const searchParams = useSearchParams();
   const previewRef = useRef<HTMLDivElement>(null);
   const [plotData, setPlotData] = useState<any>(null);
-  const [plotSettings, setPlotSettings] = useState<any>(null);
+  const [containerWidth, setContainerWidth] = useState(0);
 
   useEffect(() => {
     const plotDataParam = searchParams.get("plotData");
     if (plotDataParam) {
       setPlotData(JSON.parse(decodeURIComponent(plotDataParam)));
     }
-    const plotSettingsParam = searchParams.get("plotSettings");
-    if (plotSettingsParam) {
-      setPlotSettings(JSON.parse(decodeURIComponent(plotSettingsParam)));
+    const containerWidthParam = searchParams.get("containerWidth");
+    if (containerWidthParam) {
+      setContainerWidth(JSON.parse(decodeURIComponent(containerWidthParam)));
     }
   }, [searchParams]);
 
@@ -66,7 +66,7 @@ const ScreenshotPage = () => {
   return (
     <div className="p-0 bg-white">
       <div id="previewRef" ref={previewRef} className="w-[100vw]">
-        <StagePlotPreview plotSettings={plotSettings} formData={plotData} />
+        <StagePlotPreview formData={plotData} containerWidth={containerWidth} />
         <div
           style={{
             textAlign: "center",

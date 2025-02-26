@@ -1,12 +1,14 @@
 export const getImage = (
   methods: any,
   takeScreenshot: any,
-  setIsModalOpen: (open: boolean) => void
+  setIsModalOpen: (open: boolean) => void,
+  containerWidth: number
 ) => {
   const formData = methods.getValues();
-
   const screenshotWindow = window.open(
-    `/screenshot?plotData=${encodeURIComponent(JSON.stringify(formData))}`,
+    `/screenshot?plotData=${encodeURIComponent(
+      JSON.stringify(formData)
+    )}&containerWidth=${containerWidth}`,
     "Screenshot"
   );
 
@@ -19,7 +21,7 @@ export const getImage = (
 
         const screenshot = await takeScreenshot(element);
 
-        screenshotWindow?.close();
+        // screenshotWindow?.close();
 
         setIsModalOpen(true);
       }, 400);
