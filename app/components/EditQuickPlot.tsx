@@ -4,7 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
 import { StagePlotFormData, stagePlotSchema } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { useScreenshot } from "use-react-screenshot";
 import { v4 as uuidv4 } from "uuid";
@@ -102,6 +102,20 @@ const EditQuickPlot = () => {
     setValue("inputs", reIndexedFields);
   };
 
+  const [containerWidth, setContainerWidth] = useState<number>(1500);
+  useEffect(() => {
+    const handleResize = () => {
+      setContainerWidth(window.innerWidth * 0.89);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div className="mt-8">
       <FormProvider {...methods}>
@@ -123,16 +137,20 @@ const EditQuickPlot = () => {
                 />
               </div>
 
-              <StagePlotGraphic stagePlotId={currentPlot.id} />
+              <StagePlotGraphic
+                stagePlotId={currentPlot.id}
+                containerWidth={containerWidth}
+              />
               <InputList handleRemoveInput={handleRemoveInput} />
             </div>
             <EditPageButtonRow
               handleAddInput={handleAddInput}
               isSubmitting={isSubmitting}
-              isQuickPlot={false}
+              isQuickPlot={true}
               methods={methods}
               takeScreenshot={takeScreenshot}
               setIsModalOpen={setIsModalOpen}
+              containerWidth={containerWidth}
             />
           </form>
         </div>

@@ -51,8 +51,8 @@ const useStagePlotKeyPress = ({
         if (clipboardItem) {
           const container = containerRef.current;
           if (container) {
-            const newX = clipboardItem.x + 2;
-            const newY = clipboardItem.y + 2;
+            const newX = clipboardItem.x + 4;
+            const newY = clipboardItem.y + 4;
 
             append({
               id: uuidv4(),

@@ -30,7 +30,6 @@ const StagePlotGraphic = ({
     name: "stage_elements",
     keyName: "....",
   });
-  console.log(fields);
   const [activeItemId, setActiveItemId] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [clipboardItem, setClipboardItem] = useState<any>(null);
@@ -166,7 +165,6 @@ const StagePlotGraphic = ({
             onRotateChange={(newRotation: any) =>
               handleChange(stageElement.id, "rotate", newRotation)
             }
-            containerWidth={containerWidth}
           />
         ))}
       </DndContext>

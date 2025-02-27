@@ -18,7 +18,7 @@ export const onDragEnd = ({
     const itemSize =
       (active.rect.current.translated.width / containerWidth) * 100;
 
-    console.log(element.y, "the why");
+    console.log(element.x, element.y, "d", 104 - itemSize);
     if (element.id === active.id) {
       const deltaXPercent = delta.x / containerWidth;
       const deltaYPercent = delta.y / containerHeight;
@@ -37,13 +37,13 @@ export const onDragEnd = ({
 
       if (
         newX < 1 ||
-        newX > 102 - itemSize ||
-        newY < -4 ||
-        newY > 102 - itemSize
+        newX > 110 - itemSize ||
+        newY < -5 ||
+        newY > 104 - itemSize
       ) {
         return element;
       }
-      const isInTrash = newX >= 87 - itemSize && newY >= 88 - itemSize;
+      const isInTrash = newX >= 90 - itemSize && newY >= 90 - itemSize;
 
       if (isInTrash) {
         const indexToRemove = fields.findIndex(

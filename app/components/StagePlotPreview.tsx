@@ -5,8 +5,8 @@ import PreviewInputList from "./PreviewInputList";
 
 const StagePlotPreview: React.FC<{
   formData: any;
-  containerWidth: number;
-}> = ({ formData, containerWidth }) => {
+  windowWidth: number;
+}> = ({ formData, windowWidth }) => {
   return (
     <div className="bg-white mx-auto">
       <CardContent className="p-0">
@@ -23,7 +23,7 @@ const StagePlotPreview: React.FC<{
           <div className="my-8">
             <StagePlotGraphicPrint
               stage_elements={formData.stage_elements}
-              containerWidth={containerWidth}
+              windowWidth={windowWidth}
             />
           </div>
 

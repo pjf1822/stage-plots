@@ -29,19 +29,6 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
     queryKey: ["plot", plotid],
     queryFn: () => getPlotById(plotid),
   });
-  const [containerWidth, setContainerWidth] = useState<number>(0);
-  useEffect(() => {
-    const handleResize = () => {
-      setContainerWidth(window.innerWidth * 0.89);
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   if (isLoading) return <div>Loading...</div>;
   const [currentPlot, setCurrentPlot] = useState(plot);
@@ -123,9 +110,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
 
   const handleRemoveInput = (channel: number) => {
     const inputs = getValues("inputs");
-
     const updatedFields = inputs.filter((input) => input.channel !== channel);
-
     const reIndexedFields = updatedFields.map((field, i) => ({
       ...field,
       channel: i + 1,
@@ -133,6 +118,20 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
 
     setValue("inputs", reIndexedFields);
   };
+
+  const [containerWidth, setContainerWidth] = useState<number>(1500);
+  useEffect(() => {
+    const handleResize = () => {
+      setContainerWidth(window.innerWidth * 0.89);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <div className="mt-8">

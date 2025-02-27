@@ -3,10 +3,10 @@ import Image from "next/image";
 
 const StagePlotGraphicPrint = ({
   stage_elements,
-  containerWidth,
+  windowWidth,
 }: {
   stage_elements: any;
-  containerWidth: number;
+  windowWidth: number;
 }) => {
   return (
     <div
@@ -22,7 +22,7 @@ const StagePlotGraphicPrint = ({
         const itemSize = ITEM_SIZES[stageElement.title] ?? 100;
 
         const zIndex = stageElement.title === "riser" ? 1 : 3;
-        const newX = (stageElement.x / 100) * containerWidth;
+        const newX = (stageElement.x / 100) * (windowWidth * 0.89);
         const newY = (stageElement.y / 100) * 750;
         return (
           <div

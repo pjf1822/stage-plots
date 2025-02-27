@@ -21,7 +21,7 @@ export const getImage = (
 
         const screenshot = await takeScreenshot(element);
 
-        // screenshotWindow?.close();
+        screenshotWindow?.close();
 
         setIsModalOpen(true);
       }, 400);
