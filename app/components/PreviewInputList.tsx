@@ -18,6 +18,7 @@ const PreviewInputList = ({
   const hasSecondColumn = secondColumn.length > 0;
   const hasThirdColumn = thirdColumn.length > 0;
 
+  console.log(hasSecondColumn, hasThirdColumn);
   return (
     <div
       className="flex flex-col items-center justify-center w-full"
@@ -34,13 +35,7 @@ const PreviewInputList = ({
         style={{ overflow: "hidden" }}
       >
         <div
-          className={`overflow-x-auto w-full mb-6 grid ${
-            hasThirdColumn
-              ? "grid-cols-1 sm:grid-cols-3"
-              : hasSecondColumn
-              ? "grid-cols-1 sm:grid-cols-2"
-              : "grid-cols-1"
-          } gap-4`}
+          className={`overflow-x-auto w-full mb-6 `}
           style={{ overflow: "hidden" }}
         >
           <table

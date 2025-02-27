@@ -54,6 +54,7 @@ export const metadata: Metadata = {
     "stageplotmaker",
     "online stage plot maker",
   ],
+  metadataBase: new URL("https://thestageplotter.com"),
   authors: [{ name: "Peter Forbes", url: "https://github.com/pjf1822" }],
   creator: "Peter Forbes",
   applicationName: "Stage Plotter",

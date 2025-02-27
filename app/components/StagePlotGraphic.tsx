@@ -1,7 +1,7 @@
 import DraggableItem from "@/app/components/DraggableItem";
 import { DndContext } from "@dnd-kit/core";
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
@@ -16,7 +16,13 @@ export interface HistoryState {
   elements: any[];
   action: "move" | "add" | "remove" | "scale" | "rotate";
 }
-const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
+const StagePlotGraphic = ({
+  stagePlotId,
+  containerWidth,
+}: {
+  stagePlotId: string;
+  containerWidth: number;
+}) => {
   const { control } = useFormContext<StagePlotFormData>();
 
   const { fields, append, update, remove } = useFieldArray({
@@ -75,8 +81,8 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
   const handleItemSelect = (item: string) => {
     append({
       id: uuidv4(),
-      x: 50,
-      y: 50,
+      x: 5,
+      y: 5,
       title: item,
       stage_plot_id: stagePlotId,
       scale: 1.0,
@@ -102,12 +108,13 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
       saveToHistory(property);
     }
   };
+
   return (
     <div
       ref={containerRef}
       style={{
         height: 750,
-        width: 1500,
+        width: "89vw",
         position: "relative",
         border: "2px solid black",
         justifySelf: "center",
@@ -161,6 +168,7 @@ const StagePlotGraphic = ({ stagePlotId }: { stagePlotId: string }) => {
           />
         ))}
       </DndContext>
+
       <div
         ref={trashCanRef}
         style={{

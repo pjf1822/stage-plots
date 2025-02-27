@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import Link from "next/link";
 import { getImage } from "@/utils/getImage";
 
@@ -19,6 +19,7 @@ type EditPageButtonRowProps = {
   methods: any;
   takeScreenshot: any;
   setIsModalOpen: (open: boolean) => void;
+  containerWidth: number;
 };
 const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
   handleAddInput,
@@ -27,6 +28,7 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
   methods,
   takeScreenshot,
   setIsModalOpen,
+  containerWidth,
 }) => {
   const { watch, setValue } = useFormContext();
   const isStandsShowing = watch("is_stands_showing");
@@ -36,6 +38,7 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
       handleAddInput();
     }
   };
+  console.log(isQuickPlot);
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-black py-4 mt-4 shadow-lg flex justify-around gap-4 z-30 border-t-2 ">
       {isQuickPlot && (
@@ -53,7 +56,9 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
       )}
 
       <Button
-        onClick={() => getImage(methods, takeScreenshot, setIsModalOpen)}
+        onClick={() =>
+          getImage(methods, takeScreenshot, setIsModalOpen, containerWidth)
+        }
         variant={"outline"}
         type="button"
         className="font-urbanist bg-black text-lg px-6 py-6 rounded-lg text-white shadow-xl transform transition-all hover:scale-105"

@@ -10,62 +10,66 @@ export const onDragEnd = ({
   containerRef,
 }: any) => {
   const container = containerRef.current;
-  if (container) {
-    const rect = container.getBoundingClientRect();
 
-    const updatedElements = fields.map((element: any) => {
-      console.log(element, "the elelent");
-      const itemSize =
-        element.title === "drum-kit" || element.title === "riser"
-          ? 75 * element.scale
-          : 35 * element.scale;
-      if (element.id === active.id) {
-        let newX = element.x + delta.x;
-        let newY = element.y + delta.y;
-        newX = Math.round(newX / 4) * 4;
-        newY = Math.round(newY / 4) * 4;
-        if (
-          newX >= -120 &&
-          newX + itemSize <= rect.width - 10 &&
-          newY >= -120 &&
-          newY + itemSize <= rect.height - 10
-        ) {
-          update(
-            fields.findIndex((el: any) => el.id === element.id),
-            {
-              ...element,
-              x: newX,
-              y: newY,
-            }
-          );
-        }
+  const rect = container.getBoundingClientRect();
+  const containerWidth = rect.width;
+  const containerHeight = rect.height;
+  const updatedElements = fields.map((element: any) => {
+    const itemSize =
+      (active.rect.current.translated.width / containerWidth) * 100;
 
-        const trashCanRight = rect.width - 20;
-        const trashCanBottom = rect.height - 20;
+    console.log(element.x, element.y, "d", 104 - itemSize);
+    if (element.id === active.id) {
+      const deltaXPercent = delta.x / containerWidth;
+      const deltaYPercent = delta.y / containerHeight;
 
-        const isInTrash =
-          newX >= trashCanRight - itemSize - 130 * element.scale && //left boundary
-          newX <= trashCanRight + itemSize + 30 && //right boundary
-          newY >= trashCanBottom - itemSize - 110 * element.scale && // top boundary
-          newY <= trashCanBottom + itemSize + 30; // boundary
+      let newX = element.x + deltaXPercent * 100;
+      let newY = element.y + deltaYPercent * 100;
 
-        if (isInTrash) {
-          const indexToRemove = fields.findIndex(
-            (el: any) => el.id === element.id
-          );
-          remove(indexToRemove);
-          saveToHistory("remove");
-          toast({
-            title: "Deleted item!",
-          });
-        } else if (!isInTrash && (delta.x !== 0 || delta.y !== 0)) {
-          saveToHistory("move");
-        }
-        return { ...element, x: newX, y: newY };
+      const gridStepX = 1 / 100;
+      const gridStepY = 1 / 100;
+
+      newX = Math.round(newX / gridStepX) * gridStepX;
+      newY = Math.round(newY / gridStepY) * gridStepY;
+
+      // newX = Math.round(newX);
+      // newY = Math.round(newY);
+
+      if (
+        newX < 1 ||
+        newX > 110 - itemSize ||
+        newY < -5 ||
+        newY > 104 - itemSize
+      ) {
+        return element;
       }
-      return element;
-    });
-  }
+      const isInTrash = newX >= 90 - itemSize && newY >= 90 - itemSize;
+
+      if (isInTrash) {
+        const indexToRemove = fields.findIndex(
+          (el: any) => el.id === element.id
+        );
+        remove(indexToRemove);
+        saveToHistory("remove");
+        toast({
+          title: "Deleted item!",
+        });
+      } else {
+        update(
+          fields.findIndex((el: any) => el.id === element.id),
+          {
+            ...element,
+            y: newY,
+            x: newX,
+          }
+        );
+
+        saveToHistory("move");
+      }
+      return { ...element, x: newX, y: newY };
+    }
+    return element;
+  });
 };
 
 export // Function to handle the rotation logic

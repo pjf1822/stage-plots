@@ -1,12 +1,18 @@
 import { ITEM_SIZES } from "@/constants";
 import Image from "next/image";
 
-const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
+const StagePlotGraphicPrint = ({
+  stage_elements,
+  windowWidth,
+}: {
+  stage_elements: any;
+  windowWidth: number;
+}) => {
   return (
     <div
       style={{
         height: 750,
-        width: 1500,
+        width: "89vw",
         position: "relative",
         border: "2px solid black",
         margin: "0 auto",
@@ -16,13 +22,15 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
         const itemSize = ITEM_SIZES[stageElement.title] ?? 100;
 
         const zIndex = stageElement.title === "riser" ? 1 : 3;
+        const newX = (stageElement.x / 100) * (windowWidth * 0.89);
+        const newY = (stageElement.y / 100) * 750;
         return (
           <div
             key={index}
             style={{
               position: "absolute",
-              top: stageElement.y,
-              left: stageElement.x,
+              top: newY,
+              left: newX,
               width: itemSize * stageElement?.scale,
               height: itemSize * stageElement?.scale,
               transform: `rotate(${stageElement.rotate}deg)`,
@@ -41,7 +49,10 @@ const StagePlotGraphicPrint = ({ stage_elements }: { stage_elements: any }) => {
                   fontSize: "22px",
                   color: "black",
                   pointerEvents: "none",
+                  width: "auto",
                   height: "auto",
+                  textAlign: "center",
+                  padding: 10,
                 }}
               >
                 {stageElement.label}
