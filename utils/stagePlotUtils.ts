@@ -15,10 +15,11 @@ export const onDragEnd = ({
   const containerWidth = rect.width;
   const containerHeight = rect.height;
   const updatedElements = fields.map((element: any) => {
-    const itemSize =
+    const itemWidthPercent =
       (active.rect.current.translated.width / containerWidth) * 100;
+    const itemHeightPercent =
+      (active.rect.current.translated.height / containerHeight) * 100;
 
-    console.log(element.x, element.y, "d", 104 - itemSize);
     if (element.id === active.id) {
       const deltaXPercent = delta.x / containerWidth;
       const deltaYPercent = delta.y / containerHeight;
@@ -26,24 +27,22 @@ export const onDragEnd = ({
       let newX = element.x + deltaXPercent * 100;
       let newY = element.y + deltaYPercent * 100;
 
-      const gridStepX = 1 / 100;
-      const gridStepY = 1 / 100;
+      // const gridStepX = 1 / 100;
+      // const gridStepY = 1 / 100;
 
-      newX = Math.round(newX / gridStepX) * gridStepX;
-      newY = Math.round(newY / gridStepY) * gridStepY;
-
-      // newX = Math.round(newX);
-      // newY = Math.round(newY);
+      // newX = Math.round(newX / gridStepX) * gridStepX;
+      // newY = Math.round(newY / gridStepY) * gridStepY;
 
       if (
-        newX < 1 ||
-        newX > 110 - itemSize ||
+        newX < 3 - itemWidthPercent ||
+        newX > 110 - itemWidthPercent ||
         newY < -5 ||
-        newY > 104 - itemSize
+        newY > 104 - itemHeightPercent
       ) {
         return element;
       }
-      const isInTrash = newX >= 90 - itemSize && newY >= 90 - itemSize;
+      const isInTrash =
+        newX >= 93 - itemWidthPercent && newY >= 93 - itemHeightPercent;
 
       if (isInTrash) {
         const indexToRemove = fields.findIndex(

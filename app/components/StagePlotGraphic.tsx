@@ -89,6 +89,7 @@ const StagePlotGraphic = ({
       label: "",
       rotate: 0,
     });
+
     saveToHistory("add");
     closeModal();
   };
