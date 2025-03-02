@@ -1,6 +1,6 @@
-
-
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="400px" height="800px" viewBox="200 0 100 500" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="500px" height="500px" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g><path style="opacity:0.994" fill="#121212" d="M 273.5,34.5 C 277.481,35.0209 281.481,35.3542 285.5,35.5C 286.71,35.9321 287.71,36.5987 288.5,37.5C 288.973,38.9063 289.973,39.573 291.5,39.5C 294.717,42.0615 296.717,45.3948 297.5,49.5C 297.608,54.8699 297.275,60.2032 296.5,65.5C 295.599,66.2905 294.932,67.2905 294.5,68.5C 293.878,70.4557 292.545,71.789 290.5,72.5C 287.456,70.0907 285.122,67.0907 283.5,63.5C 283.715,61.8212 283.048,60.8212 281.5,60.5C 278.589,56.3513 275.923,52.018 273.5,47.5C 273.573,45.9731 272.906,44.9731 271.5,44.5C 269.49,42.1337 267.823,39.467 266.5,36.5C 266.709,35.914 267.043,35.414 267.5,35C 269.473,34.5045 271.473,34.3379 273.5,34.5 Z"/></g>
 <g><path style="opacity:0.271" fill="#6f6f6f" d="M 273.5,34.5 C 277.554,33.5044 281.554,33.8377 285.5,35.5C 281.481,35.3542 277.481,35.0209 273.5,34.5 Z"/></g>
 <g><path style="opacity:0.024" fill="#a9a9a9" d="M 288.5,37.5 C 290.027,37.427 291.027,38.0937 291.5,39.5C 289.973,39.573 288.973,38.9063 288.5,37.5 Z"/></g>
