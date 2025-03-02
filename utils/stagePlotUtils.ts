@@ -24,25 +24,13 @@ export const onDragEnd = ({
       const deltaXPercent = delta.x / containerWidth;
       const deltaYPercent = delta.y / containerHeight;
 
-      let newX = element.x + deltaXPercent * 100;
-      let newY = element.y + deltaYPercent * 100;
-
-      // const gridStepX = 1 / 100;
-      // const gridStepY = 1 / 100;
-
-      // newX = Math.round(newX / gridStepX) * gridStepX;
-      // newY = Math.round(newY / gridStepY) * gridStepY;
-
-      if (
-        newX < 3 - itemWidthPercent ||
-        newX > 110 - itemWidthPercent ||
-        newY < -5 ||
-        newY > 104 - itemHeightPercent
-      ) {
+      let newX = Math.round(element.x + deltaXPercent * 100);
+      let newY = Math.round(element.y + deltaYPercent * 100);
+      console.log(newY, "the new x?", itemWidthPercent);
+      if (newX < 2 || newX > 100 || newY < -4 || newY > 99) {
         return element;
       }
-      const isInTrash =
-        newX >= 93 - itemWidthPercent && newY >= 93 - itemHeightPercent;
+      const isInTrash = newX >= 91 && newY >= 91;
 
       if (isInTrash) {
         const indexToRemove = fields.findIndex(
