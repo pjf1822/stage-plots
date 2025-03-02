@@ -153,6 +153,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
                 stagePlotId={currentPlot.id}
                 containerWidth={containerWidth}
               />
+
               <InputList handleRemoveInput={handleRemoveInput} />
             </div>
             <EditPageButtonRow

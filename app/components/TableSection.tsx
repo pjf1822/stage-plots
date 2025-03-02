@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -9,6 +10,7 @@ import {
   TableHead,
 } from "@/components/ui/table";
 import Image from "next/image";
+import { useState } from "react";
 
 type TableSectionProps = {
   fields: any[];
@@ -17,6 +19,9 @@ type TableSectionProps = {
   startIndex: number;
   is_stands_showing: boolean;
   handleRemoveInput: any;
+  totalWidth: number;
+  visibleColumns: any;
+  handleResize: any;
 };
 
 const standOptions = [
@@ -35,26 +40,50 @@ const TableSection = ({
   startIndex,
   is_stands_showing,
   handleRemoveInput,
+  totalWidth,
+  visibleColumns,
+  handleResize,
 }: TableSectionProps) => {
   return (
     <div>
-      <Table className="overflow-hidden">
+      <Table
+        className="overflow-hidden"
+        style={{ maxWidth: `${totalWidth}px` }}
+      >
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px] border border-gray-400   text-black">
-              Channel
-            </TableHead>
-            <TableHead className=" border border-gray-400  text-black">
-              Input Name
-            </TableHead>
-            <TableHead className=" border border-gray-400  text-black">
-              Mic
-            </TableHead>
-            {is_stands_showing && (
-              <TableHead className="border border-gray-400 text-black">
-                Stand
+            {visibleColumns?.map((col, index) => (
+              <TableHead
+                key={index}
+                className="border border-gray-400 text-black relative"
+                style={{
+                  width: col?.width,
+                  maxWidth: index === 0 ? "80px" : undefined,
+                }}
+              >
+                {col?.name}
+                <span
+                  className="absolute right-0 top-0 h-full w-2 cursor-col-resize"
+                  onMouseDown={(e) => {
+                    const startX = e.clientX;
+                    const startWidth = col?.width;
+
+                    const handleMouseMove = (event: MouseEvent) => {
+                      const newWidth = startWidth + (event.clientX - startX);
+                      handleResize(index, newWidth);
+                    };
+
+                    const handleMouseUp = () => {
+                      window.removeEventListener("mousemove", handleMouseMove);
+                      window.removeEventListener("mouseup", handleMouseUp);
+                    };
+
+                    window.addEventListener("mousemove", handleMouseMove);
+                    window.addEventListener("mouseup", handleMouseUp);
+                  }}
+                ></span>
               </TableHead>
-            )}
+            ))}
           </TableRow>
         </TableHeader>
         <TableBody>

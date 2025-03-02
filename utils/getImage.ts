@@ -5,9 +5,28 @@ export const getImage = (
   containerWidth: number
 ) => {
   const formData = methods.getValues();
+  const stageElementsWithoutId = formData.stage_elements.map(
+    ({ id, stage_plot_id, ...rest }: { id: any; stage_plot_id: any }) => rest
+  );
+  const inputsWithoutProperties = formData.inputs.map(
+    ({
+      stage_plot_id,
+      notes,
+      channel,
+      ...rest
+    }: {
+      stage_plot_id: any;
+      notes: any;
+      channel: any;
+    }) => rest
+  );
   const screenshotWindow = window.open(
     `/screenshot?plotData=${encodeURIComponent(
-      JSON.stringify(formData)
+      JSON.stringify({
+        ...formData,
+        stage_elements: stageElementsWithoutId,
+        inputs: inputsWithoutProperties,
+      })
     )}&containerWidth=${containerWidth}`,
     "Screenshot"
   );
