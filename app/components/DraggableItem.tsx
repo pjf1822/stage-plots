@@ -16,6 +16,7 @@ interface DraggableItemProps {
   setActiveItemId: (id: string) => void;
   onScaleChange: any;
   onRotateChange: any;
+  containerWidth: number;
 }
 
 function DraggableItem({
@@ -30,6 +31,7 @@ function DraggableItem({
   setActiveItemId,
   onScaleChange,
   onRotateChange,
+  containerWidth,
 }: DraggableItemProps) {
   const { listeners, setNodeRef, transform } = useDraggable({
     id: id,
@@ -41,12 +43,20 @@ function DraggableItem({
 
   const zIndex = title === "riser" || title === "basic-riser" ? 2 : 3;
 
+  const containerHeight = 750;
+
+  const leftPosition = (containerWidth * x) / 100;
+  const topPosition = (containerHeight * y) / 100;
+
+  const scaledWidth = itemSize * scale;
+  const scaledHeight = itemSize * scale;
+
   return (
     <div
       style={{
         position: "absolute",
-        top: (750 * y) / 100,
-        left: (window.innerWidth * 0.89 * x) / 100,
+        top: topPosition - scaledHeight / 2,
+        left: leftPosition - scaledWidth / 2,
         width: itemSize * scale,
         height: itemSize * scale,
         transform: transform
@@ -67,7 +77,7 @@ function DraggableItem({
               bottom: 0,
               left: "50%",
               transform: "translateX(-50%)",
-              fontSize: "22px",
+              fontSize: "25px",
               color: "black",
               pointerEvents: "none",
               width: "auto",

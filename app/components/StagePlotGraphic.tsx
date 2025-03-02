@@ -81,14 +81,15 @@ const StagePlotGraphic = ({
   const handleItemSelect = (item: string) => {
     append({
       id: uuidv4(),
-      x: 5,
-      y: 5,
+      x: 14,
+      y: 14,
       title: item,
       stage_plot_id: stagePlotId,
       scale: 1.0,
       label: "",
       rotate: 0,
     });
+
     saveToHistory("add");
     closeModal();
   };
@@ -165,6 +166,7 @@ const StagePlotGraphic = ({
             onRotateChange={(newRotation: any) =>
               handleChange(stageElement.id, "rotate", newRotation)
             }
+            containerWidth={containerWidth}
           />
         ))}
       </DndContext>

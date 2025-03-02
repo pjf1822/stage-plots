@@ -38,7 +38,6 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
       handleAddInput();
     }
   };
-  console.log(isQuickPlot);
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-black py-4 mt-4 shadow-lg flex justify-around gap-4 z-30 border-t-2 ">
       {isQuickPlot && (

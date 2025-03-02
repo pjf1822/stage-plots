@@ -5,11 +5,9 @@ import React from "react";
 const PreviewInputList = ({
   inputs,
   formData,
-}: // plotSettings,
-{
+}: {
   inputs: any;
   formData: any;
-  // plotSettings: any;
 }) => {
   const rowsPerColumn = 16;
   let firstColumn = inputs.slice(0, rowsPerColumn);
@@ -18,7 +16,6 @@ const PreviewInputList = ({
   const hasSecondColumn = secondColumn.length > 0;
   const hasThirdColumn = thirdColumn.length > 0;
 
-  console.log(hasSecondColumn, hasThirdColumn);
   return (
     <div
       className="flex flex-col items-center justify-center w-full"
