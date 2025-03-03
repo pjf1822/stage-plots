@@ -11,35 +11,73 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useFormContext } from "react-hook-form";
 import Link from "next/link";
 import { getImage } from "@/utils/getImage";
+import html2canvas from "html2canvas";
 
 type EditPageButtonRowProps = {
   handleAddInput: () => void;
   isSubmitting: boolean;
   isQuickPlot: boolean;
-  methods: any;
-  takeScreenshot: any;
-  setIsModalOpen: (open: boolean) => void;
-  containerWidth: number;
 };
 const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
   handleAddInput,
   isSubmitting,
   isQuickPlot = false,
-  methods,
-  takeScreenshot,
-  setIsModalOpen,
-  containerWidth,
 }) => {
   const { watch, setValue } = useFormContext();
   const isStandsShowing = watch("is_stands_showing");
+  const bandName = watch("name");
 
   const handleAddMultipleInputs = (num: number) => {
     for (let i = 0; i < num; i++) {
       handleAddInput();
     }
   };
+  const takeScreenshot = async () => {
+    const input = document.getElementById("name");
+    const inputValue = input.value;
+    const editDate = document.querySelector(".editDate"); // Select the hidden <p> element
+    editDate.style.display = "block";
+
+    // Create a span to replace the input
+    const span = document.createElement("span");
+    span.textContent = inputValue;
+    span.style.fontSize = "4rem";
+    span.style.textAlign = "center";
+    span.style.display = "flex";
+    span.style.justifyContent = "center"; // Center horizontally
+    span.style.alignItems = "center"; // Center vertically
+    span.style.width = "100%"; // Ensure it takes full width of its parent
+    span.style.height = "100%";
+    span.style.fontFamily = "urbanist";
+    span.style.transform = "translateY(-44px)";
+
+    // Replace input with span
+    input.parentNode.replaceChild(span, input);
+
+    const element = document.querySelector(".mt-8");
+
+    try {
+      const canvas = await html2canvas(element, {
+        ignoreElements: (el) => el.classList.contains("ignore-me"),
+      });
+
+      const imgData = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = imgData;
+      link.download = `${bandName}.png`;
+      link.click();
+      console.log("Screenshot captured and download initiated");
+    } catch (error) {
+      console.error("Error capturing screenshot:", error);
+    } finally {
+      // Restore input field after screenshot
+      span.parentNode.replaceChild(input, span);
+      editDate.style.display = "none";
+    }
+  };
+
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-black py-4 mt-4 shadow-lg flex justify-around gap-4 z-30 border-t-2 ">
+    <div className="fixed bottom-0 left-0 right-0 bg-black py-4 mt-4 shadow-lg flex justify-around gap-4 z-30 border-t-2 ignore-me">
       {isQuickPlot && (
         <Button
           asChild
@@ -55,9 +93,7 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
       )}
 
       <Button
-        onClick={() =>
-          getImage(methods, takeScreenshot, setIsModalOpen, containerWidth)
-        }
+        onClick={takeScreenshot}
         variant={"outline"}
         type="button"
         className="font-urbanist bg-black text-lg px-6 py-6 rounded-lg text-white shadow-xl transform transition-all hover:scale-105"

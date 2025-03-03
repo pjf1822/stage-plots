@@ -69,14 +69,14 @@ const TableSection = ({
                     {...register(`inputs.${startIndex + index}.name`, {
                       required: "Input name is required",
                     })}
-                    placeholder={`Input ${startIndex + index + 1}`}
+                    placeholder=""
                     className="py-0 px-2  rounded-md w-full border-none shadow-none focus-visible:ring-0 placeholder:text-gray-400"
                   />
                 </TableCell>
                 <TableCell className="p-0 border border-gray-400 relative ">
                   <Input
                     {...register(`inputs.${startIndex + index}.mic`)}
-                    placeholder="Mic/DI"
+                    placeholder=""
                     className="py-0 px-2 rounded-md w-full border-none shadow-none focus-visible:ring-0 placeholder:text-gray-400"
                   />
                   {!is_stands_showing && (
@@ -93,7 +93,7 @@ const TableSection = ({
                         type="button"
                         size="sm"
                         onClick={() => handleRemoveInput(item.channel)} // Pass channel instead of index
-                        className="p-1 hover:bg-transparent focus:outline-none"
+                        className="p-1 hover:bg-transparent focus:outline-none ignore-me"
                       >
                         <Image
                           src={"/x.svg"}
@@ -130,7 +130,7 @@ const TableSection = ({
                         variant="ghost"
                         size="sm"
                         onClick={() => handleRemoveInput(item.channel)}
-                        className="p-1 hover:bg-transparent focus:outline-none"
+                        className="p-1 hover:bg-transparent focus:outline-none ignore-me"
                       >
                         <Image
                           src={"/x.svg"}

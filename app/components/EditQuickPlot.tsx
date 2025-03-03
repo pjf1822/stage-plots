@@ -12,7 +12,6 @@ import StagePlotGraphic from "./StagePlotGraphic";
 import InputList from "./InputList";
 import EditPageButtonRow from "./EditPageButtonRow";
 import { Dialog } from "@radix-ui/react-dialog";
-import DownloadModal from "./DownloadModal";
 import useTipsAndTricks from "@/hooks/useTipsAndTricks";
 
 const EditQuickPlot = () => {
@@ -54,16 +53,6 @@ const EditQuickPlot = () => {
     getValues,
     watch,
   } = methods;
-  const [image, takeScreenshot] = useScreenshot();
-
-  const downloadImage = () => {
-    if (image) {
-      const link = document.createElement("a");
-      link.href = image;
-      link.download = `${currentPlot.name}.png`;
-      link.click();
-    }
-  };
 
   const handleAddInput = () => {
     const inputs = getValues("inputs");
@@ -119,7 +108,7 @@ const EditQuickPlot = () => {
   return (
     <div className="mt-8">
       <FormProvider {...methods}>
-        <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
+        <div className="bg-gray-100 p-2 rounded-lg shadow-lg">
           <form
             onSubmit={handleSubmit(
               () => {},
@@ -127,13 +116,13 @@ const EditQuickPlot = () => {
             )}
           >
             <div ref={formRef}>
-              <div className="mb-6">
-                <label htmlFor="name">Stage Plot Name:</label>
+              <div className=" h-16 mt-8">
                 <Input
                   id="name"
                   {...register("name")}
                   placeholder="Enter stage plot name"
-                  className="w-full px-4  border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                  className="w-full   border-none bg-transparent focus:outline-none text-center"
+                  style={{ fontSize: "3rem", height: "100%" }}
                 />
               </div>
 
@@ -147,18 +136,10 @@ const EditQuickPlot = () => {
               handleAddInput={handleAddInput}
               isSubmitting={isSubmitting}
               isQuickPlot={true}
-              methods={methods}
-              takeScreenshot={takeScreenshot}
-              setIsModalOpen={setIsModalOpen}
-              containerWidth={containerWidth}
             />
           </form>
         </div>
       </FormProvider>
-
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        {image && <DownloadModal image={image} downloadImage={downloadImage} />}
-      </Dialog>
     </div>
   );
 };

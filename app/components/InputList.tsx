@@ -54,6 +54,9 @@ const InputList = ({ handleRemoveInput }: { handleRemoveInput: any }) => {
           </div>
         )}
       </div>
+      <p className="editDate font-urbanist " style={{ display: "none" }}>
+        Last edited {new Date().toLocaleDateString()}
+      </p>
     </div>
   );
 };

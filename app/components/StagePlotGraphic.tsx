@@ -133,6 +133,7 @@ const StagePlotGraphic = ({
           zIndex: 0, // Ensures it stays behind draggable items
           pointerEvents: "none",
         }}
+        className="ignore-me"
       />
       <div
         style={{
@@ -146,6 +147,7 @@ const StagePlotGraphic = ({
           zIndex: 0, // Ensures it stays behind draggable items
           pointerEvents: "none",
         }}
+        className="ignore-me"
       />
       <DndContext onDragEnd={onDragEndHandler}>
         {fields.map((stageElement, index) => (
@@ -186,6 +188,7 @@ const StagePlotGraphic = ({
           alignItems: "center",
           border: "2px solid #ccc",
         }}
+        className="ignore-me"
       >
         <Image
           src="/trash.svg"
@@ -197,7 +200,7 @@ const StagePlotGraphic = ({
       <Button
         type="button"
         onClick={openModal}
-        className="absolute top-2 left-2 font-urbanist"
+        className="absolute top-2 left-2 font-urbanist ignore-me"
       >
         Add New Element
       </Button>
