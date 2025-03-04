@@ -1,17 +1,14 @@
 "use client";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
 import { StagePlotFormData, stagePlotSchema } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useRef, useState } from "react";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
-import { useScreenshot } from "use-react-screenshot";
 import { v4 as uuidv4 } from "uuid";
 import StagePlotGraphic from "./StagePlotGraphic";
 import InputList from "./InputList";
 import EditPageButtonRow from "./EditPageButtonRow";
-import { Dialog } from "@radix-ui/react-dialog";
 import useTipsAndTricks from "@/hooks/useTipsAndTricks";
 
 const EditQuickPlot = () => {
@@ -26,12 +23,6 @@ const EditQuickPlot = () => {
     id: "",
   });
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [plotSettings, setPlotSettings] = useState({
-    isTwoPages: false,
-    isBlackAndWhite: true,
-    isStandsRowShowing: false,
-  });
   const formRef = useRef<HTMLDivElement>(null);
   const methods = useForm<StagePlotFormData>({
     resolver: zodResolver(stagePlotSchema),
@@ -51,7 +42,6 @@ const EditQuickPlot = () => {
     formState: { errors, isSubmitting },
     setValue,
     getValues,
-    watch,
   } = methods;
 
   const handleAddInput = () => {

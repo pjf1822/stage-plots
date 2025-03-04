@@ -27,7 +27,6 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
 
   if (isLoading) return <div>Loading...</div>;
   const [currentPlot, setCurrentPlot] = useState(plot);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const formRef = useRef<HTMLDivElement>(null);
   const methods = useForm<StagePlotFormData>({

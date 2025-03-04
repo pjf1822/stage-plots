@@ -33,10 +33,12 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
     }
   };
   const takeScreenshot = async () => {
-    const input = document.getElementById("name");
+    const input = document.getElementById("name") as HTMLInputElement;
     const inputValue = input.value;
-    const editDate = document.querySelector(".editDate"); // Select the hidden <p> element
-    editDate.style.display = "block";
+    const editDate = document.querySelector(".editDate") as HTMLElement; // Assert as HTMLElement
+    if (editDate) {
+      editDate.style.display = "block";
+    }
 
     // Create a span to replace the input
     const span = document.createElement("span");
@@ -52,10 +54,16 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
     span.style.transform = "translateY(-44px)";
 
     // Replace input with span
-    input.parentNode.replaceChild(span, input);
-
+    if (input.parentNode) {
+      input.parentNode.replaceChild(span, input);
+    }
     const element = document.querySelector(".mt-8");
 
+    // Ensure that 'element' is not null before using it
+    if (!element || !(element instanceof HTMLElement)) {
+      console.error("Element with class '.mt-8' not found.");
+      return;
+    }
     try {
       const canvas = await html2canvas(element, {
         ignoreElements: (el) => el.classList.contains("ignore-me"),
@@ -64,14 +72,17 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
       const imgData = canvas.toDataURL("image/png");
       const link = document.createElement("a");
       link.href = imgData;
-      link.download = `${bandName}.png`;
+      link.download = `${bandName.replace(/\s+/g, "-")}.png`;
       link.click();
       console.log("Screenshot captured and download initiated");
     } catch (error) {
       console.error("Error capturing screenshot:", error);
     } finally {
       // Restore input field after screenshot
-      span.parentNode.replaceChild(input, span);
+      const spanParent = span.parentNode;
+      if (spanParent && spanParent instanceof HTMLElement) {
+        spanParent.replaceChild(input, span);
+      }
       editDate.style.display = "none";
     }
   };
