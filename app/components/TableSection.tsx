@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -9,6 +10,7 @@ import {
   TableHead,
 } from "@/components/ui/table";
 import Image from "next/image";
+import { useState } from "react";
 
 type TableSectionProps = {
   fields: any[];
@@ -17,6 +19,7 @@ type TableSectionProps = {
   startIndex: number;
   is_stands_showing: boolean;
   handleRemoveInput: any;
+  hasSecondColumn: any;
 };
 
 const standOptions = [
@@ -28,6 +31,13 @@ const standOptions = [
   "none",
   "",
 ];
+type Column = {
+  key: "channel" | "inputName" | "mic" | "stand"; // Restrict the keys to these specific strings
+  name: string;
+  width: number;
+  isResizable?: boolean;
+  isVisible?: boolean;
+};
 
 const TableSection = ({
   fields,
@@ -35,26 +45,75 @@ const TableSection = ({
   startIndex,
   is_stands_showing,
   handleRemoveInput,
+  hasSecondColumn,
 }: TableSectionProps) => {
+  const [columnWidths, setColumnWidths] = useState({
+    channel: 100,
+    inputName: 200,
+    mic: 150,
+    stand: 150,
+  });
+  const columns: Column[] = [
+    { key: "channel", name: "Channel", width: 20, isResizable: false },
+    { key: "inputName", name: "Input Name", width: 200 },
+    { key: "mic", name: "Mic", width: 150 },
+    { key: "stand", name: "Stand", width: 150, isVisible: is_stands_showing },
+  ];
+  const handleResize = (key: string, newWidth: number) => {
+    setColumnWidths((prevWidths) => ({
+      ...prevWidths,
+      [key]: Math.max(newWidth, 40), // Ensure a minimum width of 50px
+    }));
+  };
+
   return (
     <div>
-      <Table className="overflow-hidden">
+      <Table
+        className="overflow-hidden"
+        style={{ maxWidth: hasSecondColumn ? "100%" : "75%" }}
+      >
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px] border border-gray-400   text-black">
-              Channel
-            </TableHead>
-            <TableHead className=" border border-gray-400  text-black">
-              Input Name
-            </TableHead>
-            <TableHead className=" border border-gray-400  text-black">
-              Mic
-            </TableHead>
-            {is_stands_showing && (
-              <TableHead className="border border-gray-400 text-black">
-                Stand
-              </TableHead>
-            )}
+            {columns.map((col) => {
+              if (col.key === "stand" && !is_stands_showing) {
+                return null; // Skip the "Stand" column if is_stands_showing is false
+              }
+              return (
+                <TableHead
+                  key={col.key}
+                  className="border border-gray-400 text-black relative"
+                  style={{ width: columnWidths[col.key] }} // Use column width or fixed width
+                >
+                  {col.name}
+                  {col.isResizable !== false && ( // Only apply resize handle for resizable columns
+                    <span
+                      className="absolute right-0 top-0 h-full w-2 cursor-col-resize"
+                      onMouseDown={(e) => {
+                        const startX = e.clientX;
+                        const startWidth = columnWidths[col.key] || col.width;
+
+                        const handleMouseMove = (event: MouseEvent) => {
+                          const newWidth =
+                            startWidth + (event.clientX - startX);
+                          handleResize(col.key, newWidth);
+                        };
+
+                        const handleMouseUp = () => {
+                          window.removeEventListener(
+                            "mousemove",
+                            handleMouseMove
+                          );
+                          window.removeEventListener("mouseup", handleMouseUp);
+                        };
+
+                        window.addEventListener("mousemove", handleMouseMove);
+                        window.addEventListener("mouseup", handleMouseUp);
+                      }}
+                    ></span>
+                  )}
+                </TableHead>
+              );
+            })}
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -69,14 +128,14 @@ const TableSection = ({
                     {...register(`inputs.${startIndex + index}.name`, {
                       required: "Input name is required",
                     })}
-                    placeholder={`Input ${startIndex + index + 1}`}
+                    placeholder=""
                     className="py-0 px-2  rounded-md w-full border-none shadow-none focus-visible:ring-0 placeholder:text-gray-400"
                   />
                 </TableCell>
                 <TableCell className="p-0 border border-gray-400 relative ">
                   <Input
                     {...register(`inputs.${startIndex + index}.mic`)}
-                    placeholder="Mic/DI"
+                    placeholder=""
                     className="py-0 px-2 rounded-md w-full border-none shadow-none focus-visible:ring-0 placeholder:text-gray-400"
                   />
                   {!is_stands_showing && (
@@ -93,7 +152,7 @@ const TableSection = ({
                         type="button"
                         size="sm"
                         onClick={() => handleRemoveInput(item.channel)} // Pass channel instead of index
-                        className="p-1 hover:bg-transparent focus:outline-none"
+                        className="p-1 hover:bg-transparent focus:outline-none ignore-me"
                       >
                         <Image
                           src={"/x.svg"}
@@ -130,7 +189,7 @@ const TableSection = ({
                         variant="ghost"
                         size="sm"
                         onClick={() => handleRemoveInput(item.channel)}
-                        className="p-1 hover:bg-transparent focus:outline-none"
+                        className="p-1 hover:bg-transparent focus:outline-none ignore-me"
                       >
                         <Image
                           src={"/x.svg"}

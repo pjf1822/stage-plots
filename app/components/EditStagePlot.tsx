@@ -9,18 +9,13 @@ import { submitStagePlotForm } from "@/services/stagePlotService";
 import { StagePlotFormData, stagePlotSchema } from "@/types";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
-import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { useScreenshot } from "use-react-screenshot";
 import { useRef } from "react";
-import DownloadModal from "./DownloadModal";
-import { Dialog } from "@/components/ui/dialog";
 import { useQuery } from "@tanstack/react-query";
 import { getPlotById } from "../server/actions/getPlotById";
 import { v4 as uuidv4 } from "uuid";
 
 import EditPageButtonRow from "./EditPageButtonRow";
-import useTipsAndTricks from "@/hooks/useTipsAndTricks";
 
 const EditStagePlot = ({ plotid }: { plotid: string }) => {
   // useTipsAndTricks();
@@ -32,7 +27,6 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
 
   if (isLoading) return <div>Loading...</div>;
   const [currentPlot, setCurrentPlot] = useState(plot);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const formRef = useRef<HTMLDivElement>(null);
   const methods = useForm<StagePlotFormData>({
@@ -69,18 +63,6 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
       setCurrentPlot(result);
     } catch (error: any) {
       alert(error.message);
-    }
-  };
-
-  // GET IMAGE STUFF
-  const [image, takeScreenshot] = useScreenshot();
-
-  const downloadImage = () => {
-    if (image) {
-      const link = document.createElement("a");
-      link.href = image;
-      link.download = `${currentPlot.name}.png`;
-      link.click();
     }
   };
 
@@ -134,18 +116,18 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
   }, []);
 
   return (
-    <div className="mt-8">
+    <div className="mt-8" id="capture-area">
       <FormProvider {...methods}>
         <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
           <form onSubmit={handleSubmit(submitForm, (errors) => {})}>
             <div ref={formRef}>
-              <div className="mb-6">
-                <label htmlFor="name">Stage Plot Name:</label>
+              <div className=" h-16 mt-8">
                 <Input
                   id="name"
                   {...register("name")}
                   placeholder="Enter stage plot name"
-                  className="w-full px-4  border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                  className="w-full   border-none bg-transparent focus:outline-none text-center"
+                  style={{ fontSize: "3rem", height: "100%" }}
                 />
               </div>
 
@@ -159,18 +141,10 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
               handleAddInput={handleAddInput}
               isSubmitting={isSubmitting}
               isQuickPlot={false}
-              methods={methods}
-              takeScreenshot={takeScreenshot}
-              setIsModalOpen={setIsModalOpen}
-              containerWidth={containerWidth}
             />
           </form>
         </div>
       </FormProvider>
-
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        {image && <DownloadModal image={image} downloadImage={downloadImage} />}
-      </Dialog>
     </div>
   );
 };

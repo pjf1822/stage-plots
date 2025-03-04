@@ -38,6 +38,7 @@ const InputList = ({ handleRemoveInput }: { handleRemoveInput: any }) => {
             startIndex={0}
             is_stands_showing={is_stands_showing}
             handleRemoveInput={handleRemoveInput}
+            hasSecondColumn={hasSecondColumn}
           />
         </div>
 
@@ -50,10 +51,14 @@ const InputList = ({ handleRemoveInput }: { handleRemoveInput: any }) => {
               startIndex={rowsPerColumn}
               is_stands_showing={is_stands_showing}
               handleRemoveInput={handleRemoveInput}
+              hasSecondColumn={hasSecondColumn}
             />
           </div>
         )}
       </div>
+      <p className="editDate font-urbanist " style={{ display: "none" }}>
+        Last edited {new Date().toLocaleDateString()}
+      </p>
     </div>
   );
 };

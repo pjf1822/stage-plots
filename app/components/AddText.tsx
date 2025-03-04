@@ -28,7 +28,7 @@ const AddText: React.FC<AddTextProps> = ({ stagePlotId, append }) => {
     setText("");
   };
   return (
-    <div className="absolute top-2 right-2 flex flex-col justify-right">
+    <div className="absolute top-2 right-2 flex flex-col justify-right ignore-me">
       <Input
         value={text}
         onChange={handleInputChange}

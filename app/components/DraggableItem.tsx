@@ -99,7 +99,7 @@ function DraggableItem({
       </div>
       {!label && isActive && (
         <div
-          className="absolute bottom-0 right-0 w-4 h-4 bg-blue-500 cursor-se-resize rounded-sm opacity-50 hover:opacity-100"
+          className="absolute ignore-me bottom-0 right-0 w-4 h-4 bg-blue-500 cursor-se-resize rounded-sm opacity-50 hover:opacity-100"
           onMouseDown={(e) => handleMouseDown(e, scale, onScaleChange)}
           style={{
             touchAction: "none",
@@ -110,7 +110,7 @@ function DraggableItem({
       )}
       {!label && isActive && (
         <div
-          className="absolute top-0 right-0 w-4 h-4 bg-red-500 cursor-pointer rounded-full opacity-50 hover:opacity-100"
+          className="absolute ignore-me top-0 right-0 w-4 h-4 bg-red-500 cursor-pointer rounded-full opacity-50 hover:opacity-100"
           onMouseDown={(e) =>
             handleRotateStart(
               e,
