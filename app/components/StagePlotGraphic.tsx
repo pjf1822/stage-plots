@@ -255,6 +255,7 @@ const StagePlotGraphic = ({
           "oboe",
           "podium",
           "amp-head",
+          "chair",
         ]}
         onSelect={handleItemSelect}
         onClose={closeModal}
