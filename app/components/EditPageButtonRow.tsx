@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
+import { jsPDF } from "jspdf";
 
 import {
   DropdownMenu,
@@ -17,11 +18,13 @@ type EditPageButtonRowProps = {
   handleAddInput: () => void;
   isSubmitting: boolean;
   isQuickPlot: boolean;
+  zoom: any;
 };
 const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
   handleAddInput,
   isSubmitting,
   isQuickPlot = false,
+  zoom,
 }) => {
   const { watch, setValue } = useFormContext();
   const isStandsShowing = watch("is_stands_showing");
@@ -35,7 +38,7 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
   const takeScreenshot = async () => {
     const input = document.getElementById("name") as HTMLInputElement;
     const inputValue = input.value;
-    const editDate = document.querySelector(".editDate") as HTMLElement; // Assert as HTMLElement
+    const editDate = document.querySelector(".editDate") as HTMLElement;
     if (editDate) {
       editDate.style.display = "block";
     }
@@ -70,11 +73,41 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
       });
 
       const imgData = canvas.toDataURL("image/png");
-      const link = document.createElement("a");
-      link.href = imgData;
-      link.download = `${bandName.replace(/\s+/g, "-")}.png`;
-      link.click();
-      console.log("Screenshot captured and download initiated");
+      const doc = new jsPDF();
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      doc.setFillColor(243, 244, 246); // RGB values for #f3f4f6
+      doc.rect(0, 0, pageWidth, pageHeight, "F"); // Fill the entire page
+
+      const canvasWidth = canvas.width;
+      const canvasHeight = canvas.height;
+
+      const aspectRatio = canvasWidth / canvasHeight;
+
+      let imgWidth = pageWidth;
+      let imgHeight = pageWidth / aspectRatio;
+      const scaleFactor = 1 / zoom;
+      console.log(zoom, scaleFactor);
+      imgWidth *= scaleFactor;
+      imgHeight *= scaleFactor;
+
+      if (imgHeight > pageHeight) {
+        imgHeight = pageHeight;
+        imgWidth = pageHeight * aspectRatio;
+      }
+      const xPosition = (pageWidth - imgWidth) / 2;
+      const yPosition = 0;
+
+      doc.addImage(imgData, "PNG", xPosition, yPosition, imgWidth, imgHeight);
+
+      doc.save(`${bandName.replace(/\s+/g, "-")}.pdf`);
+
+      // const link = document.createElement("a");
+
+      // link.href = imgData;
+      // link.download = `${bandName.replace(/\s+/g, "-")}.png`;
+      // link.click();
+      // console.log("Screenshot captured and download initiated");
     } catch (error) {
       console.error("Error capturing screenshot:", error);
     } finally {
@@ -109,7 +142,7 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
         type="button"
         className="font-urbanist bg-black text-lg px-6 py-6 rounded-lg text-white shadow-xl transform transition-all hover:scale-105"
       >
-        Convert to Downloadable Image
+        Convert to PDF
       </Button>
       <div className="flex gap-2 items-center">
         <DropdownMenu>

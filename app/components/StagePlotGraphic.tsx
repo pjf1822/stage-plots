@@ -19,9 +19,11 @@ export interface HistoryState {
 const StagePlotGraphic = ({
   stagePlotId,
   containerWidth,
-}: {
+}: // zoom,
+{
   stagePlotId: string;
   containerWidth: number;
+  // zoom: any;
 }) => {
   const { control } = useFormContext<StagePlotFormData>();
 
@@ -30,6 +32,7 @@ const StagePlotGraphic = ({
     name: "stage_elements",
     keyName: "....",
   });
+
   const [activeItemId, setActiveItemId] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [clipboardItem, setClipboardItem] = useState<any>(null);
@@ -119,6 +122,7 @@ const StagePlotGraphic = ({
         position: "relative",
         border: "2px solid black",
         justifySelf: "center",
+        // transform: `scale(${zoom})`,
       }}
     >
       <div
@@ -197,6 +201,7 @@ const StagePlotGraphic = ({
           fill
         />
       </div>
+
       <Button
         type="button"
         onClick={openModal}

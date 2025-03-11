@@ -95,8 +95,26 @@ const EditQuickPlot = () => {
     };
   }, []);
 
+  const [zoom, setZoom] = useState(1); // Default zoom is 1 (100%)
+
   return (
     <div className="mt-8">
+      <div
+        style={{ position: "absolute", top: "10px", left: "10px" }}
+        className="ignore-me"
+      >
+        <input
+          type="range"
+          min="0.7"
+          max="1"
+          step="0.1"
+          value={zoom}
+          onChange={(e) => setZoom(parseFloat(e.target.value))}
+          style={{ width: "200px" }}
+        />
+        <span>{(zoom * 100).toFixed(0)}%</span>
+        <p style={{ color: "white" }}>zoom</p>
+      </div>
       <FormProvider {...methods}>
         <div className="bg-gray-100 p-2 rounded-lg shadow-lg">
           <form
@@ -105,7 +123,12 @@ const EditQuickPlot = () => {
               (errors) => {}
             )}
           >
-            <div ref={formRef}>
+            <div
+              ref={formRef}
+              style={{
+                transform: `scale(${zoom})`,
+              }}
+            >
               <div className=" h-16 mt-8">
                 <Input
                   id="name"
@@ -119,6 +142,7 @@ const EditQuickPlot = () => {
               <StagePlotGraphic
                 stagePlotId={currentPlot.id}
                 containerWidth={containerWidth}
+                // zoom={zoom}
               />
               <InputList handleRemoveInput={handleRemoveInput} />
             </div>
@@ -126,6 +150,7 @@ const EditQuickPlot = () => {
               handleAddInput={handleAddInput}
               isSubmitting={isSubmitting}
               isQuickPlot={true}
+              zoom={zoom}
             />
           </form>
         </div>
