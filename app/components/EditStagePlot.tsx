@@ -16,9 +16,10 @@ import { getPlotById } from "../server/actions/getPlotById";
 import { v4 as uuidv4 } from "uuid";
 
 import EditPageButtonRow from "./EditPageButtonRow";
+import useTipsAndTricks from "@/hooks/useTipsAndTricks";
 
 const EditStagePlot = ({ plotid }: { plotid: string }) => {
-  // useTipsAndTricks();
+  useTipsAndTricks();
 
   const { data: plot, isLoading } = useQuery({
     queryKey: ["plot", plotid],

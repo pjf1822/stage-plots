@@ -10,9 +10,10 @@ import StagePlotGraphic from "./StagePlotGraphic";
 import InputList from "./InputList";
 import EditPageButtonRow from "./EditPageButtonRow";
 import useTipsAndTricks from "@/hooks/useTipsAndTricks";
+import { Slider } from "@/components/ui/slider";
 
 const EditQuickPlot = () => {
-  // useTipsAndTricks();
+  useTipsAndTricks();
 
   const [currentPlot, setCurrentPlot] = useState({
     name: "Quick Plot",
@@ -95,25 +96,25 @@ const EditQuickPlot = () => {
     };
   }, []);
 
-  const [zoom, setZoom] = useState(1); // Default zoom is 1 (100%)
+  const [zoom, setZoom] = useState(1);
 
   return (
     <div className="mt-8">
       <div
-        style={{ position: "absolute", top: "10px", left: "10px" }}
+        style={{ position: "absolute", top: "5px", left: "10px" }}
         className="ignore-me"
       >
-        <input
-          type="range"
-          min="0.7"
-          max="1"
-          step="0.1"
-          value={zoom}
-          onChange={(e) => setZoom(parseFloat(e.target.value))}
-          style={{ width: "200px" }}
-        />
-        <span>{(zoom * 100).toFixed(0)}%</span>
-        <p style={{ color: "white" }}>zoom</p>
+        <div className="bg-gray-300 p-2 rounded">
+          <Slider
+            value={[zoom * 100]}
+            min={70}
+            max={100}
+            step={1}
+            onValueChange={(val) => setZoom(val[0] / 100)}
+            className="w-48"
+          />
+        </div>
+        <p style={{ color: "white", fontFamily: "urbanist" }}>Zoom</p>
       </div>
       <FormProvider {...methods}>
         <div className="bg-gray-100 p-2 rounded-lg shadow-lg">
@@ -142,7 +143,6 @@ const EditQuickPlot = () => {
               <StagePlotGraphic
                 stagePlotId={currentPlot.id}
                 containerWidth={containerWidth}
-                // zoom={zoom}
               />
               <InputList handleRemoveInput={handleRemoveInput} />
             </div>

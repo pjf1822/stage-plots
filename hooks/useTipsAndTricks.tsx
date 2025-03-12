@@ -21,7 +21,7 @@ const useTipsAndTricks = () => {
         title: randomTip,
         className: "fixed top-0 left-0 max-w-[480px] w-[320px]",
       });
-    }, 5000);
+    }, 50000);
 
     return () => clearInterval(intervalId);
   }, []);

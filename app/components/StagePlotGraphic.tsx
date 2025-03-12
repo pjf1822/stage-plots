@@ -19,11 +19,9 @@ export interface HistoryState {
 const StagePlotGraphic = ({
   stagePlotId,
   containerWidth,
-}: // zoom,
-{
+}: {
   stagePlotId: string;
   containerWidth: number;
-  // zoom: any;
 }) => {
   const { control } = useFormContext<StagePlotFormData>();
 
@@ -122,7 +120,6 @@ const StagePlotGraphic = ({
         position: "relative",
         border: "2px solid black",
         justifySelf: "center",
-        // transform: `scale(${zoom})`,
       }}
     >
       <div
@@ -132,9 +129,9 @@ const StagePlotGraphic = ({
           top: 0,
           width: "2px",
           height: 40,
-          backgroundColor: "black", // You can change the color
-          transform: "translateX(-50%)", // Centers the line perfectly
-          zIndex: 0, // Ensures it stays behind draggable items
+          backgroundColor: "black",
+          transform: "translateX(-50%)",
+          zIndex: 0,
           pointerEvents: "none",
         }}
         className="ignore-me"
