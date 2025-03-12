@@ -117,7 +117,7 @@ const EditQuickPlot = () => {
         <p style={{ color: "white", fontFamily: "urbanist" }}>Zoom</p>
       </div> */}
       <FormProvider {...methods}>
-        <div className="bg-white p-2 rounded-lg shadow-lg">
+        <div className="bg-white p-2 rounded-lg ">
           <form
             onSubmit={handleSubmit(
               () => {},
