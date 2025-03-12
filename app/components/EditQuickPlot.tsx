@@ -100,7 +100,7 @@ const EditQuickPlot = () => {
 
   return (
     <div className="mt-8">
-      <div
+      {/* <div
         style={{ position: "absolute", top: "5px", left: "10px" }}
         className="ignore-me"
       >
@@ -115,9 +115,9 @@ const EditQuickPlot = () => {
           />
         </div>
         <p style={{ color: "white", fontFamily: "urbanist" }}>Zoom</p>
-      </div>
+      </div> */}
       <FormProvider {...methods}>
-        <div className="bg-gray-100 p-2 rounded-lg shadow-lg">
+        <div className="bg-white p-2 rounded-lg shadow-lg">
           <form
             onSubmit={handleSubmit(
               () => {},

@@ -93,14 +93,14 @@ const useStagePlotKeyPress = ({
         }
       }
 
-      if (e.key === "Delete" || e.key === "Backspace") {
-        e.preventDefault();
-        const elementIndex = fields.findIndex((el) => el.id === activeItemId);
-        if (elementIndex !== -1) {
-          remove(elementIndex);
-          saveToHistory("remove");
-        }
-      }
+      // if (e.key === "Delete" || e.key === "Backspace") {
+      //   e.preventDefault();
+      //   const elementIndex = fields.findIndex((el) => el.id === activeItemId);
+      //   if (elementIndex !== -1) {
+      //     remove(elementIndex);
+      //     saveToHistory("remove");
+      //   }
+      // }
     };
 
     window.addEventListener("keydown", handleKeyPress);

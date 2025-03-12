@@ -19,7 +19,7 @@ const useTipsAndTricks = () => {
         tipsAndTricks[Math.floor(Math.random() * tipsAndTricks.length)];
       toast({
         title: randomTip,
-        className: "fixed top-0 left-0 max-w-[480px] w-[320px]",
+        className: "fixed top-0 right-0 max-w-[480px] w-[320px]",
       });
     }, 50000);
 

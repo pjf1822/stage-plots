@@ -84,6 +84,7 @@ function DraggableItem({
               height: "auto",
               textAlign: "center",
               padding: 10,
+              minWidth: "200px",
             }}
           >
             {label}

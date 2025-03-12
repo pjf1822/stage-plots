@@ -17,9 +17,10 @@ import { v4 as uuidv4 } from "uuid";
 
 import EditPageButtonRow from "./EditPageButtonRow";
 import useTipsAndTricks from "@/hooks/useTipsAndTricks";
+import { Slider } from "@/components/ui/slider";
 
 const EditStagePlot = ({ plotid }: { plotid: string }) => {
-  useTipsAndTricks();
+  // useTipsAndTricks();
 
   const { data: plot, isLoading } = useQuery({
     queryKey: ["plot", plotid],
@@ -115,14 +116,31 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  const [zoom, setZoom] = useState(1);
 
   return (
     <div className="mt-8" id="capture-area">
+      {/* <div
+        style={{ position: "absolute", top: "5px", left: "10px" }}
+        className="ignore-me"
+      >
+        <div className="bg-gray-300 p-2 rounded">
+          <Slider
+            value={[zoom * 100]}
+            min={70}
+            max={100}
+            step={1}
+            onValueChange={(val) => setZoom(val[0] / 100)}
+            className="w-48"
+          />
+        </div>
+        <p style={{ color: "white", fontFamily: "urbanist" }}>Zoom</p>
+      </div> */}
       <FormProvider {...methods}>
-        <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
+        <div className="bg-white p-6 rounded-lg ">
           <form onSubmit={handleSubmit(submitForm, (errors) => {})}>
             <div ref={formRef}>
-              <div className=" h-16 mt-8">
+              <div className="h-16 mt-8">
                 <Input
                   id="name"
                   {...register("name")}
@@ -142,6 +160,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
               handleAddInput={handleAddInput}
               isSubmitting={isSubmitting}
               isQuickPlot={false}
+              zoom={zoom}
             />
           </form>
         </div>
