@@ -10,9 +10,10 @@ import StagePlotGraphic from "./StagePlotGraphic";
 import InputList from "./InputList";
 import EditPageButtonRow from "./EditPageButtonRow";
 import useTipsAndTricks from "@/hooks/useTipsAndTricks";
+import { Slider } from "@/components/ui/slider";
 
 const EditQuickPlot = () => {
-  // useTipsAndTricks();
+  useTipsAndTricks();
 
   const [currentPlot, setCurrentPlot] = useState({
     name: "Quick Plot",
@@ -95,17 +96,40 @@ const EditQuickPlot = () => {
     };
   }, []);
 
+  const [zoom, setZoom] = useState(1);
+
   return (
     <div className="mt-8">
+      {/* <div
+        style={{ position: "absolute", top: "5px", left: "10px" }}
+        className="ignore-me"
+      >
+        <div className="bg-gray-300 p-2 rounded">
+          <Slider
+            value={[zoom * 100]}
+            min={70}
+            max={100}
+            step={1}
+            onValueChange={(val) => setZoom(val[0] / 100)}
+            className="w-48"
+          />
+        </div>
+        <p style={{ color: "white", fontFamily: "urbanist" }}>Zoom</p>
+      </div> */}
       <FormProvider {...methods}>
-        <div className="bg-gray-100 p-2 rounded-lg shadow-lg">
+        <div className="bg-white p-2 rounded-lg shadow-lg">
           <form
             onSubmit={handleSubmit(
               () => {},
               (errors) => {}
             )}
           >
-            <div ref={formRef}>
+            <div
+              ref={formRef}
+              style={{
+                transform: `scale(${zoom})`,
+              }}
+            >
               <div className=" h-16 mt-8">
                 <Input
                   id="name"
@@ -126,6 +150,7 @@ const EditQuickPlot = () => {
               handleAddInput={handleAddInput}
               isSubmitting={isSubmitting}
               isQuickPlot={true}
+              zoom={zoom}
             />
           </form>
         </div>
