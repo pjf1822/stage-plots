@@ -7,7 +7,6 @@ const tipsAndTricks = [
   "Drums first vocals last!",
   "The monitor engineer needs stage positions, not names, on the input list.",
   "Try writing down stage right vocal not Steve vocal! We dont need names we need positions!",
-  "We auto save for you every 60 seconds!",
   `"Drums" is not an input!`,
   "Ctr Z for undo",
   "No duck tape on the stage please!",
