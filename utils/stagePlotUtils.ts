@@ -26,7 +26,6 @@ export const onDragEnd = ({
 
       let newX = Math.round(element.x + deltaXPercent * 100);
       let newY = Math.round(element.y + deltaYPercent * 100);
-      console.log(newY, "the new x?", itemWidthPercent);
       if (newX < 2 || newX > 100 || newY < -4 || newY > 99) {
         return element;
       }

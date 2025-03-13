@@ -22,6 +22,7 @@ const EditQuickPlot = () => {
     stage_elements: [],
     created_by: "",
     id: "",
+    is_stands_showing: false,
   });
 
   const formRef = useRef<HTMLDivElement>(null);
@@ -34,6 +35,7 @@ const EditQuickPlot = () => {
       stage_elements: currentPlot.stage_elements,
       created_by: currentPlot.created_by,
       id: currentPlot.id,
+      is_stands_showing: currentPlot.is_stands_showing,
     },
   });
 
@@ -43,6 +45,7 @@ const EditQuickPlot = () => {
     formState: { errors, isSubmitting },
     setValue,
     getValues,
+    watch,
   } = methods;
 
   const handleAddInput = () => {
@@ -126,11 +129,11 @@ const EditQuickPlot = () => {
           >
             <div
               ref={formRef}
-              style={{
-                transform: `scale(${zoom})`,
-              }}
+              // style={{
+              //   transform: `scale(${zoom})`,
+              // }}
             >
-              <div className=" h-16 mt-8">
+              <div className="h-16 mt-8">
                 <Input
                   id="name"
                   {...register("name")}

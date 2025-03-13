@@ -71,6 +71,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
   const handleAddInput = () => {
     const inputs = getValues("inputs");
     const nextChannel = inputs.length + 1;
+
     if (nextChannel > 48) {
       toast({
         title: "Cannot add more than 48 channels",
@@ -119,7 +120,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
   const [zoom, setZoom] = useState(1);
 
   return (
-    <div className="mt-8" id="capture-area">
+    <div className="mt-8">
       {/* <div
         style={{ position: "absolute", top: "5px", left: "10px" }}
         className="ignore-me"
@@ -137,7 +138,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
         <p style={{ color: "white", fontFamily: "urbanist" }}>Zoom</p>
       </div> */}
       <FormProvider {...methods}>
-        <div className="bg-white p-6 rounded-lg ">
+        <div className="bg-white p-2 rounded-lg">
           <form onSubmit={handleSubmit(submitForm, (errors) => {})}>
             <div ref={formRef}>
               <div className="h-16 mt-8">

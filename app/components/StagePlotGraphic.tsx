@@ -30,6 +30,7 @@ const StagePlotGraphic = ({
     name: "stage_elements",
     keyName: "....",
   });
+  console.log(fields);
 
   const [activeItemId, setActiveItemId] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -143,9 +144,9 @@ const StagePlotGraphic = ({
           bottom: 0,
           width: "2px",
           height: 40,
-          backgroundColor: "black", // You can change the color
-          transform: "translateX(-50%)", // Centers the line perfectly
-          zIndex: 0, // Ensures it stays behind draggable items
+          backgroundColor: "black",
+          transform: "translateX(-50%)",
+          zIndex: 0,
           pointerEvents: "none",
         }}
         className="ignore-me"

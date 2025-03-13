@@ -14,6 +14,7 @@ const AddText: React.FC<AddTextProps> = ({ stagePlotId, append }) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
+
   const handleAddLabel = () => {
     append({
       id: uuidv4(),
@@ -27,15 +28,26 @@ const AddText: React.FC<AddTextProps> = ({ stagePlotId, append }) => {
     });
     setText("");
   };
+
   return (
     <div className="absolute top-2 right-2 flex flex-col justify-right ignore-me">
       <Input
         value={text}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && text.trim()) {
+            handleAddLabel();
+          }
+        }}
         onChange={handleInputChange}
         placeholder="Enter label text"
         className="mb-2 border-2 border-black rounded-lg focus:border-black focus:ring-black font-urbanist"
       />
-      <Button className="font-urbanist" onClick={handleAddLabel} type="button">
+      <Button
+        className="font-urbanist"
+        onClick={handleAddLabel}
+        type="button"
+        disabled={!text.trim()}
+      >
         Add Label
       </Button>
     </div>

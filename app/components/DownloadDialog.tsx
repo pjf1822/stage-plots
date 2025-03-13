@@ -33,7 +33,6 @@ const DownloadDialog = ({
     if (editDate) {
       editDate.style.display = "block";
     }
-
     const channelCells =
       document.querySelectorAll<HTMLElement>(".channel-cell");
 
@@ -75,8 +74,6 @@ const DownloadDialog = ({
         const doc = new jsPDF();
         const pageWidth = doc.internal.pageSize.getWidth();
         const pageHeight = doc.internal.pageSize.getHeight();
-        // doc.setFillColor(243, 244, 246);
-        // doc.rect(0, 0, pageWidth, pageHeight, "F");
 
         const canvasWidth = canvas.width;
         const canvasHeight = canvas.height;
@@ -107,6 +104,7 @@ const DownloadDialog = ({
     } catch (error) {
       console.error("Error capturing screenshot:", error);
     } finally {
+      // UNDO THE THINGS WE DID
       const spanParent = span.parentNode;
       if (spanParent && spanParent instanceof HTMLElement) {
         spanParent.replaceChild(input, span);

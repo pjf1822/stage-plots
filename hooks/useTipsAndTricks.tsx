@@ -6,11 +6,12 @@ const tipsAndTricks = [
   "Use Ctrl C + Ctrl V for copy paste",
   "Drums first vocals last!",
   "The monitor engineer needs stage positions, not names, on the input list.",
-  "Try down stage right vocal not Steve vocal!",
+  "Try writing down stage right vocal not Steve vocal! We dont need names we need positions!",
   "We auto save for you every 60 seconds!",
   `"Drums" is not an input!`,
   "Ctr Z for undo",
   "No duck tape on the stage please!",
+  "Dont forget to save!",
 ];
 const useTipsAndTricks = () => {
   useEffect(() => {
