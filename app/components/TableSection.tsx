@@ -57,8 +57,14 @@ const TableSection = ({
     }));
   };
 
+  const preventEnterSubmit = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+    }
+  };
+
   return (
-    <div>
+    <div style={{ transform: "scale(1.03)", transformOrigin: "top left" }}>
       <Table
         className="overflow-hidden"
         style={{ maxWidth: hasSecondColumn ? "100%" : "75%" }}
@@ -119,14 +125,18 @@ const TableSection = ({
                     {...register(`inputs.${startIndex + index}.name`, {
                       required: "Input name is required",
                     })}
+                    style={{ fontSize: 17 }}
+                    onKeyDown={preventEnterSubmit}
                     placeholder=""
-                    className="py-0 px-2  rounded-md w-full border-none shadow-none focus-visible:ring-0 placeholder:text-gray-400"
+                    className="py-0 px-2   rounded-md w-full border-none shadow-none focus-visible:ring-0 placeholder:text-gray-400 "
                   />
                 </TableCell>
                 <TableCell className="p-0 border border-gray-400 relative ">
                   <Input
+                    onKeyDown={preventEnterSubmit}
                     {...register(`inputs.${startIndex + index}.mic`)}
                     placeholder=""
+                    style={{ fontSize: 17 }}
                     className="py-0 px-2 rounded-md w-full border-none shadow-none focus-visible:ring-0 placeholder:text-gray-400"
                   />
                   {!is_stands_showing && (
@@ -142,7 +152,7 @@ const TableSection = ({
                         variant="ghost"
                         type="button"
                         size="sm"
-                        onClick={() => handleRemoveInput(item.channel)} // Pass channel instead of index
+                        onClick={() => handleRemoveInput(item.channel)}
                         className="p-1 hover:bg-transparent focus:outline-none ignore-me"
                       >
                         <Image
@@ -158,9 +168,11 @@ const TableSection = ({
                 {is_stands_showing && (
                   <TableCell className="p-0 border border-gray-400 pl-2 relative">
                     <Input
+                      onKeyDown={preventEnterSubmit}
                       {...register(`inputs.${startIndex + index}.stand`)}
                       placeholder=""
-                      className="py-0 px-2  rounded-md w-full border-none shadow-none focus-visible:ring-0 placeholder:text-gray-400"
+                      style={{ fontSize: 17 }}
+                      className="py-0 px-2  rounded-md w-full border-none shadow-none focus-visible:ring-0 placeholder:text-gray-400 "
                     />
 
                     <div

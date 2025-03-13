@@ -18,6 +18,7 @@ import { v4 as uuidv4 } from "uuid";
 import EditPageButtonRow from "./EditPageButtonRow";
 import useTipsAndTricks from "@/hooks/useTipsAndTricks";
 import { Slider } from "@/components/ui/slider";
+import DescriptionForm from "./DescriptionForm";
 
 const EditStagePlot = ({ plotid }: { plotid: string }) => {
   // useTipsAndTricks();
@@ -41,6 +42,8 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
       created_by: currentPlot.created_by,
       id: currentPlot.id,
       is_stands_showing: currentPlot.is_stands_showing,
+      is_outputs_showing: currentPlot.is_outputs_showing,
+      outputs: currentPlot.outputs,
     },
   });
 
@@ -93,6 +96,27 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
     setValue("inputs", [...inputs, newInput]);
   };
 
+  const handleAddOutput = () => {
+    const outputs = getValues("outputs");
+    const nextChannel = outputs.length + 1;
+
+    if (nextChannel > 48) {
+      toast({
+        title: "Cannot add more than 48 outputs",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const newOutput = {
+      id: uuidv4(),
+      title: "",
+      channel: nextChannel,
+      stage_plot_id: plotid,
+    };
+
+    setValue("outputs", [...outputs, newOutput]);
+  };
   const handleRemoveInput = (channel: number) => {
     const inputs = getValues("inputs");
     const updatedFields = inputs.filter((input) => input.channel !== channel);
@@ -104,6 +128,20 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
     setValue("inputs", reIndexedFields);
   };
 
+  const handleRemoveOutput = (channel: number) => {
+    const outputs = getValues("outputs");
+
+    const updatedFields = outputs.filter(
+      (output) => output.channel !== channel
+    );
+
+    const reIndexedFields = updatedFields.map((field, i) => ({
+      ...field,
+      channel: i + 1,
+    }));
+
+    setValue("outputs", reIndexedFields);
+  };
   const [containerWidth, setContainerWidth] = useState<number>(1500);
   useEffect(() => {
     const handleResize = () => {
@@ -155,14 +193,19 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
                 stagePlotId={currentPlot.id}
                 containerWidth={containerWidth}
               />
-              <InputList handleRemoveInput={handleRemoveInput} />
+              <InputList
+                handleRemoveInput={handleRemoveInput}
+                handleRemoveOutput={handleRemoveOutput}
+              />
             </div>
             <EditPageButtonRow
               handleAddInput={handleAddInput}
+              handleAddOutput={handleAddOutput}
               isSubmitting={isSubmitting}
               isQuickPlot={false}
               zoom={zoom}
             />
+            <DescriptionForm />
           </form>
         </div>
       </FormProvider>

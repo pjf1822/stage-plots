@@ -33,6 +33,9 @@ const DownloadDialog = ({
     if (editDate) {
       editDate.style.display = "block";
     }
+    const outputLabel = document.querySelector(".output-label") as HTMLElement;
+    outputLabel.style.transform = "translateY(-7px)";
+
     const channelCells =
       document.querySelectorAll<HTMLElement>(".channel-cell");
 
@@ -112,6 +115,8 @@ const DownloadDialog = ({
       channelCells.forEach((cell) => {
         cell.style.transform = "translateY(6px)";
       });
+      outputLabel.style.transform = "translateY(2px)";
+
       editDate.style.display = "none";
       setOpen(false);
     }

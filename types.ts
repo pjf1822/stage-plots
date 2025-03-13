@@ -6,6 +6,7 @@ export interface StagePlot {
   description: string;
   created_by: string;
   is_stands_showing: boolean;
+  is_outputs_showing: boolean;
 }
 export interface Input {
   id: string;
@@ -14,6 +15,12 @@ export interface Input {
   mic: string;
   stand: string;
   notes: string;
+  stage_plot_id: string;
+}
+export interface Output {
+  id: string;
+  title: string;
+  channel: number | null;
   stage_plot_id: string;
 }
 export interface StageElement {
@@ -29,6 +36,7 @@ export interface StageElement {
 
 export interface FullStagePlot extends StagePlot {
   inputs: Input[];
+  outputs: Output[];
   stage_elements: StageElement[];
 }
 
@@ -43,6 +51,7 @@ export const stagePlotSchema = z.object({
   id: z.string(),
   created_by: z.string(),
   is_stands_showing: z.boolean(),
+  is_outputs_showing: z.boolean(),
   inputs: z
     .array(
       z.object({
@@ -52,6 +61,16 @@ export const stagePlotSchema = z.object({
         mic: z.string(),
         stand: z.string(),
         notes: z.string(),
+        stage_plot_id: z.string(),
+      })
+    )
+    .default([]),
+  outputs: z
+    .array(
+      z.object({
+        id: z.string(),
+        title: z.string(),
+        channel: z.number().nullable(),
         stage_plot_id: z.string(),
       })
     )
