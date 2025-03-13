@@ -1,4 +1,4 @@
-import { FullStagePlot, Input, StageElement } from "@/types";
+import { FullStagePlot, Input, Output, StageElement } from "@/types";
 import { fetchWithErrorHandling } from "@/utils/fetchWithErrorHandling";
 import { getChangedFields } from "@/utils/helpers";
 
@@ -13,6 +13,7 @@ export const submitStagePlotForm = async (
   formData: any
 ): Promise<SubmitStagePlotResponse> => {
   const changedFields = getChangedFields(originalPlotData, formData);
+
   if (Object.keys(changedFields).length === 0) {
     return { success: true, message: "No changes were made" };
   }
@@ -21,7 +22,12 @@ export const submitStagePlotForm = async (
   const updatedPlot: FullStagePlot = { ...originalPlotData };
 
   // CHECKING THE INITIAL GENERAL STAGE PLOT DATA
-  const fieldsToUpdate = ["name", "description", "is_stands_showing"];
+  const fieldsToUpdate = [
+    "name",
+    "description",
+    "is_stands_showing",
+    "is_outputs_showing",
+  ];
   const relevantChanges = Object.keys(changedFields).filter((field) =>
     fieldsToUpdate.includes(field)
   );
@@ -84,6 +90,46 @@ export const submitStagePlotForm = async (
     }
   }
 
+  if (changedFields["outputs"]) {
+    const { added, deleted, updated } = changedFields["outputs"];
+
+    if (added.length > 0) {
+      updatePromises.push(
+        fetchWithErrorHandling("/api/outputs/add", { outputs: added }).then(
+          (response) => {
+            updatedPlot.outputs.push(...response.addedOutputs); // Add new inputs
+          }
+        )
+      );
+    }
+
+    if (deleted.length > 0) {
+      updatePromises.push(
+        fetchWithErrorHandling("/api/outputs/delete", {
+          outputs: deleted,
+        }).then(() => {
+          updatedPlot.outputs = updatedPlot.outputs.filter(
+            (output) => !deleted.some((del: Output) => del.id === output.id)
+          );
+        })
+      );
+    }
+    if (updated.length > 0) {
+      updatePromises.push(
+        fetchWithErrorHandling("/api/outputs/update", {
+          stage_plot_id: originalPlotData.id,
+          outputs: updated,
+        }).then(() => {
+          updatedPlot.outputs = updatedPlot.outputs.map((output) => {
+            const updatedInput = updated.find(
+              (upd: Input) => upd.id === output.id
+            );
+            return updatedInput ? { ...output, ...updatedInput } : output;
+          });
+        })
+      );
+    }
+  }
   if (changedFields["stage_elements"]) {
     const { added, updated, deleted } = changedFields["stage_elements"];
 

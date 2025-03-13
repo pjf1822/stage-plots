@@ -11,6 +11,7 @@ import InputList from "./InputList";
 import EditPageButtonRow from "./EditPageButtonRow";
 import useTipsAndTricks from "@/hooks/useTipsAndTricks";
 import { Slider } from "@/components/ui/slider";
+import DescriptionForm from "./DescriptionForm";
 
 const EditQuickPlot = () => {
   useTipsAndTricks();
@@ -23,6 +24,8 @@ const EditQuickPlot = () => {
     created_by: "",
     id: "",
     is_stands_showing: false,
+    is_outputs_showing: false,
+    outputs: [{ title: "", id: "", channel: 1 }],
   });
 
   const formRef = useRef<HTMLDivElement>(null);
@@ -36,6 +39,8 @@ const EditQuickPlot = () => {
       created_by: currentPlot.created_by,
       id: currentPlot.id,
       is_stands_showing: currentPlot.is_stands_showing,
+      is_outputs_showing: currentPlot.is_outputs_showing,
+      outputs: currentPlot.outputs,
     },
   });
 
@@ -72,6 +77,28 @@ const EditQuickPlot = () => {
 
     setValue("inputs", [...inputs, newInput]);
   };
+  const handleAddOutput = () => {
+    const outputs = getValues("outputs");
+    const nextChannel = outputs.length + 1;
+
+    if (nextChannel > 48) {
+      toast({
+        title: "Cannot add more than 48 outputs",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const newOutput = {
+      id: uuidv4(),
+      title: "",
+      channel: nextChannel,
+      stage_plot_id: "",
+    };
+
+    setValue("outputs", [...outputs, newOutput]);
+  };
+
   const handleRemoveInput = (channel: number) => {
     const inputs = getValues("inputs");
 
@@ -83,6 +110,21 @@ const EditQuickPlot = () => {
     }));
 
     setValue("inputs", reIndexedFields);
+  };
+
+  const handleRemoveOutput = (channel: number) => {
+    const outputs = getValues("outputs");
+
+    const updatedFields = outputs.filter(
+      (output) => output.channel !== channel
+    );
+
+    const reIndexedFields = updatedFields.map((field, i) => ({
+      ...field,
+      channel: i + 1,
+    }));
+
+    setValue("outputs", reIndexedFields);
   };
 
   const [containerWidth, setContainerWidth] = useState<number>(1500);
@@ -147,14 +189,19 @@ const EditQuickPlot = () => {
                 stagePlotId={currentPlot.id}
                 containerWidth={containerWidth}
               />
-              <InputList handleRemoveInput={handleRemoveInput} />
+              <InputList
+                handleRemoveInput={handleRemoveInput}
+                handleRemoveOutput={handleRemoveOutput}
+              />
             </div>
             <EditPageButtonRow
               handleAddInput={handleAddInput}
+              handleAddOutput={handleAddOutput}
               isSubmitting={isSubmitting}
               isQuickPlot={true}
               zoom={zoom}
             />
+            <DescriptionForm />
           </form>
         </div>
       </FormProvider>

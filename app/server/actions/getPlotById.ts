@@ -12,6 +12,7 @@ export async function getPlotById(plotid: string) {
         `
       *,
       inputs (*),
+      outputs (*),
       stage_elements (*)
     `
       )
@@ -25,10 +26,14 @@ export async function getPlotById(plotid: string) {
     const sortedInputs = data.inputs.sort(
       (a: any, b: any) => a.channel - b.channel
     );
+    const sortedOutputs = data.outputs.sort(
+      (a: any, b: any) => a.channel - b.channel
+    );
 
     return {
       ...data,
       inputs: sortedInputs,
+      outputs: sortedOutputs,
     };
   } catch (error) {
     return { error: (error as Error).message };

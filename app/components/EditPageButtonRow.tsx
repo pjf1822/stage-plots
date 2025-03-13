@@ -14,6 +14,7 @@ import DownloadDialog from "./DownloadDialog";
 
 type EditPageButtonRowProps = {
   handleAddInput: () => void;
+  handleAddOutput: () => void;
   isSubmitting: boolean;
   isQuickPlot: boolean;
   zoom: any;
@@ -23,14 +24,21 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
   isSubmitting,
   isQuickPlot = false,
   zoom,
+  handleAddOutput,
 }) => {
   const { watch, setValue } = useFormContext();
   const isStandsShowing = watch("is_stands_showing");
+  const isOutputsShowing = watch("is_outputs_showing");
   const bandName = watch("name");
 
   const handleAddMultipleInputs = (num: number) => {
     for (let i = 0; i < num; i++) {
       handleAddInput();
+    }
+  };
+  const handleAddMultipleOutputs = (num: number) => {
+    for (let i = 0; i < num; i++) {
+      handleAddOutput();
     }
   };
 
@@ -76,6 +84,24 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+      <div className="flex gap-2 items-center">
+        <DropdownMenu>
+          <DropdownMenuTrigger className="bg-black text-white text-lg px-6 py-2 rounded-lg shadow-xl border border-white">
+            Add Outputs
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="bg-white border border-gray-300 max-h-60 overflow-y-auto">
+            {[...Array(48).keys()].map((i) => (
+              <DropdownMenuItem
+                key={i}
+                className="text-black hover:bg-gray-200"
+                onClick={() => handleAddMultipleOutputs(i + 1)}
+              >
+                Add {i + 1} Outputs{i + 1 > 1 ? "s" : ""}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
       {!isQuickPlot && (
         <Button
           variant={"outline"}
@@ -104,6 +130,19 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
 
             <label className="text-sm font-medium leading-none cursor-pointer">
               Stands Column?
+            </label>
+          </DropdownMenuItem>
+          <DropdownMenuItem className="flex items-center gap-2 text-black hover:bg-gray-200">
+            <Checkbox
+              id="outputs_showing"
+              checked={isOutputsShowing}
+              onCheckedChange={(checked) => {
+                setValue("is_outputs_showing", checked);
+              }}
+            />
+
+            <label className="text-sm font-medium leading-none cursor-pointer">
+              Outputs Column?
             </label>
           </DropdownMenuItem>
         </DropdownMenuContent>

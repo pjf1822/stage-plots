@@ -142,7 +142,7 @@ const TableSection = ({
                         variant="ghost"
                         type="button"
                         size="sm"
-                        onClick={() => handleRemoveInput(item.channel)} // Pass channel instead of index
+                        onClick={() => handleRemoveInput(item.channel)}
                         className="p-1 hover:bg-transparent focus:outline-none ignore-me"
                       >
                         <Image
