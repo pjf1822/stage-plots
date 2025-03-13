@@ -21,7 +21,12 @@ const DescriptionForm = () => {
         {...register("description")}
         placeholder="Add notes about this stage plot"
         className=" border-none bg-transparent focus:outline-none text-center resize-y"
-        style={{ fontFamily: "urbanist", width: "100%", minHeight: 100 }}
+        style={{
+          fontFamily: "urbanist",
+          width: "100%",
+          minHeight: 100,
+          fontSize: "1.1rem",
+        }}
       />
     </div>
   );

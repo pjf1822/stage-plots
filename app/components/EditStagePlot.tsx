@@ -18,6 +18,7 @@ import { v4 as uuidv4 } from "uuid";
 import EditPageButtonRow from "./EditPageButtonRow";
 import useTipsAndTricks from "@/hooks/useTipsAndTricks";
 import { Slider } from "@/components/ui/slider";
+import DescriptionForm from "./DescriptionForm";
 
 const EditStagePlot = ({ plotid }: { plotid: string }) => {
   // useTipsAndTricks();
@@ -204,6 +205,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
               isQuickPlot={false}
               zoom={zoom}
             />
+            <DescriptionForm />
           </form>
         </div>
       </FormProvider>

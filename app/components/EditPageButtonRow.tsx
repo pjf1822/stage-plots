@@ -84,24 +84,27 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="flex gap-2 items-center">
-        <DropdownMenu>
-          <DropdownMenuTrigger className="bg-black text-white text-lg px-6 py-2 rounded-lg shadow-xl border border-white">
-            Add Outputs
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="bg-white border border-gray-300 max-h-60 overflow-y-auto">
-            {[...Array(48).keys()].map((i) => (
-              <DropdownMenuItem
-                key={i}
-                className="text-black hover:bg-gray-200"
-                onClick={() => handleAddMultipleOutputs(i + 1)}
-              >
-                Add {i + 1} Outputs{i + 1 > 1 ? "s" : ""}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+      {isOutputsShowing && (
+        <div className="flex gap-2 items-center">
+          <DropdownMenu>
+            <DropdownMenuTrigger className="bg-black text-white text-lg px-6 py-2 rounded-lg shadow-xl border border-white">
+              Add Outputs
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-white border border-gray-300 max-h-60 overflow-y-auto">
+              {[...Array(48).keys()].map((i) => (
+                <DropdownMenuItem
+                  key={i}
+                  className="text-black hover:bg-gray-200"
+                  onClick={() => handleAddMultipleOutputs(i + 1)}
+                >
+                  Add {i + 1} Outputs{i + 1 > 1 ? "s" : ""}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      )}
+
       {!isQuickPlot && (
         <Button
           variant={"outline"}

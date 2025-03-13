@@ -72,7 +72,7 @@ const InputList = ({
         )}
 
         {is_outputs_showing && (
-          <div className="relative">
+          <div className="relative max-w-lg">
             <h2
               className="absolute left-2 output-label"
               style={{ top: -24, fontFamily: "urbanist" }}
