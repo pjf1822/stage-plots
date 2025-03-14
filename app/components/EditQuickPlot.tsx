@@ -141,8 +141,6 @@ const EditQuickPlot = () => {
     };
   }, []);
 
-  const [zoom, setZoom] = useState(1);
-
   return (
     <div className="mt-8">
       {/* <div
@@ -211,7 +209,6 @@ const EditQuickPlot = () => {
               handleAddOutput={handleAddOutput}
               isSubmitting={isSubmitting}
               isQuickPlot={true}
-              zoom={zoom}
             />
             <DescriptionForm />
           </form>

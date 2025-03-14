@@ -156,7 +156,6 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  const [zoom, setZoom] = useState(1);
 
   return (
     <div className="mt-8">
@@ -215,7 +214,6 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
               handleAddOutput={handleAddOutput}
               isSubmitting={isSubmitting}
               isQuickPlot={false}
-              zoom={zoom}
             />
             <DescriptionForm />
           </form>

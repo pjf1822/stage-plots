@@ -17,13 +17,11 @@ type EditPageButtonRowProps = {
   handleAddOutput: () => void;
   isSubmitting: boolean;
   isQuickPlot: boolean;
-  zoom: any;
 };
 const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
   handleAddInput,
   isSubmitting,
   isQuickPlot = false,
-  zoom,
   handleAddOutput,
 }) => {
   const { watch, setValue } = useFormContext();
@@ -58,14 +56,6 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
         </Button>
       )}
 
-      {/* <Button
-        onClick={takeScreenshot}
-        variant={"outline"}
-        type="button"
-        className="font-urbanist bg-black text-lg px-6 py-6 rounded-lg text-white shadow-xl transform transition-all hover:scale-105"
-      >
-        Convert to PDF
-      </Button> */}
       <div className="flex gap-2 items-center">
         <DropdownMenu>
           <DropdownMenuTrigger className="bg-black text-white text-lg px-6 py-2 rounded-lg shadow-xl border border-white">
@@ -114,7 +104,7 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
           {isSubmitting ? "Submitting..." : "Save Stage Plot"}
         </Button>
       )}
-      <DownloadDialog bandName={bandName} zoom={zoom} />
+      <DownloadDialog bandName={bandName} />
 
       <DropdownMenu>
         <DropdownMenuTrigger className="bg-black text-white text-lg px-6 py-0 rounded-lg shadow-xl border border-white">

@@ -13,19 +13,21 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { takeScreenshot } from "@/utils/takeScreenShot";
 import React, { useState } from "react";
 
-const DownloadDialog = ({
-  bandName,
-  zoom,
-}: {
-  bandName: string;
-  zoom: number;
-}) => {
+const DownloadDialog = ({ bandName }: { bandName: string }) => {
   const [format, setFormat] = useState<"pdf" | "png">("pdf");
+  const [isPortrait, setIsPortrait] = useState(true);
   const [open, setOpen] = useState(false);
 
   const handleDialogChange = (isOpen: boolean) => {
     setOpen(isOpen);
   };
+  const handleLandscapeChange = (val: string) => {
+    setIsPortrait(val === "portrait");
+    if (val === "landscape") {
+      setFormat("pdf");
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={handleDialogChange}>
       <DialogTrigger asChild>
@@ -51,14 +53,29 @@ const DownloadDialog = ({
             <Label htmlFor="pdf">PDF</Label>
           </div>
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="png" id="png" />
+            <RadioGroupItem value="png" id="png" disabled={!isPortrait} />
             <Label htmlFor="png">PNG</Label>
+          </div>
+        </RadioGroup>
+        <RadioGroup
+          value={isPortrait ? "portrait" : "landscape"}
+          onValueChange={handleLandscapeChange}
+        >
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="portrait" id="portrait" />
+            <Label htmlFor="portrait">Portrait</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="landscape" id="landscape" />
+            <Label htmlFor="landscape">Landscape</Label>
           </div>
         </RadioGroup>
 
         <DialogFooter>
           <Button
-            onClick={() => takeScreenshot(bandName, format, setOpen)}
+            onClick={() =>
+              takeScreenshot(bandName, format, setOpen, isPortrait)
+            }
             className="bg-black text-white px-6 py-2 rounded-lg"
           >
             {`Generate ${format.toUpperCase()}`}

@@ -4,15 +4,18 @@ import jsPDF from "jspdf";
 export const takeScreenshot = async (
   bandName: string,
   format: "pdf" | "png",
-  setOpen: any
+  setOpen: any,
+  isPortrait: boolean
 ) => {
+  const fileName = bandName.trim() === "" ? "Stage Plot" : bandName;
+
   // FIXING THE HEADER
-  const landscape = true;
   const { input, span, channelCells, editDate, outputLabel } =
     preConversionStyling();
+
   // NOW WE CONVERT THE FUCKING THIGN
   const element = document.querySelector(
-    landscape ? ".stage-plot-graphic" : ".mt-8"
+    !isPortrait ? ".stage-plot-graphic" : ".mt-8"
   );
   const inputWrapper = document.querySelector(".input-wrapper");
 
@@ -23,12 +26,14 @@ export const takeScreenshot = async (
     console.error("Element or input wrapper not found.");
     return;
   }
+  // IS IT LANDSCAPE
   let elementToConvert;
-  if (landscape) {
+  if (!isPortrait) {
     elementToConvert = landscapify(element);
   } else {
     elementToConvert = element;
   }
+
   try {
     const canvas = await html2canvas(elementToConvert, {
       ignoreElements: (el) => el.classList.contains("ignore-me"),
@@ -42,11 +47,11 @@ export const takeScreenshot = async (
     const imgData2 = secondPage.toDataURL("image/png");
 
     if (format === "pdf") {
-      generatePDF(imgData, imgData2, bandName, canvas, landscape);
+      generatePDF(imgData, imgData2, fileName, canvas, isPortrait);
     } else if (format === "png") {
       const link = document.createElement("a");
       link.href = imgData;
-      link.download = `${bandName.replace(/\s+/g, "-")}.png`;
+      link.download = `${fileName.replace(/\s+/g, "-")}.png`;
       link.click();
     }
   } catch (error) {
@@ -60,7 +65,7 @@ export const takeScreenshot = async (
       elementToConvert,
       editDate,
       setOpen,
-      landscape
+      isPortrait
     );
   }
 };
@@ -133,9 +138,9 @@ const landscapify = (element: any) => {
 const generatePDF = (
   imgData: string,
   imgData2: string,
-  bandName: string,
+  fileName: string,
   canvas: HTMLCanvasElement,
-  landscape: any
+  isPortrait: boolean
 ) => {
   const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.getWidth();
@@ -153,15 +158,15 @@ const generatePDF = (
     imgHeight = pageHeight;
     imgWidth = pageHeight * aspectRatio;
   }
-  if (landscape) {
+  if (!isPortrait) {
     imgHeight = pageHeight * 0.9;
   }
 
   const xPosition = (pageWidth - imgWidth) / 2;
-  const yPosition = landscape ? 14.8 : 0;
+  const yPosition = !isPortrait ? 14.8 : 0;
   doc.addImage(imgData, "PNG", xPosition, yPosition, imgWidth, imgHeight);
 
-  if (landscape) {
+  if (!isPortrait) {
     doc.addPage();
 
     const img = new Image();
@@ -174,7 +179,6 @@ const generatePDF = (
       let img2Height = pageWidth / img2AspectRatio;
 
       if (img2Height > pageHeight) {
-        console.log("are we ever in here");
         img2Height = pageHeight;
         img2Width = pageHeight * img2AspectRatio;
       }
@@ -183,6 +187,7 @@ const generatePDF = (
 
       const x2Position = (pageWidth - img2Width) / 2;
 
+      console.log(fileName);
       doc.addImage(
         imgData2,
         "PNG",
@@ -191,12 +196,12 @@ const generatePDF = (
         img2Width,
         img2Height
       );
-      doc.save(`${bandName.replace(/\s+/g, "-")}.pdf`);
+      doc.save(`${fileName.replace(/\s+/g, "-")}.pdf`);
     };
 
     return;
   }
-  doc.save(`${bandName.replace(/\s+/g, "-")}.pdf`);
+  doc.save(`${fileName.replace(/\s+/g, "-")}.pdf`);
 };
 
 const resetTheStyling = (
@@ -207,7 +212,7 @@ const resetTheStyling = (
   elementToConvert: HTMLElement,
   editDate: HTMLElement,
   setOpen: any,
-  landscape: boolean
+  isPortrait: boolean
 ) => {
   // UNDO THE THINGS WE DID
   const spanParent = span.parentNode;
@@ -220,7 +225,7 @@ const resetTheStyling = (
   if (outputLabel) {
     outputLabel.style.transform = "translateY(2px)";
   }
-  if (landscape) {
+  if (!isPortrait) {
     document.body.removeChild(elementToConvert);
   }
   editDate.style.display = "none";
