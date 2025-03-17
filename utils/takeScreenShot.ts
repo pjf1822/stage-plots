@@ -175,7 +175,7 @@ const generatePDF = (
     img.onload = () => {
       const img2AspectRatio = img.width / img.height;
 
-      let img2Width = pageWidth;
+      let img2Width = pageWidth * 1.05;
       let img2Height = pageWidth / img2AspectRatio;
 
       if (img2Height > pageHeight) {
