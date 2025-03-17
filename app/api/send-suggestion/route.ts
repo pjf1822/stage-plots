@@ -3,11 +3,17 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { comment } = await req.json();
+    const { comment, email } = await req.json();
 
     if (!comment || !comment.trim()) {
       return NextResponse.json(
         { message: "Message cannot be empty" },
+        { status: 400 }
+      );
+    }
+    if (!email || !email.trim()) {
+      return NextResponse.json(
+        { message: "User email is required" },
         { status: 400 }
       );
     }
@@ -22,7 +28,7 @@ export async function POST(req: Request) {
 
     const mailOptions = {
       to: "pjf18222@gmail.com",
-      subject: "New Suggestion Submitted",
+      subject: `New Suggestion Submitted from ${email}`,
       text: `New message: ${comment}`,
     };
 

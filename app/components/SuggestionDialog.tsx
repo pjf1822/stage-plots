@@ -3,21 +3,27 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { createClient } from "@/utils/supabase/client";
+
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
 import React, { useState } from "react";
 
 const SuggestionDialog = () => {
+  const supabase = createClient();
+
   const [comment, setComment] = useState("");
   const [open, setOpen] = useState(false);
 
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
+    const { data, error } = await supabase.auth.getSession();
+
+    const email = data?.session?.user?.email || "";
     e.preventDefault();
     if (comment.trim() === "") {
       toast({
@@ -33,7 +39,7 @@ const SuggestionDialog = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ comment }),
+        body: JSON.stringify({ comment, email }),
       });
 
       if (!response.ok) {
