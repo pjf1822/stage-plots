@@ -43,7 +43,7 @@ const InputList = ({
     gridColsClass = "grid-cols-3";
   }
   return (
-    <div className="flex flex-col items-center justify-center w-full mx-auto p-6">
+    <div className="flex flex-col items-center justify-center w-full mx-auto p-6 input-wrapper">
       <div className={`w-full mb-6 grid ${gridColsClass}  gap-4`}>
         <div className={`w-full `}>
           <TableSection

@@ -141,8 +141,6 @@ const EditQuickPlot = () => {
     };
   }, []);
 
-  const [zoom, setZoom] = useState(1);
-
   return (
     <div className="mt-8">
       {/* <div
@@ -185,10 +183,22 @@ const EditQuickPlot = () => {
                 />
               </div>
 
-              <StagePlotGraphic
-                stagePlotId={currentPlot.id}
-                containerWidth={containerWidth}
-              />
+              <div className="stage-plot-graphic">
+                <div
+                  className="hidden-landscape-title hidden text-5xl text-center mb-10 flex justify-center items-center w-full h-full"
+                  style={{
+                    fontFamily: "urbanist",
+                    transform: "translateY(-14px)",
+                  }}
+                >
+                  {watch("name")}
+                </div>
+                <StagePlotGraphic
+                  stagePlotId={currentPlot.id}
+                  containerWidth={containerWidth}
+                />
+              </div>
+
               <InputList
                 handleRemoveInput={handleRemoveInput}
                 handleRemoveOutput={handleRemoveOutput}
@@ -199,7 +209,6 @@ const EditQuickPlot = () => {
               handleAddOutput={handleAddOutput}
               isSubmitting={isSubmitting}
               isQuickPlot={true}
-              zoom={zoom}
             />
             <DescriptionForm />
           </form>

@@ -64,7 +64,7 @@ const TableSection = ({
   };
 
   return (
-    <div style={{ transform: "scale(1.03)", transformOrigin: "top left" }}>
+    <div style={{ transform: "scale(1.02)", transformOrigin: "top left" }}>
       <Table
         className="overflow-hidden"
         style={{ maxWidth: hasSecondColumn ? "100%" : "75%" }}

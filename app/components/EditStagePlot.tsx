@@ -53,6 +53,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
     formState: { errors, isSubmitting },
     setValue,
     getValues,
+    watch,
   } = methods;
 
   const submitForm = async (formData: StagePlotFormData) => {
@@ -155,7 +156,6 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  const [zoom, setZoom] = useState(1);
 
   return (
     <div className="mt-8">
@@ -189,10 +189,21 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
                 />
               </div>
 
-              <StagePlotGraphic
-                stagePlotId={currentPlot.id}
-                containerWidth={containerWidth}
-              />
+              <div className="stage-plot-graphic">
+                <div
+                  className="hidden-landscape-title hidden text-5xl text-center mb-10 flex justify-center items-center w-full h-full"
+                  style={{
+                    fontFamily: "urbanist",
+                    transform: "translateY(-14px)",
+                  }}
+                >
+                  {watch("name")}
+                </div>
+                <StagePlotGraphic
+                  stagePlotId={currentPlot.id}
+                  containerWidth={containerWidth}
+                />
+              </div>
               <InputList
                 handleRemoveInput={handleRemoveInput}
                 handleRemoveOutput={handleRemoveOutput}
@@ -203,7 +214,6 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
               handleAddOutput={handleAddOutput}
               isSubmitting={isSubmitting}
               isQuickPlot={false}
-              zoom={zoom}
             />
             <DescriptionForm />
           </form>
