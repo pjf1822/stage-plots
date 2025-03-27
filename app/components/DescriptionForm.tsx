@@ -26,6 +26,9 @@ const DescriptionForm = () => {
           width: "100%",
           minHeight: 100,
           fontSize: "1.1rem",
+          whiteSpace: "pre-wrap", // This ensures line breaks are preserved
+          overflowWrap: "break-word", // Helps with long words
+          wordBreak: "break-word", //
         }}
       />
     </div>

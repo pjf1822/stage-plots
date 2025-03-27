@@ -2,6 +2,7 @@
 import { FieldValues, useFieldArray, useFormContext } from "react-hook-form";
 import TableSection from "./TableSection";
 import OutputTableSection from "./OutputTableSection";
+import DescriptionForm from "./DescriptionForm";
 
 const InputList = ({
   handleRemoveInput,
@@ -43,7 +44,7 @@ const InputList = ({
     gridColsClass = "grid-cols-3";
   }
   return (
-    <div className="flex flex-col items-center justify-center w-full mx-auto p-6 input-wrapper">
+    <div className="flex flex-col items-center justify-center w-full mx-auto p-6 ">
       <div className={`w-full mb-6 grid ${gridColsClass}  gap-4`}>
         <div className={`w-full `}>
           <TableSection

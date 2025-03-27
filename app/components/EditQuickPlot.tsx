@@ -199,10 +199,13 @@ const EditQuickPlot = () => {
                 />
               </div>
 
-              <InputList
-                handleRemoveInput={handleRemoveInput}
-                handleRemoveOutput={handleRemoveOutput}
-              />
+              <div className="input-wrapper">
+                <InputList
+                  handleRemoveInput={handleRemoveInput}
+                  handleRemoveOutput={handleRemoveOutput}
+                />
+                <DescriptionForm />
+              </div>
             </div>
             <EditPageButtonRow
               handleAddInput={handleAddInput}
@@ -210,7 +213,6 @@ const EditQuickPlot = () => {
               isSubmitting={isSubmitting}
               isQuickPlot={true}
             />
-            <DescriptionForm />
           </form>
         </div>
       </FormProvider>

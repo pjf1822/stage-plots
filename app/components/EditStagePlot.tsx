@@ -204,10 +204,13 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
                   containerWidth={containerWidth}
                 />
               </div>
-              <InputList
-                handleRemoveInput={handleRemoveInput}
-                handleRemoveOutput={handleRemoveOutput}
-              />
+              <div className="input-wrapper">
+                <InputList
+                  handleRemoveInput={handleRemoveInput}
+                  handleRemoveOutput={handleRemoveOutput}
+                />
+                <DescriptionForm />
+              </div>
             </div>
             <EditPageButtonRow
               handleAddInput={handleAddInput}
@@ -215,7 +218,6 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
               isSubmitting={isSubmitting}
               isQuickPlot={false}
             />
-            <DescriptionForm />
           </form>
         </div>
       </FormProvider>
