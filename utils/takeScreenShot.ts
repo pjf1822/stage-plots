@@ -10,8 +10,15 @@ export const takeScreenshot = async (
   const fileName = bandName.trim() === "" ? "Stage Plot" : bandName;
 
   // FIXING THE HEADER
-  const { input, span, channelCells, editDate, outputLabel } =
-    preConversionStyling();
+  const {
+    input,
+    span,
+    channelCells,
+    editDate,
+    outputLabel,
+    preElement,
+    descriptionTextarea,
+  } = preConversionStyling();
 
   // NOW WE CONVERT THE FUCKING THIGN
   const element = document.querySelector(
@@ -65,7 +72,9 @@ export const takeScreenshot = async (
       elementToConvert,
       editDate,
       setOpen,
-      isPortrait
+      isPortrait,
+      preElement,
+      descriptionTextarea
     );
   }
 };
@@ -73,7 +82,7 @@ export const takeScreenshot = async (
 const preConversionStyling = () => {
   // ALTER TITLE OF PAGE
   const input = document.getElementById("name") as HTMLInputElement;
-  const inputValue = input.value;
+  const inputValue = input ? input.value : "";
   // ADD DATA AT BOTTOM
   const editDate = document.querySelector(".editDate") as HTMLElement;
   if (editDate) {
@@ -106,6 +115,25 @@ const preConversionStyling = () => {
   span.style.fontFamily = "urbanist";
   span.style.transform = "translateY(-44px)";
 
+  const descriptionTextarea = document.getElementById(
+    "description"
+  ) as HTMLTextAreaElement;
+
+  const preElement = document.createElement("pre");
+  preElement.textContent = descriptionTextarea.value;
+  preElement.style.whiteSpace = "pre-wrap";
+  preElement.style.fontFamily = "urbanist";
+  preElement.style.fontSize = "1.1rem";
+  preElement.style.textAlign = "center";
+  preElement.style.margin = "0";
+  preElement.style.padding = "0";
+  preElement.style.border = "none";
+  preElement.style.background = "transparent";
+  preElement.style.minHeight = "200px";
+
+  // Replace the textarea with the pre element
+  descriptionTextarea.parentNode?.replaceChild(preElement, descriptionTextarea);
+
   if (input.parentNode) {
     input.parentNode.replaceChild(span, input);
   }
@@ -115,6 +143,8 @@ const preConversionStyling = () => {
     channelCells,
     editDate,
     outputLabel,
+    preElement,
+    descriptionTextarea,
   };
 };
 
@@ -187,7 +217,7 @@ const generatePDF = (
 
       const x2Position = (pageWidth - img2Width) / 2;
 
-      console.log(fileName);
+      console.log(img2Height, "what the height");
       doc.addImage(
         imgData2,
         "PNG",
@@ -212,7 +242,9 @@ const resetTheStyling = (
   elementToConvert: HTMLElement,
   editDate: HTMLElement,
   setOpen: any,
-  isPortrait: boolean
+  isPortrait: boolean,
+  preElement: any,
+  descriptionTextarea: any
 ) => {
   // UNDO THE THINGS WE DID
   const spanParent = span.parentNode;
@@ -222,6 +254,8 @@ const resetTheStyling = (
   channelCells.forEach((cell) => {
     cell.style.transform = "translateY(6px)";
   });
+  preElement.parentNode?.replaceChild(descriptionTextarea, preElement);
+
   if (outputLabel) {
     outputLabel.style.transform = "translateY(2px)";
   }
