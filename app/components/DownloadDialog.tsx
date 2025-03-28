@@ -40,7 +40,7 @@ const DownloadDialog = ({ bandName }: { bandName: string }) => {
           Download Now
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-white">
+      <DialogContent aria-describedby="export settings" className="bg-white">
         <DialogHeader>
           <DialogTitle className="text-xl">PDF Export Settings</DialogTitle>
         </DialogHeader>

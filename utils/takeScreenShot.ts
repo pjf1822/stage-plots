@@ -61,6 +61,7 @@ export const takeScreenshot = async (
       link.download = `${fileName.replace(/\s+/g, "-")}.png`;
       link.click();
     }
+    console.log("6");
   } catch (error) {
     console.error("Error capturing screenshot:", error);
   } finally {
@@ -101,6 +102,7 @@ const preConversionStyling = () => {
   channelCells.forEach((cell) => {
     cell.style.transform = "translateY(-6px)";
   });
+  console.log("1");
 
   //   REPLACE THE INPUT TITLE WITH THE TEXT
   const span = document.createElement("span");
@@ -118,6 +120,8 @@ const preConversionStyling = () => {
   const descriptionTextarea = document.getElementById(
     "description"
   ) as HTMLTextAreaElement;
+
+  console.log("2");
 
   const preElement = document.createElement("pre");
   preElement.textContent = descriptionTextarea?.value || "";
@@ -138,6 +142,7 @@ const preConversionStyling = () => {
       descriptionTextarea
     );
   }
+  console.log("3");
 
   if (input?.parentNode) {
     input.parentNode.replaceChild(span, input);
@@ -165,6 +170,7 @@ const landscapify = (element: any) => {
     title.classList.remove("hidden");
     title.classList.add("flex");
   }
+  console.log("landscape 1");
 
   document.body.appendChild(clone);
   return clone;
@@ -185,6 +191,7 @@ const generatePDF = (
   const canvasHeight = canvas.height;
 
   const aspectRatio = canvasWidth / canvasHeight;
+  console.log("4");
 
   let imgWidth = pageWidth;
   let imgHeight = pageWidth / aspectRatio;
@@ -200,6 +207,8 @@ const generatePDF = (
   const xPosition = (pageWidth - imgWidth) / 2;
   const yPosition = !isPortrait ? 14.8 : 0;
   doc.addImage(imgData, "PNG", xPosition, yPosition, imgWidth, imgHeight);
+
+  console.log("5");
 
   if (!isPortrait) {
     doc.addPage();
