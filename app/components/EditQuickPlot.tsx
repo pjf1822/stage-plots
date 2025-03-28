@@ -158,7 +158,20 @@ const EditQuickPlot = () => {
           />
         </div>
         <p style={{ color: "white", fontFamily: "urbanist" }}>Zoom</p>
-      </div> */}
+      // </div> */}
+
+      <div
+        style={{
+          position: "absolute",
+          top: "5px",
+          left: "10px",
+          color: "white",
+          fontFamily: "urbanist",
+        }}
+        className="ignore-me"
+      >
+        Dont forget Ctr+c Ctr+v
+      </div>
       <FormProvider {...methods}>
         <div className="bg-white p-2 rounded-lg ">
           <form
