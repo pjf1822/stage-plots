@@ -113,9 +113,6 @@ const StagePlots = () => {
                       <CardTitle className="text-2xl mb-4 font-urbanist text-white">
                         {plot.name || "Untitled Plot"}
                       </CardTitle>
-                      <CardDescription className="text-lg font-urbanist text-white">
-                        {plot.description}
-                      </CardDescription>
                     </div>
                   </CardHeader>
                 </Card>
