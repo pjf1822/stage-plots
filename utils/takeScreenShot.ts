@@ -120,7 +120,7 @@ const preConversionStyling = () => {
   ) as HTMLTextAreaElement;
 
   const preElement = document.createElement("pre");
-  preElement.textContent = descriptionTextarea.value;
+  preElement.textContent = descriptionTextarea?.value || "";
   preElement.style.whiteSpace = "pre-wrap";
   preElement.style.fontFamily = "urbanist";
   preElement.style.fontSize = "1.1rem";
@@ -132,9 +132,14 @@ const preConversionStyling = () => {
   preElement.style.minHeight = "200px";
 
   // Replace the textarea with the pre element
-  descriptionTextarea.parentNode?.replaceChild(preElement, descriptionTextarea);
+  if (descriptionTextarea && descriptionTextarea.parentNode) {
+    descriptionTextarea.parentNode?.replaceChild(
+      preElement,
+      descriptionTextarea
+    );
+  }
 
-  if (input.parentNode) {
+  if (input?.parentNode) {
     input.parentNode.replaceChild(span, input);
   }
   return {
