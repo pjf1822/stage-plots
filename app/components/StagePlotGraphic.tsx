@@ -120,6 +120,7 @@ const StagePlotGraphic = ({
         position: "relative",
         border: "2px solid black",
         justifySelf: "center",
+        margin: "0 auto",
       }}
     >
       <div
