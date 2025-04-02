@@ -12,6 +12,7 @@ import EditPageButtonRow from "./EditPageButtonRow";
 import useTipsAndTricks from "@/hooks/useTipsAndTricks";
 import { Slider } from "@/components/ui/slider";
 import DescriptionForm from "./DescriptionForm";
+import Link from "next/link";
 
 const EditQuickPlot = () => {
   useTipsAndTricks();
@@ -160,18 +161,25 @@ const EditQuickPlot = () => {
         <p style={{ color: "white", fontFamily: "urbanist" }}>Zoom</p>
       // </div> */}
 
-      <div
-        style={{
-          position: "absolute",
-          top: "5px",
-          left: "10px",
-          color: "white",
-          fontFamily: "urbanist",
-        }}
-        className="ignore-me"
-      >
-        Dont forget Ctr+c Ctr+v
-      </div>
+      <Link href="/tipsntricks" passHref>
+        <div
+          style={{
+            position: "absolute",
+            top: "5px",
+            left: "10px",
+            color: "white",
+            fontFamily: "Urbanist",
+            display: "flex",
+            alignItems: "center",
+            gap: "5px",
+          }}
+          className="ignore-me"
+        >
+          Ctr+C Ctr+V and other tips
+          <span style={{ fontSize: "18px", fontWeight: "bold" }}>→</span>
+        </div>
+      </Link>
+
       <FormProvider {...methods}>
         <div className="bg-white p-2 rounded-lg ">
           <form
