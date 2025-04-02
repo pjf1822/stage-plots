@@ -14,7 +14,7 @@ import { takeScreenshot } from "@/utils/takeScreenShot";
 import React, { useState } from "react";
 
 const DownloadDialog = ({ bandName }: { bandName: string }) => {
-  const [format, setFormat] = useState<"pdf" | "png">("pdf");
+  const [format, setFormat] = useState<"pdf" | "jpeg">("pdf");
   const [isPortrait, setIsPortrait] = useState(true);
   const [open, setOpen] = useState(false);
 
@@ -46,15 +46,15 @@ const DownloadDialog = ({ bandName }: { bandName: string }) => {
         </DialogHeader>
         <RadioGroup
           value={format}
-          onValueChange={(val) => setFormat(val as "pdf" | "png")}
+          onValueChange={(val) => setFormat(val as "pdf" | "jpeg")}
         >
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="pdf" id="pdf" />
             <Label htmlFor="pdf">PDF</Label>
           </div>
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="png" id="png" disabled={!isPortrait} />
-            <Label htmlFor="png">PNG</Label>
+            <RadioGroupItem value="pjeg" id="pjeg" disabled={!isPortrait} />
+            <Label htmlFor="pjeg">JPEG</Label>
           </div>
         </RadioGroup>
         <RadioGroup
