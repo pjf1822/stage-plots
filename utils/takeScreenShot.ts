@@ -3,7 +3,7 @@ import jsPDF from "jspdf";
 
 export const takeScreenshot = async (
   bandName: string,
-  format: "pdf" | "png",
+  format: "pdf" | "jpeg",
   setOpen: any,
   isPortrait: boolean
 ) => {
@@ -50,18 +50,17 @@ export const takeScreenshot = async (
       ignoreElements: (el) => el.classList.contains("ignore-me"),
     });
 
-    const imgData = canvas.toDataURL("image/png");
-    const imgData2 = secondPage.toDataURL("image/png");
+    const imgData = canvas.toDataURL("image/jpeg");
+    const imgData2 = secondPage.toDataURL("image/jpeg");
 
     if (format === "pdf") {
       generatePDF(imgData, imgData2, fileName, canvas, isPortrait);
-    } else if (format === "png") {
+    } else {
       const link = document.createElement("a");
       link.href = imgData;
-      link.download = `${fileName.replace(/\s+/g, "-")}.png`;
+      link.download = `${fileName.replace(/\s+/g, "-")}.jpeg`;
       link.click();
     }
-    console.log("6");
   } catch (error) {
     console.error("Error capturing screenshot:", error);
   } finally {
@@ -102,7 +101,6 @@ const preConversionStyling = () => {
   channelCells.forEach((cell) => {
     cell.style.transform = "translateY(-6px)";
   });
-  console.log("1");
 
   //   REPLACE THE INPUT TITLE WITH THE TEXT
   const span = document.createElement("span");
@@ -120,8 +118,6 @@ const preConversionStyling = () => {
   const descriptionTextarea = document.getElementById(
     "description"
   ) as HTMLTextAreaElement;
-
-  console.log("2");
 
   const preElement = document.createElement("pre");
   preElement.textContent = descriptionTextarea?.value || "";
@@ -142,7 +138,6 @@ const preConversionStyling = () => {
       descriptionTextarea
     );
   }
-  console.log("3");
 
   if (input?.parentNode) {
     input.parentNode.replaceChild(span, input);
@@ -170,7 +165,6 @@ const landscapify = (element: any) => {
     title.classList.remove("hidden");
     title.classList.add("flex");
   }
-  console.log("landscape 1");
 
   document.body.appendChild(clone);
   return clone;
@@ -191,7 +185,6 @@ const generatePDF = (
   const canvasHeight = canvas.height;
 
   const aspectRatio = canvasWidth / canvasHeight;
-  console.log("4");
 
   let imgWidth = pageWidth;
   let imgHeight = pageWidth / aspectRatio;
@@ -206,9 +199,7 @@ const generatePDF = (
 
   const xPosition = (pageWidth - imgWidth) / 2;
   const yPosition = !isPortrait ? 14.8 : 0;
-  doc.addImage(imgData, "PNG", xPosition, yPosition, imgWidth, imgHeight);
-
-  console.log("5");
+  doc.addImage(imgData, "JPEG", xPosition, yPosition, imgWidth, imgHeight);
 
   if (!isPortrait) {
     doc.addPage();
@@ -231,10 +222,9 @@ const generatePDF = (
 
       const x2Position = (pageWidth - img2Width) / 2;
 
-      console.log(img2Height, "what the height");
       doc.addImage(
         imgData2,
-        "PNG",
+        "JPEG",
         x2Position,
         yPosition,
         img2Width,
