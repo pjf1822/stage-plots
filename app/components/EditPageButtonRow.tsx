@@ -11,18 +11,21 @@ import { useFormContext } from "react-hook-form";
 import Link from "next/link";
 
 import DownloadDialog from "./DownloadDialog";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 type EditPageButtonRowProps = {
   handleAddInput: () => void;
   handleAddOutput: () => void;
   isSubmitting: boolean;
   isQuickPlot: boolean;
+  createDuplicatePlot?: () => void;
 };
 const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
   handleAddInput,
   isSubmitting,
   isQuickPlot = false,
   handleAddOutput,
+  createDuplicatePlot,
 }) => {
   const { watch, setValue } = useFormContext();
   const isStandsShowing = watch("is_stands_showing");
@@ -87,7 +90,7 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
                   className="text-black hover:bg-gray-200"
                   onClick={() => handleAddMultipleOutputs(i + 1)}
                 >
-                  Add {i + 1} Outputs{i + 1 > 1 ? "s" : ""}
+                  Add {i + 1} Output{i + 1 > 1 ? "s" : ""}
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
@@ -96,13 +99,38 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
       )}
 
       {!isQuickPlot && (
-        <Button
-          variant={"outline"}
-          type="submit"
-          className="font-urbanist bg-black text-lg px-6 py-6 rounded-lg text-white shadow-xl transform transition-all hover:scale-105"
-        >
-          {isSubmitting ? "Submitting..." : "Save Stage Plot"}
-        </Button>
+        <div className="relative flex">
+          <Button
+            type="submit"
+            variant="outline"
+            className="font-urbanist bg-black text-white text-lg px-6 py-6 rounded-l-lg shadow-xl hover:scale-105 transition-all"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Submitting..." : "Save Stage Plot"}
+          </Button>
+          {/* {!isQuickPlot && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  className="bg-black ml-2 text-white px-3 py-6 rounded-r-lg  "
+                  type="button"
+                >
+                  <ChevronUp className="w-5 h-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-white shadow-md rounded-md border border-gray-300 mt-1">
+                <DropdownMenuItem
+                  onClick={() => {
+                    createDuplicatePlot();
+                  }}
+                  className="text-black hover:bg-gray-200"
+                >
+                  Create Duplicate Plot
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )} */}
+        </div>
       )}
       <DownloadDialog bandName={bandName} />
 

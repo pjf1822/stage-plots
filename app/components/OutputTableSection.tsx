@@ -1,5 +1,4 @@
 "use client";
-import React, { useState } from "react";
 import {
   Table,
   TableBody,
@@ -11,7 +10,6 @@ import {
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Output } from "@/types";
 
 type OutputTableSectionProps = {
   outputs: any;

@@ -19,7 +19,20 @@ export async function DELETE(request: NextRequest) {
       { status: 500 }
     );
   }
+  const { error: outputError } = await supabase
+    .from("outputs")
+    .delete()
+    .eq("stage_plot_id", id);
 
+  if (outputError) {
+    return NextResponse.json(
+      {
+        message: "Failed to delete outputs",
+        error: outputError.message,
+      },
+      { status: 500 }
+    );
+  }
   const { error: elementError } = await supabase
     .from("stage_elements")
     .delete()

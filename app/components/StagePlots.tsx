@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { X } from "lucide-react"; // For the X icon
+import { X } from "lucide-react";
 
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback } from "react";
