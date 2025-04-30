@@ -14,14 +14,15 @@ import { useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getPlotById } from "../server/actions/getPlotById";
 import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/navigation";
 
 import EditPageButtonRow from "./EditPageButtonRow";
 import useTipsAndTricks from "@/hooks/useTipsAndTricks";
-import { Slider } from "@/components/ui/slider";
 import DescriptionForm from "./DescriptionForm";
 
 const EditStagePlot = ({ plotid }: { plotid: string }) => {
   // useTipsAndTricks();
+  const router = useRouter();
 
   const { data: plot, isLoading } = useQuery({
     queryKey: ["plot", plotid],
@@ -157,6 +158,30 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
     };
   }, []);
 
+  const createDuplicatePlot = async () => {
+    try {
+      const response = await fetch("/api/stage-plots/duplicate-plot", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          plotToDuplicate: getValues(),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create duplicate plot");
+      }
+
+      const data = await response.json();
+
+      router.push(`/plots/${data.newPlot.id}`);
+    } catch (error: any) {
+    } finally {
+    }
+  };
+
   return (
     <div className="mt-8">
       {/* <div
@@ -217,6 +242,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
               handleAddOutput={handleAddOutput}
               isSubmitting={isSubmitting}
               isQuickPlot={false}
+              createDuplicatePlot={createDuplicatePlot}
             />
           </form>
         </div>

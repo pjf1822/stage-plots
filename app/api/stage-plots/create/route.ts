@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
+import { v4 as uuidv4 } from "uuid";
 
 export async function POST() {
   const supabase = await createClient();
@@ -34,6 +35,7 @@ export async function POST() {
     .from("inputs")
     .insert([
       {
+        id: uuidv4(),
         stage_plot_id: stagePlotData[0].id,
         name: "Kick",
         mic: "",
