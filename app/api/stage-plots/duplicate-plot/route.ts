@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     .from("stage_plots")
     .insert([
       {
-        name: `${name}`,
+        name: `${name} (copy)`,
         description,
         created_by,
         is_outputs_showing,

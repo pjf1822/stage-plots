@@ -37,7 +37,7 @@ const EditStagePlot = ({ plotid }: { plotid: string }) => {
     resolver: zodResolver(stagePlotSchema),
     defaultValues: {
       name: currentPlot.name,
-      description: currentPlot.description,
+      description: currentPlot.description || "",
       inputs: currentPlot.inputs,
       stage_elements: currentPlot.stage_elements,
       created_by: currentPlot.created_by,

@@ -108,7 +108,7 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
           >
             {isSubmitting ? "Submitting..." : "Save Stage Plot"}
           </Button>
-          {/* {!isQuickPlot && (
+          {!isQuickPlot && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -121,7 +121,7 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
               <DropdownMenuContent className="bg-white shadow-md rounded-md border border-gray-300 mt-1">
                 <DropdownMenuItem
                   onClick={() => {
-                    createDuplicatePlot();
+                    createDuplicatePlot?.();
                   }}
                   className="text-black hover:bg-gray-200"
                 >
@@ -129,7 +129,7 @@ const EditPageButtonRow: React.FC<EditPageButtonRowProps> = ({
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          )} */}
+          )}
         </div>
       )}
       <DownloadDialog bandName={bandName} />
