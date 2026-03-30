@@ -53,8 +53,8 @@ const DownloadDialog = ({ bandName }: { bandName: string }) => {
             <Label htmlFor="pdf">PDF</Label>
           </div>
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="pjeg" id="pjeg" disabled={!isPortrait} />
-            <Label htmlFor="pjeg">JPEG</Label>
+            <RadioGroupItem value="jpeg" id="jpeg" disabled={!isPortrait} />
+            <Label htmlFor="jpeg">JPEG</Label>
           </div>
         </RadioGroup>
         <RadioGroup

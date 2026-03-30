@@ -117,7 +117,7 @@ const EditQuickPlot = () => {
     const outputs = getValues("outputs");
 
     const updatedFields = outputs.filter(
-      (output) => output.channel !== channel
+      (output) => output.channel !== channel,
     );
 
     const reIndexedFields = updatedFields.map((field, i) => ({
@@ -185,7 +185,7 @@ const EditQuickPlot = () => {
           <form
             onSubmit={handleSubmit(
               () => {},
-              (errors) => {}
+              (errors) => {},
             )}
           >
             <div

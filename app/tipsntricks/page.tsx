@@ -4,7 +4,7 @@ const tipsAndTricks = [
   "Use Ctrl C + Ctrl V for copy paste",
   "Use Ctrl Z for undo",
   "Drums first vocals last!",
-  "The monitor engineer needs stage positions, not names, on the input list.",
+  "The monitor engineer needs stage positions, not peoples names, on the input list.",
   "Try writing down stage right vocal not somethingh like 'Steve' vocal! We don't need names, we need positions",
   `"Drums" is not an input`,
   "Ctrl Z for undo",

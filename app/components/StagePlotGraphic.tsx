@@ -98,7 +98,7 @@ const StagePlotGraphic = ({
   const handleChange = (
     elementId: string,
     property: "scale" | "rotate",
-    newValue: number
+    newValue: number,
   ) => {
     const elementIndex = fields.findIndex((el) => el.id === elementId);
 
@@ -213,13 +213,16 @@ const StagePlotGraphic = ({
         isOpen={isModalOpen}
         items={[
           "vocal-with-stand",
+          "vocal-facing-left",
           "wired-vocal",
           "acoustic-guitar",
           "drum-kit",
           "wedge",
+          "wedge-right-facing",
           "power",
           "spd",
           "wireless-vocal",
+          "trombone",
           "Electric-Guitar",
           "bass",
           "man",
@@ -244,6 +247,7 @@ const StagePlotGraphic = ({
           "grand-piano",
           "panpipe",
           "di",
+          "upright-bass",
           "cello",
           "clarinet",
           "congas",

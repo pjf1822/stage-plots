@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
         message: "Failed to create new plot",
         error: plotError.message,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
   const newPlotId = newPlotData.id;
@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
         message: "Failed to duplicate inputs",
         error: inputError.message,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
         message: "Failed to duplicate outputs",
         error: outputError.message,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
         message: "Failed to duplicate stage elements",
         error: stageElementError.message,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -112,6 +112,6 @@ export async function POST(request: NextRequest) {
       message: "Plot duplicated successfully",
       newPlot: newPlotData,
     },
-    { status: 200 }
+    { status: 200 },
   );
 }

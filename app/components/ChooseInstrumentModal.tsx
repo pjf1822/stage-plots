@@ -25,6 +25,7 @@ const ChooseInstrumentModal = ({
   if (!isOpen) return null;
   const topPriorityItems = [
     "vocal-with-stand",
+    "vocal-facing-left",
     "wired-vocal",
     "wireless-vocal",
     "drum-kit",
@@ -37,7 +38,7 @@ const ChooseInstrumentModal = ({
     "basic-riser",
     "power",
   ];
-  const audioItems = ["di", "wedge", "shotgun-mic"];
+  const audioItems = ["di", "wedge", "wedge-right-facing", "shotgun-mic"];
   const guitarItems = [
     "Electric-Guitar",
     "acoustic-guitar",
@@ -50,7 +51,7 @@ const ChooseInstrumentModal = ({
     (item) =>
       !topPriorityItems.includes(item) &&
       !audioItems.includes(item) &&
-      !guitarItems.includes(item)
+      !guitarItems.includes(item),
   );
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
